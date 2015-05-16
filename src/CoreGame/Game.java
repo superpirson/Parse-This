@@ -29,29 +29,18 @@ public class Game {
 		int result = fileChooser.showOpenDialog(null);
 		if (result == JFileChooser.APPROVE_OPTION) {
 		    selectedFile = fileChooser.getSelectedFile();
-		    
+		       out.println("we selected:  " + selectedFile);
 		}
-		  InputStream mainFile;
-		  GameData mainGameData = null;
-		    try {
-		    	mainFile = new FileInputStream(selectedFile);
-		    	
-		    	mainFile.close(); 
-		    } catch (FileNotFoundException e) {
-		        // TODO Auto-generated catch block
-		        e.printStackTrace();
-		    } catch (IOException e) {
-		        // TODO Auto-generated catch block
-		        e.printStackTrace();
-		    }
+	 GameData mainGameData = null;
+     JAXBContext jc;
+	try {
+		jc = JAXBContext.newInstance( "GameData" );
+    	       Unmarshaller u = jc.createUnmarshaller();
+    	       mainGameData = (GameData)JAXBIntrospector.getValue(u.unmarshal(selectedFile));
+    	       out.println(mainGameData);
+	} catch (JAXBException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
 	}
-	
-	public <T> T unmarshal( Class<T> docClass, InputStream inputStream )
-		    throws JAXBException {
-		    String packageName = docClass.getPackage().getName();
-		    JAXBContext jc = JAXBContext.newInstance( packageName );
-		    Unmarshaller u = jc.createUnmarshaller();
-		    JAXBElement<T> doc = (JAXBElement<T>)u.unmarshal( inputStream );
-		    return doc.getValue();
-		}
+	}
 }
