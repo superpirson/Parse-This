@@ -1,9 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<MainGameData NAME = "potatoFarm"  >
+<mainGameData NAME = "potatoFarm"  >
 	<author>"Superpirson"</author>
-	<startingState>null</startingState>
-</MainGameData>
-<State NAME = "THE_FARM">
-	<text> "LOL 1337 haxzoirz!" </test>
+	<startingState>THE_FARM</startingState>
+
+<state NAME = "THE_FARM">
+	<text> "It's a farm. It's dull and sucks. There is a barn. Oh yeah, also there are fields... but they suck too." </text>	
+	<transition >
+		<keyword>"go to barn"</keyword>
+		<state>THE_BARN</state>
+	</transition>
+	<transition >
+		<keyword>"go to fields"</keyword>
+		<state>THE_FIELDS</state>
 		
-</State>
+	</transition>
+</state>
+
+
+<state NAME = "THE_BARN">
+	<text> "On initial glance, you are elated to see that the barn is well-kept and freshly painted. Unfortunately, as you enter, you discover that this barn in fact secretly sucks on the interior." </text>
+	<transition >
+		<keyword>"go to farm"</keyword>
+		<state>THE_FARM</state>
+		
+	</transition>
+
+</state>
+
+<state NAME = "THE_FIELDS">
+	<text> "On initial glance, you are elated to see that the barn is well-kept and freshly painted. Unfortunately, as you enter, you discover that this barn in fact secretly sucks on the interior." </text>	
+	<transition >
+		<keyword>"go to farm"</keyword>
+		<state>THE_FARM</state>
+	</transition>
+</state>
+
+</mainGameData>
+

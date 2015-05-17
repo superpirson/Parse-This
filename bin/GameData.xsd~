@@ -3,13 +3,14 @@
             xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
             jxb:version="2.0">
 
-<xsd:element name="MainGameData" type="GameData"/>
-<!--<xsd:element name="State" type="State" minOccurs="1" maxOccurs="unbounded" />--!>
+<xsd:element name="mainGameData" type="GameData"/>
+
 
 <xsd:complexType name="GameData">
  <xsd:sequence>
   <xsd:element name = "author" type = "xsd:string"/> 
   <xsd:element name = "startingState" type = "State"/> 
+  <xsd:element name = "state" type = "State" minOccurs="0" maxOccurs="unbounded"/> 
  </xsd:sequence>
 <xsd:attribute name = "NAME" type = "xsd:ID" use="required"/> 
 </xsd:complexType>
