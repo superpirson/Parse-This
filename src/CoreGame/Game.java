@@ -29,7 +29,7 @@ public class Game {
 		int result = fileChooser.showOpenDialog(null);
 		if (result == JFileChooser.APPROVE_OPTION) {
 		    selectedFile = fileChooser.getSelectedFile();
-		       out.println("we selected:  " + selectedFile);
+		     
 		}
 	 GameData mainGameData = null;
      JAXBContext jc;
@@ -37,7 +37,7 @@ public class Game {
 		jc = JAXBContext.newInstance( "GameData" );
     	       Unmarshaller u = jc.createUnmarshaller();
     	       mainGameData = (GameData)JAXBIntrospector.getValue(u.unmarshal(selectedFile));
-    	       out.println(mainGameData);
+    	       out.println("Main Game Data loaded: \n" + mainGameData);
 	} catch (JAXBException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();

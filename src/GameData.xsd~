@@ -4,6 +4,7 @@
             jxb:version="2.0">
 
 <xsd:element name="MainGameData" type="GameData"/>
+<!--<xsd:element name="State" type="State" minOccurs="1" maxOccurs="unbounded" />--!>
 
 <xsd:complexType name="GameData">
  <xsd:sequence>
@@ -17,7 +18,7 @@
   <xsd:sequence>
   <xsd:element name = "text" type = "xsd:string"/> 
   <xsd:element name = "titleText" type = "xsd:string"/> 
-    <xsd:element name="transition" type="Transition" minOccurs="1" maxOccurs="unbounded"/>
+    <xsd:element name="transition" type="Transition" minOccurs="0" maxOccurs="unbounded"/>
   </xsd:sequence>
   <xsd:attribute name = "NAME" type = "xsd:ID" use="required"/> 
 </xsd:complexType>

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<MainGameData NAME = "potatoFarm" type="GameData" >
+<MainGameData NAME = "potatoFarm"  >
 	<author>"Superpirson"</author>
 	<startingState>null</startingState>
 </MainGameData>
+<State NAME = "THE_FARM">
+	<text> "LOL 1337 haxzoirz!" </test>
+		
+</State>
