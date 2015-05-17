@@ -9,9 +9,21 @@
 <xsd:complexType name="GameData">
  <xsd:sequence>
   <xsd:element name = "author" type = "xsd:string"/> 
-  <xsd:element name = "startingState" type = "State"/> 
-  <xsd:element name = "state" type = "State" minOccurs="0" maxOccurs="unbounded"/> 
- </xsd:sequence>
+  <xsd:element name = "startingState" type = "xsd:IDREF"> 
+<xsd:annotation>
+   <xsd:appinfo>
+	<jxb:property>
+        <jxb:baseType name="State"/>
+      </jxb:property>
+   </xsd:appinfo>
+</xsd:annotation> 
+ </xsd:element>
+
+
+  <xsd:element name = "state" type = "State" minOccurs="0" maxOccurs="unbounded"/>
+
+ 
+</xsd:sequence>
 <xsd:attribute name = "NAME" type = "xsd:ID" use="required"/> 
 </xsd:complexType>
 
@@ -19,18 +31,38 @@
   <xsd:sequence>
   <xsd:element name = "text" type = "xsd:string"/> 
   <xsd:element name = "titleText" type = "xsd:string"/> 
-    <xsd:element name="transition" type="Transition" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element name="transition" type="Transition" minOccurs="0" maxOccurs="unbounded">
+<xsd:annotation>
+   <xsd:appinfo>
+	<jxb:property>
+        <jxb:baseType name="Transition"/>
+      </jxb:property>
+   </xsd:appinfo>
+</xsd:annotation> 
+ </xsd:element>
+
+
   </xsd:sequence>
   <xsd:attribute name = "NAME" type = "xsd:ID" use="required"/> 
 </xsd:complexType>
 
 <xsd:complexType name="Transition">
  <xsd:sequence> 
-  <xsd:element name = "state" type = "State"/> 
+  <xsd:element name = "state" type = "xsd:IDREF"> 
+<xsd:annotation>
+   <xsd:appinfo>
+	<jxb:property>
+        <jxb:baseType name="State"/>
+      </jxb:property>
+   </xsd:appinfo>
+</xsd:annotation> 
+ </xsd:element>
 
     <xsd:element  name = "keyword" type = "xsd:string" minOccurs="1" maxOccurs="unbounded"/>
   </xsd:sequence>
   <xsd:attribute name = "NAME" type = "xsd:ID" use="required"/> 
 </xsd:complexType>
+
+
 
 </xsd:schema>
