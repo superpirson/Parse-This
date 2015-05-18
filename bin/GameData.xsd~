@@ -6,7 +6,7 @@
 <xsd:element name="mainGameData" type="GameData"/>
 
 
-<xsd:complexType name="GameData">
+<xsd:complexType name="MainGameData">
  <xsd:sequence>
   <xsd:element name = "author" type = "xsd:string"/> 
   <xsd:element name = "startingState" type = "xsd:IDREF"> 
@@ -18,6 +18,8 @@
    </xsd:appinfo>
 </xsd:annotation> 
  </xsd:element>
+
+
   <xsd:element name = "state" type = "State" minOccurs="0" maxOccurs="unbounded"/>
 
  

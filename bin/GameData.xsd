@@ -3,10 +3,10 @@
             xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
             jxb:version="2.0">
 
-<xsd:element name="mainGameData" type="GameData"/>
+<xsd:element name="mainGameData" type="MainGameData"/>
 
 
-<xsd:complexType name="GameData">
+<xsd:complexType name="MainGameData">
  <xsd:sequence>
   <xsd:element name = "author" type = "xsd:string"/> 
   <xsd:element name = "startingState" type = "xsd:IDREF"> 

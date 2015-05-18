@@ -11,7 +11,7 @@ import java.io.InputStream;
 import javax.swing.JFileChooser;
 import javax.xml.bind.*;
 
-import GameData.GameData;
+import GameData.*;
 
 
 public class Game {
@@ -31,12 +31,12 @@ public class Game {
 		    selectedFile = fileChooser.getSelectedFile();
 		     
 		}
-	 GameData mainGameData = null;
+	 MainGameData mainGameData = null;
      JAXBContext jc;
 	try {
 		jc = JAXBContext.newInstance( "GameData" );
     	       Unmarshaller u = jc.createUnmarshaller();
-    	       mainGameData = (GameData)JAXBIntrospector.getValue(u.unmarshal(selectedFile));
+    	       mainGameData = (MainGameData)JAXBIntrospector.getValue(u.unmarshal(selectedFile));
     	       out.println("Main Game Data loaded: \n" + mainGameData);
 	} catch (JAXBException e) {
 		// TODO Auto-generated catch block
