@@ -28,7 +28,7 @@
 </state>
 
 <state NAME = "THE_FIELDS">
-	<text> "On initial glance, you are elated to see that the barn is well-kept and freshly painted. Unfortunately, as you enter, you discover that this barn in fact secretly sucks on the interior." </text>	
+	<text> "These fields suck. The mildly less sucky barn calls to you in the distance." </text>	
 	<transition >
 		<keyword>"go to farm"</keyword>
 		<state>THE_FARM</state>
