@@ -122,7 +122,7 @@ public class MainGameData {
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the state property.
      * 
-     * <p>
+     * <p> 
      * For example, to add a new item, do as follows:
      * <pre>
      *    getState().add(newItem);
@@ -150,11 +150,11 @@ public class MainGameData {
      *     {@link String }
      *     
      */
-    public String getNAME() {
+    public String getNAME() { 
         return name;
     }
 
-    /**
+    /** 
      * Sets the value of the name property.
      * 
      * @param value

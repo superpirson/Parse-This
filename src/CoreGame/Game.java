@@ -42,5 +42,8 @@ public class Game {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
+	
+	gameWindow.goToState(mainGameData.getStartingState());
 	}
+	
 }

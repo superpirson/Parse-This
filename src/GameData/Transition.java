@@ -141,8 +141,7 @@ public class Transition {
 
 	@Override
 	public String toString() {
-		return "Transition [state=" + state + ", keyword=" + keyword
-				+ ", name=" + name + "]\\n";
+		return "Transition [keyword=" + keyword + "]";
 	}
 
 }
