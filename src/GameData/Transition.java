@@ -141,7 +141,7 @@ public class Transition {
 
 	@Override
 	public String toString() {
-		return "Transition [keyword=" + keyword + "]";
+		return keyword.toString();
 	}
 
 }

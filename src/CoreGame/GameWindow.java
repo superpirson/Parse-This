@@ -16,25 +16,35 @@ import javax.swing.JComboBox;
 
 import GameData.State;
 import GameData.Transition;
+
 import javax.swing.JButton;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.FlowLayout;
+
 import javax.swing.BoxLayout;
+
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
+
 import net.miginfocom.swing.MigLayout;
+
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.concurrent.ConcurrentHashMap;
+
+import javax.swing.SpringLayout;
 
 public class GameWindow {
 	private State currentState; 
 	private JFrame frame;
 	private JTextPane textPane;
-	private JComboBox<Transition> comboBox;
+	ConcurrentHashMap<String,Transition> hashMap = new ConcurrentHashMap<String, Transition>();
+	private JComboBox<String> comboBox;
 	private JButton btnGo;
 
 	public GameWindow() {
@@ -46,25 +56,40 @@ public class GameWindow {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 687, 452);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		  frame.getContentPane().setLayout(null);
+		  SpringLayout springLayout = new SpringLayout();
+		  frame.getContentPane().setLayout(springLayout);
 		 
 		  textPane = new JTextPane();
-		  textPane.setBounds(12, 12, 426, 211);
+		  springLayout.putConstraint(SpringLayout.NORTH, textPane, 12, SpringLayout.NORTH, frame.getContentPane());
+		  springLayout.putConstraint(SpringLayout.WEST, textPane, 12, SpringLayout.WEST, frame.getContentPane());
 		  frame.getContentPane().add(textPane);
 		 
-		  comboBox = new JComboBox<Transition>();
-		  comboBox.setBounds(12, 235, 362, 24);
+		  comboBox = new JComboBox<String>();
+		  comboBox.setEditable(true);
+		  springLayout.putConstraint(SpringLayout.SOUTH, textPane, -6, SpringLayout.NORTH, comboBox);
+		  springLayout.putConstraint(SpringLayout.WEST, comboBox, 10, SpringLayout.WEST, frame.getContentPane());
+		  springLayout.putConstraint(SpringLayout.SOUTH, comboBox, -10, SpringLayout.SOUTH, frame.getContentPane());
 		  frame.getContentPane().add(comboBox);
 		 
 		 btnGo = new JButton("GO!");
+		 springLayout.putConstraint(SpringLayout.NORTH, btnGo, 6, SpringLayout.SOUTH, textPane);
+		 springLayout.putConstraint(SpringLayout.EAST, textPane, 0, SpringLayout.EAST, btnGo);
+		 springLayout.putConstraint(SpringLayout.EAST, comboBox, -6, SpringLayout.WEST, btnGo);
+		 springLayout.putConstraint(SpringLayout.EAST, btnGo, -10, SpringLayout.EAST, frame.getContentPane());
 		 btnGo.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent arg0) {
-		 		transition((Transition)comboBox.getSelectedItem());
-		 	}
+		 		Transition trans = hashMap.get(comboBox.getSelectedItem());
+		 		if (trans != null) {
+		 		transition(trans);
+		 		}
+		 		else {
+		 			textPane.setText(textPane.getText() + "\n		I'm afrade I can't do that.");
+		 			
+		 		}
+		 		}
 		 });
-		 btnGo.setBounds(378, 235, 60, 25);
 		 frame.getContentPane().add(btnGo);
 		frame.setVisible(true);
 	}
@@ -78,13 +103,15 @@ public class GameWindow {
 		this.guiUpdate();
 	}
 	private void guiUpdate(){
+		hashMap.clear();
 		textPane.setText(currentState.getText());
 		frame.setTitle(currentState.getTitleText());
 		comboBox.removeAllItems();
 		for (Transition trans : currentState.getTransition()){
-		comboBox.addItem(trans);
+			for (String key : trans.getKeyword()) {
+			comboBox.addItem(key);
+			hashMap.put(key, trans);
+			}
 		}
 	}
-	
-	
 }
