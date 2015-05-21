@@ -4,7 +4,11 @@
 	<startingState>THE_FARM</startingState>
 
 <state NAME = "THE_FARM">
-	<text> "It's a farm. It's dull and sucks. There is a barn. Oh yeah, also there are fields... but they suck too." </text>	
+	<text> "It's a farm. It's dull and sucks. There is a barn. Oh yeah, also there are fields... but they suck too. Here come the newlines: 
+
+
+
+ and now the java newlines: /n/n/n" </text>	
 	<transition >
 		<keyword>"go to barn"</keyword>
 		<state>THE_BARN</state>

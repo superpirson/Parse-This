@@ -16,12 +16,26 @@ import javax.swing.JComboBox;
 
 import GameData.State;
 import GameData.Transition;
+import javax.swing.JButton;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import java.awt.FlowLayout;
+import javax.swing.BoxLayout;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
+import net.miginfocom.swing.MigLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class GameWindow {
 	private State currentState; 
 	private JFrame frame;
 	private JTextPane textPane;
 	private JComboBox<Transition> comboBox;
+	private JButton btnGo;
 
 	public GameWindow() {
 		initialize();
@@ -34,12 +48,24 @@ public class GameWindow {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		 textPane = new JTextPane();
-		frame.getContentPane().add(textPane, BorderLayout.CENTER);
-		
-		 comboBox = new JComboBox<Transition>();
-		frame.getContentPane().add(comboBox, BorderLayout.SOUTH);
+		  frame.getContentPane().setLayout(null);
+		 
+		  textPane = new JTextPane();
+		  textPane.setBounds(12, 12, 426, 211);
+		  frame.getContentPane().add(textPane);
+		 
+		  comboBox = new JComboBox<Transition>();
+		  comboBox.setBounds(12, 235, 362, 24);
+		  frame.getContentPane().add(comboBox);
+		 
+		 btnGo = new JButton("GO!");
+		 btnGo.addActionListener(new ActionListener() {
+		 	public void actionPerformed(ActionEvent arg0) {
+		 		transition((Transition)comboBox.getSelectedItem());
+		 	}
+		 });
+		 btnGo.setBounds(378, 235, 60, 25);
+		 frame.getContentPane().add(btnGo);
 		frame.setVisible(true);
 	}
 
