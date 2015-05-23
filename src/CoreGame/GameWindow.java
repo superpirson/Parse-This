@@ -39,6 +39,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.swing.SpringLayout;
 
+import org.python.util.PythonInterpreter;
+
 public class GameWindow {
 	private State currentState; 
 	private JFrame frame;
@@ -46,8 +48,10 @@ public class GameWindow {
 	ConcurrentHashMap<String,Transition> hashMap = new ConcurrentHashMap<String, Transition>();
 	private JComboBox<String> comboBox;
 	private JButton btnGo;
-
-	public GameWindow() {
+	public PythonInterpreter pyInterpreter = null;
+	
+	public GameWindow(PythonInterpreter pyInterpreter) {
+		this.pyInterpreter = pyInterpreter;
 		initialize();
 	}
 
@@ -82,7 +86,9 @@ public class GameWindow {
 		 	public void actionPerformed(ActionEvent arg0) {
 		 		Transition trans = hashMap.get(comboBox.getSelectedItem());
 		 		if (trans != null) {
-		 		transition(trans);
+		 			if (trans.getPyCond() != null && pyInterpreter.eval(trans.getPyCond()).asInt() != 0){
+		 			transition(trans);
+		 		}
 		 		}
 		 		else {
 		 			textPane.setText(textPane.getText() + "\n		I'm afrade I can't do that.");

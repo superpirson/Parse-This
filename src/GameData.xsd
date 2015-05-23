@@ -18,8 +18,9 @@
    </xsd:appinfo>
 </xsd:annotation> 
  </xsd:element>
-
-
+  
+  
+  <xsd:element name = "Py" type = "xsd:string" minOccurs="0" maxOccurs="unbounded"/>
   <xsd:element name = "state" type = "State" minOccurs="0" maxOccurs="unbounded"/>
 
  
@@ -48,6 +49,7 @@
 
 <xsd:complexType name="Transition">
  <xsd:sequence> 
+    <xsd:element name = "pyCond" type = "xsd:string"/> 
   <xsd:element name = "state" type = "xsd:IDREF"> 
 <xsd:annotation>
    <xsd:appinfo>
@@ -63,6 +65,5 @@
   <xsd:attribute name = "NAME" type = "xsd:ID" use="required"/> 
 </xsd:complexType>
 
-
-
+    
 </xsd:schema>
