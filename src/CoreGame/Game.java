@@ -46,7 +46,7 @@ public class Game {
 	try {
 		jc = JAXBContext.newInstance( "GameData" );
     	       Unmarshaller u = jc.createUnmarshaller();
-    	       mainGameData = (MainGameData)JAXBIntrospector.getValue(u.unmarshal(selectedFile));
+    	       u.setProperty("com.sun.xml.bind.ObjectFactory",new RealObjectFactory());
     	       out.println("Main Game Data loaded: \n" + mainGameData);
 	} catch (JAXBException e) {
 		// TODO Auto-generated catch block
@@ -55,7 +55,7 @@ public class Game {
 	}
 	
 
-	for (String s : mainGameData.getPy()){
+	for (String s : mainGameData.getPython()){
 		pyInterpreter.eval(s);
 	}
 	

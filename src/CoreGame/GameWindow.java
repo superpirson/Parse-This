@@ -84,18 +84,9 @@ public class GameWindow {
 		 springLayout.putConstraint(SpringLayout.EAST, btnGo, -10, SpringLayout.EAST, frame.getContentPane());
 		 btnGo.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent arg0) {
-		 		Transition trans = hashMap.get(comboBox.getSelectedItem());
-		 		if (trans != null) {
-		 			if (trans.getPyCond() != null && pyInterpreter.eval(trans.getPyCond()).asInt() != 0){
-		 			transition(trans);
-		 		}
-		 		}
-		 		else {
-		 			textPane.setText(textPane.getText() + "\n		I'm afrade I can't do that.");
-		 			
-		 		}
-		 		}
-		 });
+		 	
+		 	}
+		 	});
 		 frame.getContentPane().add(btnGo);
 		frame.setVisible(true);
 	}
@@ -104,20 +95,12 @@ public class GameWindow {
 		currentState = state;
 		this.guiUpdate();
 	}
-	public void transition(Transition trans){
-		currentState = trans.getState();
-		this.guiUpdate();
-	}
+
 	private void guiUpdate(){
 		hashMap.clear();
 		textPane.setText(currentState.getText());
 		frame.setTitle(currentState.getTitleText());
 		comboBox.removeAllItems();
-		for (Transition trans : currentState.getTransition()){
-			for (String key : trans.getKeyword()) {
-			comboBox.addItem(key);
-			hashMap.put(key, trans);
-			}
-		}
+		
 	}
 }

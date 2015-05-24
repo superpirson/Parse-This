@@ -17,53 +17,73 @@
       </jxb:property>
    </xsd:appinfo>
 </xsd:annotation> 
- </xsd:element>
-  
-  
-  <xsd:element name = "Py" type = "xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+ </xsd:element> 
+  <xsd:element name = "python" type = "xsd:string" minOccurs="0" maxOccurs="unbounded"/>
   <xsd:element name = "state" type = "State" minOccurs="0" maxOccurs="unbounded"/>
-
- 
 </xsd:sequence>
 <xsd:attribute name = "NAME" type = "xsd:ID" use="required"/> 
 </xsd:complexType>
+
+
 
 <xsd:complexType name="State">
   <xsd:sequence>
   <xsd:element name = "text" type = "xsd:string"/> 
   <xsd:element name = "titleText" type = "xsd:string"/> 
-    <xsd:element name="transition" type="Transition" minOccurs="0" maxOccurs="unbounded">
-<xsd:annotation>
-   <xsd:appinfo>
-	<jxb:property>
-        <jxb:baseType name="Transition"/>
-      </jxb:property>
-   </xsd:appinfo>
-</xsd:annotation> 
- </xsd:element>
-
-
+    <xsd:choice minOccurs="1" maxOccurs="unbounded">
+     <xsd:element name="transition" type="Transition"/>
+    <xsd:element name="script"   type="PythonScript"/>
+  </xsd:choice>
   </xsd:sequence>
   <xsd:attribute name = "NAME" type = "xsd:ID" use="required"/> 
 </xsd:complexType>
 
-<xsd:complexType name="Transition">
- <xsd:sequence> 
-    <xsd:element name = "pyCond" type = "xsd:string"/> 
-  <xsd:element name = "state" type = "xsd:IDREF"> 
-<xsd:annotation>
-   <xsd:appinfo>
-	<jxb:property>
-        <jxb:baseType name="State"/>
-      </jxb:property>
-   </xsd:appinfo>
-</xsd:annotation> 
- </xsd:element>
+	<xsd:complexType name="Transition">
+	 <xsd:complexContent>
+    <xsd:extension base="Action">
+		<xsd:sequence>
+			<xsd:element name="state" type="xsd:IDREF">
+				<xsd:annotation>
+					<xsd:appinfo>
+						<jxb:property>
+							<jxb:baseType name="State" />
+						</jxb:property>
+					</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:element>
 
-    <xsd:element  name = "keyword" type = "xsd:string" minOccurs="1" maxOccurs="unbounded"/>
-  </xsd:sequence>
-  <xsd:attribute name = "NAME" type = "xsd:ID" use="required"/> 
-</xsd:complexType>
-
+			<xsd:element name="keyword" type="xsd:string" minOccurs="1"
+				maxOccurs="unbounded" />
+		</xsd:sequence>
+			   </xsd:extension>
+ 			 </xsd:complexContent>
+    </xsd:complexType>
     
+<xsd:complexType name="PythonScript">
+	 <xsd:complexContent>
+    <xsd:extension base="Action">
+		<xsd:sequence>
+			<xsd:element name="python" type="xsd:string"/>
+		</xsd:sequence>
+			   </xsd:extension>
+ 			 </xsd:complexContent>
+    </xsd:complexType>
+    
+	<xsd:complexType name="Action">
+		<xsd:sequence>
+		</xsd:sequence>
+		<xsd:attribute name="NAME" type="xsd:ID" />
+		<xsd:attribute name="ref" type="xsd:IDREF">
+				<xsd:annotation>
+					<xsd:appinfo>
+						<jxb:property>
+							<jxb:baseType name="Action" />
+						</jxb:property>
+					</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:attribute>
+		
+    </xsd:complexType>
+
+
 </xsd:schema>

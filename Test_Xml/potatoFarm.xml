@@ -28,12 +28,28 @@
 </state>
 
 <state NAME = "THE_FIELDS">
-	<text>These fields suck. The mildly less sucky barn calls to you in the distance.</text>	
+	<text>These fields suck. The mildly less sucky barn calls to you in the distance. Also, it looks like there is a swamp nearby</text>	
 	<transition >
 		<keyword>"go to farm"</keyword>
 		<state>THE_FARM</state>
 	</transition>
+	<transition >
+		<keyword>"go to swamp"</keyword>
+		<state>THE_SWAMP</state>
+	</transition>
+</state>
+
+<state NAME = "THE_SWAMP">
+	<text>This swamp smells. A large bubble of toxic vapor pops before you, filling your face with a scent similar to cow manure and sewer gas. You are elated to find that this place, in fact, does not suck!</text>	
+	<transition >
+		<keyword>"go to fields"</keyword>
+		<state>THE_FIELDS</state>
+	</transition>
+		<transition >
+		<keyword>"go to farm"</keyword>
+		<state>THE_FARM</state>
+		<pyCond>False</pyCond>
+	</transition>
 </state>
 
 </mainGameData>
-
