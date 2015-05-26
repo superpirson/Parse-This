@@ -14,6 +14,8 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JComboBox;
 
+import GameData.Actable;
+import GameData.LoadedState;
 import GameData.State;
 import GameData.Transition;
 
@@ -42,10 +44,10 @@ import javax.swing.SpringLayout;
 import org.python.util.PythonInterpreter;
 
 public class GameWindow {
-	private State currentState; 
+	private LoadedState currentState; 
 	private JFrame frame;
 	private JTextPane textPane;
-	ConcurrentHashMap<String,Transition> hashMap = new ConcurrentHashMap<String, Transition>();
+	ConcurrentHashMap<String,Actable> hashMap = new ConcurrentHashMap<String, Actable>();
 	private JComboBox<String> comboBox;
 	private JButton btnGo;
 	public PythonInterpreter pyInterpreter = null;
@@ -91,7 +93,7 @@ public class GameWindow {
 		frame.setVisible(true);
 	}
 
-	public void goToState(State state){
+	public void goToState(LoadedState state){
 		currentState = state;
 		this.guiUpdate();
 	}
@@ -101,6 +103,11 @@ public class GameWindow {
 		textPane.setText(currentState.getText());
 		frame.setTitle(currentState.getTitleText());
 		comboBox.removeAllItems();
+		this.currentState.init();
+		
+	}
+	public void addChoice(String text, Actable action, ) {
+		hashMap.put(,)
 		
 	}
 }
