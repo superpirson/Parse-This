@@ -26,7 +26,7 @@ public class LoadedAction extends Action implements Actable {
     if(this.getRef() != null) {
     	((LoadedAction) this.getRef()).run();	
     }else {
-    	System.err.println("ERROR! action " + this.name + " exicuted inimplemented run method");
+    	System.err.println("ERROR! action " + this.name + " exicuted unimplemented run method");
     }
     }
     

@@ -47,6 +47,8 @@ public class Game {
 	try {
 		jc = JAXBContext.newInstance( "GameData" );
     	       Unmarshaller u = jc.createUnmarshaller();
+    	       JAXBElement element = (JAXBElement) u.unmarshal (selectedFile);
+    	       mainGameData = (MainGameData) (JAXBIntrospector.getValue(element));
     	       out.println("Main Game Data loaded: \n" + mainGameData);
 	} catch (JAXBException e) {
 		// TODO Auto-generated catch block

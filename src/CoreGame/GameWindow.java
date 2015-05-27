@@ -86,7 +86,16 @@ public class GameWindow {
 		 springLayout.putConstraint(SpringLayout.EAST, btnGo, -10, SpringLayout.EAST, frame.getContentPane());
 		 btnGo.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent arg0) {
-		 	
+		 		if (comboBox.getSelectedItem() == null) {
+		 			System.err.println("ERR! Combobox has no selected targit!");
+		 			return;
+		 		}
+		 		Actable action = hashMap.get(comboBox.getSelectedItem());
+		 		if (action != null) {
+		 		action.run();
+		 		}else {
+		 			
+		 		}
 		 	}
 		 	});
 		 frame.getContentPane().add(btnGo);
@@ -100,14 +109,18 @@ public class GameWindow {
 
 	private void guiUpdate(){
 		hashMap.clear();
+		comboBox.removeAllItems();
 		textPane.setText(currentState.getText());
 		frame.setTitle(currentState.getTitleText());
-		comboBox.removeAllItems();
+	
 		this.currentState.init();
 		
 	}
-	public void addChoice(String text, Actable action, ) {
-		hashMap.put(,)
+	public void addChoice(String text, Actable action, Boolean isHidden ) {
+		hashMap.put(text, action);
+		if (!isHidden) {
+			this.comboBox.addItem(text);
+		}
 		
 	}
 }
