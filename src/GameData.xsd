@@ -42,6 +42,7 @@
   <xsd:element name = "titleText" type = "xsd:string"/> 
    <xsd:choice minOccurs="1" maxOccurs="unbounded">
      <xsd:element name="transition" type="Transition"/>
+     <xsd:element name="ifTrue" type="IfTrue"/>
     <xsd:element name="script"   type="PythonScript"/>
     <xsd:element name="choice" type="Choice"/>
     <xsd:element name="action"   type="Action"/>
@@ -87,6 +88,7 @@
    				<xsd:element name="transition" type="Transition"/>
     			<xsd:element name="script"   type="PythonScript"/>
    				 <xsd:element name="choice" type="Choice"/>
+   				 <xsd:element name="ifTrue" type="IfTrue"/>
    				 <xsd:element name="action"   type="Action"/>
 			</xsd:choice>
 			<xsd:element name="hidden" type="xsd:boolean"/>
@@ -132,6 +134,29 @@
 			</xsd:attribute>
 		
     </xsd:complexType>
+    
+<xsd:complexType name="IfTrue">
+     <xsd:annotation>
+         <xsd:appinfo>
+              <jxb:class implClass="LoadedIfTrue" />
+         </xsd:appinfo>
+      </xsd:annotation>
+	 <xsd:complexContent>
+    <xsd:extension base="Action">
+    		<xsd:sequence>
+			<xsd:choice minOccurs="1" maxOccurs="unbounded">
+   				<xsd:element name="transition" type="Transition"/>
+    			<xsd:element name="script"   type="PythonScript"/>
+   				 <xsd:element name="choice" type="Choice"/>
+   				 <xsd:element name="ifTrue" type="IfTrue"/>
+   				 <xsd:element name="action"   type="Action"/>
+			</xsd:choice>
+		</xsd:sequence>
+    
+		<xsd:attribute name="py" type="xsd:string"/>
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
 
 
 </xsd:schema>

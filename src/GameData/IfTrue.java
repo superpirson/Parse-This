@@ -12,18 +12,19 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Choice complex type.
+ * <p>Java class for IfTrue complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="Choice">
+ * &lt;complexType name="IfTrue">
  *   &lt;complexContent>
  *     &lt;extension base="{}Action">
  *       &lt;sequence>
@@ -34,9 +35,8 @@ import javax.xml.bind.annotation.XmlType;
  *           &lt;element name="ifTrue" type="{}IfTrue"/>
  *           &lt;element name="action" type="{}Action"/>
  *         &lt;/choice>
- *         &lt;element name="hidden" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;element name="keyword" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded"/>
  *       &lt;/sequence>
+ *       &lt;attribute name="py" type="{http://www.w3.org/2001/XMLSchema}string" />
  *     &lt;/extension>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -45,12 +45,10 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Choice", propOrder = {
-    "transitionOrScriptOrChoice",
-    "hidden",
-    "keyword"
+@XmlType(name = "IfTrue", propOrder = {
+    "transitionOrScriptOrChoice"
 })
-public class Choice
+public class IfTrue
     extends LoadedAction
 {
 
@@ -62,9 +60,8 @@ public class Choice
         @XmlElement(name = "action", type = LoadedAction.class)
     })
     protected List<Action> transitionOrScriptOrChoice;
-    protected boolean hidden;
-    @XmlElement(required = true)
-    protected List<String> keyword;
+    @XmlAttribute(name = "py")
+    protected String py;
 
     /**
      * Gets the value of the transitionOrScriptOrChoice property.
@@ -100,48 +97,27 @@ public class Choice
     }
 
     /**
-     * Gets the value of the hidden property.
+     * Gets the value of the py property.
      * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
-    public boolean isHidden() {
-        return hidden;
+    public String getPy() {
+        return py;
     }
 
     /**
-     * Sets the value of the hidden property.
+     * Sets the value of the py property.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
-    public void setHidden(boolean value) {
-        this.hidden = value;
-    }
-
-    /**
-     * Gets the value of the keyword property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the keyword property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getKeyword().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link String }
-     * 
-     * 
-     */
-    public List<String> getKeyword() {
-        if (keyword == null) {
-            keyword = new ArrayList<String>();
-        }
-        return this.keyword;
+    public void setPy(String value) {
+        this.py = value;
     }
 
 }
