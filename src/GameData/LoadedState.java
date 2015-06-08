@@ -17,10 +17,10 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 public class LoadedState extends State{
 	
-	public void init() {
+	public void run() {
 		for (Action thing : this.getTransitionOrIfTrueOrScript()) {
 			LoadedAction act = (LoadedAction) thing;
-			act.init();
+			act.run();
 			
 		}
 	}

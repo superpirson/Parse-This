@@ -15,6 +15,8 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.JComboBox;
 
 import GameData.Actable;
+import GameData.Action;
+import GameData.LoadedAction;
 import GameData.LoadedState;
 import GameData.State;
 import GameData.Transition;
@@ -37,6 +39,7 @@ import net.miginfocom.swing.MigLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.swing.SpringLayout;
@@ -47,7 +50,7 @@ public class GameWindow {
 	private LoadedState currentState; 
 	private JFrame frame;
 	private JTextPane textPane;
-	ConcurrentHashMap<String,Actable> hashMap = new ConcurrentHashMap<String, Actable>();
+	ConcurrentHashMap<String,List<Action>> hashMap = new ConcurrentHashMap<String, List<Action>>();
 	private JComboBox<String> comboBox;
 	private JButton btnGo;
 	public PythonInterpreter pyInterpreter = null;
@@ -90,14 +93,12 @@ public class GameWindow {
 		 			System.err.println("ERR! Combobox has no selected targit!");
 		 			return;
 		 		}
-		 		Actable action = hashMap.get(comboBox.getSelectedItem());
+		 		for (Action action : hashMap.get(comboBox.getSelectedItem())){
 		 		if (action != null) {
-		 		action.run();
-		 		}else {
-		 			
+		 		((Actable)action).run();
 		 		}
 		 	}
-		 	});
+		 	}});
 		 frame.getContentPane().add(btnGo);
 		frame.setVisible(true);
 	}
@@ -113,11 +114,11 @@ public class GameWindow {
 		textPane.setText(currentState.getText());
 		frame.setTitle(currentState.getTitleText());
 	
-		this.currentState.init();
+		this.currentState.run();
 		
 	}
-	public void addChoice(String text, Actable action, Boolean isHidden ) {
-		hashMap.put(text, action);
+	public void addChoice(String text, List<Action> list, Boolean isHidden ) {
+		hashMap.put(text, list);
 		if (!isHidden) {
 			this.comboBox.addItem(text);
 		}
