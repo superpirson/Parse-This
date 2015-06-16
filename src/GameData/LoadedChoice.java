@@ -21,11 +21,7 @@ public class LoadedChoice extends Choice implements Actable{
 	for(String s :this.getKeyword() ) {
 	Game.currentGame.gameWindow.addChoice(s,this.getTransitionOrScriptOrChoice(), this.isHidden() );
     
-	
 	}
-    for (Action act: this.transitionOrScriptOrChoice) {
-    ((LoadedAction)act).run();
-    }
     }
     
 

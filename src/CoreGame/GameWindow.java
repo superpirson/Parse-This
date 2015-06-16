@@ -41,10 +41,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import org.python.core.PyException;
+import org.python.core.PyInteger;
+import org.python.core.PyObject;
+import org.python.util.PythonInterpreter;
 
 import javax.swing.SpringLayout;
-
-import org.python.util.PythonInterpreter;
 
 public class GameWindow {
 	private LoadedState currentState; 
@@ -97,7 +99,7 @@ public class GameWindow {
 		 		if (action != null) {
 		 		((Actable)action).run();
 		 		}
-		 	}
+		 	} 
 		 	}});
 		 frame.getContentPane().add(btnGo);
 		frame.setVisible(true);
@@ -113,11 +115,10 @@ public class GameWindow {
 		comboBox.removeAllItems();
 		textPane.setText(currentState.getText());
 		frame.setTitle(currentState.getTitleText());
-	
-		this.currentState.run();
-		
+		currentState.run();
 	}
 	public void addChoice(String text, List<Action> list, Boolean isHidden ) {
+		System.err.println("regetering choice " + text);
 		hashMap.put(text, list);
 		if (!isHidden) {
 			this.comboBox.addItem(text);

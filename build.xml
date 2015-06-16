@@ -3,7 +3,8 @@
 <project name="TestMain" default="CreateJar">
   <target name="CreateJar" description="Create Jar file">
         <jar jarfile="Parse_This.jar" basedir="./bin">
-  			<manifest>
+        	<zipfileset src="./jython-standalone-2.7.0.jar" />
+        	<manifest>
   				<attribute name="Main-Class" value="CoreGame.Game"/>
   			</manifest>
   		</jar>

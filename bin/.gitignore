@@ -1,2 +1,3 @@
-/GameData/
-/CoreGame/
+/CoreGame
+/GameData
+/GameData.xsd
