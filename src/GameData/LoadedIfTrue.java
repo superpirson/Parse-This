@@ -13,14 +13,10 @@ public class LoadedIfTrue extends IfTrue implements Actable {
 		if (this.getRef() != null) {
 			((LoadedAction) this.getRef()).run();
 		}
-		if (initalResult != Game.currentGame.pyInterpreter.eval(this.getPy()).__nonzero__()) {
-			System.err.println("ERROR, LOADEDCHOICE " + this.toString() + " found that it's condition \"" + this.getPy() + "\" changed between init and run calls. Going with the init value");
-		}
-		if (initalResult) {
+		if( Game.currentGame.pythonController.eval(this.getPy()).__nonzero__()){
 		for (Action act : this.transitionOrScriptOrChoice) {
 			((LoadedAction) act).run();
-		}
 	}
-		}
+		}}
 
 }

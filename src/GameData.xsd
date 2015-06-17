@@ -23,7 +23,7 @@
    </xsd:appinfo>
 </xsd:annotation> 
  </xsd:element> 
-  <xsd:element name = "python" type = "xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+  <xsd:element name = "py" type = "xsd:string" minOccurs="0" maxOccurs="unbounded"/>
   <xsd:element name = "state" type = "State" minOccurs="0" maxOccurs="unbounded"/>
 </xsd:sequence>
 <xsd:attribute name = "NAME" type = "xsd:ID" use="required"/> 
@@ -107,11 +107,9 @@
       </xsd:annotation>
 	 <xsd:complexContent>
     <xsd:extension base="Action">
-		<xsd:sequence>
-			<xsd:element name="python" type="xsd:string"/>
-		</xsd:sequence>
-			   </xsd:extension>
- 			 </xsd:complexContent>
+		<xsd:attribute name="py" type="xsd:string"/>
+	 </xsd:extension>
+ 	</xsd:complexContent>
     </xsd:complexType>
     
 	<xsd:complexType name="Action">

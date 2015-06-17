@@ -12,7 +12,7 @@ public class LoadedPythonScript extends PythonScript implements Actable{
     if(this.getRef() != null) {
     	((LoadedAction) this.getRef()).run();	
     }else {
-    	System.err.println("ERROR! action " + this.name + " exicuted unimplemented run method");
+    	CoreGame.Game.currentGame.pythonController.eval(this.getPy());
     }
     }
     

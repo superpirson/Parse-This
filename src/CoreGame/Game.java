@@ -22,9 +22,15 @@ import GameData.*;
 public class Game {
 	public GameWindow gameWindow;
 	public static Game currentGame;
-	 // Create an instance of the PythonInterpreter
-	public PythonInterpreter pyInterpreter = new PythonInterpreter();
-	/**
+	 public PythonController pythonController = new PythonController();
+	final JFileChooser fileChooser = new JFileChooser() {
+		  @Override
+		  public void rescanCurrentDirectory() {
+		    // do nothing
+		  }
+		};
+	 
+	 /**
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -32,13 +38,14 @@ public class Game {
 		currentGame.loadGame();	
 	}
 	public void loadGame() {
-		gameWindow = new GameWindow(pyInterpreter);
+		gameWindow = new GameWindow();
 		out.println("Game window constructed. Setting up XML");
 		File selectedFile = null;
-		JFileChooser fileChooser = new JFileChooser();
+	
 		fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
 		int result = fileChooser.showOpenDialog(null);
 		if (result == JFileChooser.APPROVE_OPTION) {
+		
 		    selectedFile = fileChooser.getSelectedFile();
 		     
 		}
@@ -57,9 +64,10 @@ public class Game {
 	}
 	
 
-	for (String s : mainGameData.getPython()){
+	for (String s : mainGameData.getPy()){
 		if (s != null) {
-		pyInterpreter.eval(s);
+			
+		this.pythonController.exec(s);
 		}
 		}
 	

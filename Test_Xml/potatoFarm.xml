@@ -2,7 +2,7 @@
 <mainGameData NAME = "potatoFarm"  >
 	<author>"Superpirson"</author>
 	<startingState>THE_FARM</startingState>
-
+	<py>beans=0</py>
 <state NAME = "THE_FARM">
 	<text>It's a farm. It's dull and sucks. There is a barn. Oh yeah, also there are fields... but they suck too.</text>	
 	<choice>
@@ -21,12 +21,16 @@
 
 
 <state NAME = "THE_BARN">
-	<text>On initial glance, you are elated to see that the barn is well-kept and freshly painted. Unfortunately, as you enter, you discover that this barn in fact secretly sucks on the interior. </text>
+	<text>On initial glance, you are elated to see that the barn is well-kept and freshly painted. Unfortunately, as you enter, you discover that this barn in fact secretly sucks on the interior. Also, there are some beans on the ground. Weird.</text>
 	<choice>
 		<keyword>go to farm</keyword>
 		<transition>
 			<state>THE_FARM</state>
 		</transition>
+	</choice>
+	<choice>
+		<keyword>Grab a bean</keyword>
+		<pythonScript py = "beans++"/>
 	</choice>
 </state>
 
@@ -40,9 +44,15 @@
 	</choice>
 	<choice >
 		<keyword>go to swamp</keyword>
+		<ifTrue py = "beans&gt;=3">
 		<transition>
 			<state>THE_SWAMP</state>
 		</transition>
+		</ifTrue>
+		
+		<ifTrue py = "beans&lt;3" >
+		
+		</ifTrue>
 	</choice>
 </state>
 

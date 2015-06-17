@@ -50,15 +50,14 @@ import javax.swing.SpringLayout;
 
 public class GameWindow {
 	private LoadedState currentState; 
-	private JFrame frame;
+	public JFrame frame;
 	private JTextPane textPane;
 	ConcurrentHashMap<String,List<Action>> hashMap = new ConcurrentHashMap<String, List<Action>>();
 	private JComboBox<String> comboBox;
 	private JButton btnGo;
 	public PythonInterpreter pyInterpreter = null;
 	
-	public GameWindow(PythonInterpreter pyInterpreter) {
-		this.pyInterpreter = pyInterpreter;
+	public GameWindow() {
 		initialize();
 	}
 
