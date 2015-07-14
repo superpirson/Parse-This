@@ -19,7 +19,7 @@ public class LoadedChoice extends Choice implements Actable{
     }
 	
 	for(String s :this.getKeyword() ) {
-	Game.currentGame.gameWindow.addChoice(s,this.getTransitionOrScriptOrChoice(), this.isHidden() );
+	Game.currentGame.gameWindow.addChoice(s,this.getTransitionOrPythonScriptOrChoice(), this.isHidden() );
     
 	}
     }

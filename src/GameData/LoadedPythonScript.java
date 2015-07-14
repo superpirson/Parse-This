@@ -12,7 +12,7 @@ public class LoadedPythonScript extends PythonScript implements Actable{
     if(this.getRef() != null) {
     	((LoadedAction) this.getRef()).run();	
     }else {
-    	CoreGame.Game.currentGame.pythonController.eval(this.getPy());
+    	CoreGame.Game.currentGame.pythonController.exec(this.getPy());
     }
     }
     

@@ -14,7 +14,7 @@ public class LoadedIfTrue extends IfTrue implements Actable {
 			((LoadedAction) this.getRef()).run();
 		}
 		if( Game.currentGame.pythonController.eval(this.getPy()).__nonzero__()){
-		for (Action act : this.transitionOrScriptOrChoice) {
+		for (Action act : this.transitionOrPythonScriptOrChoice) {
 			((LoadedAction) act).run();
 	}
 		}}

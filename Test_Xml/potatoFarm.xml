@@ -30,7 +30,7 @@
 	</choice>
 	<choice>
 		<keyword>Grab a bean</keyword>
-		<pythonScript py = "beans++"/>
+		<pythonScript py = "beans+=1"/>
 	</choice>
 </state>
 
@@ -48,10 +48,6 @@
 		<transition>
 			<state>THE_SWAMP</state>
 		</transition>
-		</ifTrue>
-		
-		<ifTrue py = "beans&lt;3" >
-		
 		</ifTrue>
 	</choice>
 </state>

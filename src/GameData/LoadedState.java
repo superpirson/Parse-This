@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class LoadedState extends State{
 	
 	public void run() {
-		for (Action thing : this.getTransitionOrIfTrueOrScript()) {
+		for (Action thing : this.getTransitionOrIfTrueOrPythonScript()) {
 			LoadedAction act = (LoadedAction) thing;
 			act.run();
 			
