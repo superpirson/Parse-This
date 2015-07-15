@@ -72,6 +72,7 @@ public class GameWindow {
 		  frame.getContentPane().setLayout(springLayout);
 		 
 		  textPane = new JTextPane();
+		  textPane.setEditable(false);
 		  springLayout.putConstraint(SpringLayout.NORTH, textPane, 12, SpringLayout.NORTH, frame.getContentPane());
 		  springLayout.putConstraint(SpringLayout.WEST, textPane, 12, SpringLayout.WEST, frame.getContentPane());
 		  frame.getContentPane().add(textPane);

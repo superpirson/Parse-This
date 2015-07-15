@@ -35,11 +35,18 @@ public class Game {
 	 */
 	public static void main(String[] args) {
 		currentGame = new Game();
-		currentGame.loadGame();	
+		if (args.length != 0 && args[0].compareToIgnoreCase("-edit") == 0 ){
+			currentGame.gameWindow = new GameEditorWindow();	
+			}else{
+			currentGame.gameWindow = new GameWindow();
+			}
+			out.println("Game window constructed. Setting up XML");
+			
+		currentGame.loadGame();
+		
 	}
-	public void loadGame() {
-		gameWindow = new GameWindow();
-		out.println("Game window constructed. Setting up XML");
+	public void loadGame( ) {
+	
 		File selectedFile = null;
 	
 		fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
