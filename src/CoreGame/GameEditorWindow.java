@@ -50,6 +50,9 @@ import org.python.util.PythonInterpreter;
 
 import javax.swing.SpringLayout;
 import javax.swing.JList;
+import javax.swing.JTree;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 public class GameEditorWindow extends GameWindow {
 	private LoadedState currentState; 
@@ -57,10 +60,10 @@ public class GameEditorWindow extends GameWindow {
 	private JTextPane textPane;
 	ConcurrentHashMap<String,List<Action>> hashMap = new ConcurrentHashMap<String, List<Action>>();
 	DefaultListModel<String> listModel = new DefaultListModel<String>();
-	private JList<String> list = new JList<String>(listModel);
 
 	private JButton btnGo;
 	public PythonInterpreter pyInterpreter = null;
+	private JTree dataTree;
 	
 	public GameEditorWindow() {
 		initialize();
@@ -79,17 +82,16 @@ public class GameEditorWindow extends GameWindow {
 		 
 		  textPane = new JTextPane();
 		  springLayout.putConstraint(SpringLayout.NORTH, textPane, 10, SpringLayout.NORTH, frame.getContentPane());
-		  springLayout.putConstraint(SpringLayout.WEST, textPane, 10, SpringLayout.WEST, frame.getContentPane());
-		  springLayout.putConstraint(SpringLayout.SOUTH, textPane, 187, SpringLayout.NORTH, frame.getContentPane());
-		  springLayout.putConstraint(SpringLayout.EAST, textPane, -12, SpringLayout.EAST, frame.getContentPane());
 		  frame.getContentPane().add(textPane);
 		 
 		 
 		 btnGo = new JButton("GO!");
+		 springLayout.putConstraint(SpringLayout.EAST, textPane, 0, SpringLayout.EAST, btnGo);
 		 springLayout.putConstraint(SpringLayout.SOUTH, btnGo, -10, SpringLayout.SOUTH, frame.getContentPane());
 		 springLayout.putConstraint(SpringLayout.EAST, btnGo, -10, SpringLayout.EAST, frame.getContentPane());
+		 /*
 		 btnGo.addActionListener(new ActionListener() {
-		 	public void actionPerformed(ActionEvent arg0) {
+			 public void actionPerformed(ActionEvent arg0) {
 		 		if (list.getSelectedValue() == null) {
 		 			System.err.println("ERR! Combobox has no selected targit!");
 		 			return;
@@ -100,15 +102,85 @@ public class GameEditorWindow extends GameWindow {
 		 		}
 		 	} 
 		 	}});
+		 /*/
 		 frame.getContentPane().add(btnGo);
 		 
-
-		 springLayout.putConstraint(SpringLayout.NORTH, list, 68, SpringLayout.SOUTH, textPane);
-		 springLayout.putConstraint(SpringLayout.WEST, list, 10, SpringLayout.WEST, frame.getContentPane());
-		 springLayout.putConstraint(SpringLayout.SOUTH, list, 159, SpringLayout.SOUTH, textPane);
-		 springLayout.putConstraint(SpringLayout.EAST, list, 569, SpringLayout.WEST, textPane);
-		 frame.getContentPane().add(list);
-		frame.setVisible(true);
+		 JButton btnAdd = new JButton("Add");
+		 springLayout.putConstraint(SpringLayout.SOUTH, textPane, -6, SpringLayout.NORTH, btnAdd);
+		 springLayout.putConstraint(SpringLayout.NORTH, btnAdd, 193, SpringLayout.NORTH, frame.getContentPane());
+		 springLayout.putConstraint(SpringLayout.WEST, btnAdd, 600, SpringLayout.WEST, frame.getContentPane());
+		 springLayout.putConstraint(SpringLayout.EAST, btnAdd, -12, SpringLayout.EAST, frame.getContentPane());
+		 frame.getContentPane().add(btnAdd);
+		/*
+		 btnAdd.addActionListener(new ActionListener() {
+			 	public void actionPerformed(ActionEvent arg0) {
+			 		if (list.getSelectedValue() == null) {
+			 			System.err.println("ERR! Combobox has no selected targit!");
+			 			return;
+			 		} 
+			 	
+			 	}
+			 	});
+		/*/ 
+		 JButton btnDelete = new JButton("Delete");
+		 springLayout.putConstraint(SpringLayout.NORTH, btnDelete, 6, SpringLayout.SOUTH, btnAdd);
+		 springLayout.putConstraint(SpringLayout.WEST, btnDelete, 591, SpringLayout.WEST, frame.getContentPane());
+		 springLayout.putConstraint(SpringLayout.EAST, btnDelete, -12, SpringLayout.EAST, frame.getContentPane());
+		 frame.getContentPane().add(btnDelete);
+		 
+		 dataTree = new JTree();
+		 dataTree.setModel(new DefaultTreeModel(
+		 	new DefaultMutableTreeNode("Game States") {
+		 		{
+		 			
+		 			for (State state : Game.currentGame.mainGameData.getState()){
+		 				LoadedState lstate = (LoadedState)state;
+		 				DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(lstate.getNAME());
+		 				newNode.setUserObject(lstate);
+		 				
+		 				add(newNode);
+		 				
+		 			}
+		 					DefaultMutableTreeNode node_1;
+		 				node_1 = new DefaultMutableTreeNode("sports");
+		 				node_1.add(new DefaultMutableTreeNode("basketball"));
+		 				node_1.add(new DefaultMutableTreeNode("soccer"));
+		 				node_1.add(new DefaultMutableTreeNode("football"));
+		 				node_1.add(new DefaultMutableTreeNode("hockey"));
+		 			add(node_1);
+		 			node_1 = new DefaultMutableTreeNode("food");
+		 				node_1.add(new DefaultMutableTreeNode("hot dogs"));
+		 				node_1.add(new DefaultMutableTreeNode("pizza"));
+		 				node_1.add(new DefaultMutableTreeNode("ravioli"));
+		 				node_1.add(new DefaultMutableTreeNode("bananas"));
+		 			add(node_1);
+		 		}
+		 	}
+		 ));
+		 springLayout.putConstraint(SpringLayout.WEST, textPane, 12, SpringLayout.EAST, dataTree);
+		 springLayout.putConstraint(SpringLayout.NORTH, dataTree, 10, SpringLayout.NORTH, frame.getContentPane());
+		 springLayout.putConstraint(SpringLayout.WEST, dataTree, 10, SpringLayout.WEST, frame.getContentPane());
+		 springLayout.putConstraint(SpringLayout.SOUTH, dataTree, 0, SpringLayout.SOUTH, btnGo);
+		 springLayout.putConstraint(SpringLayout.EAST, dataTree, 191, SpringLayout.WEST, frame.getContentPane());
+		 frame.getContentPane().add(dataTree);
+		 /*
+		 btnDelete.addActionListener(new ActionListener() {
+		
+			 public void actionPerformed(ActionEvent arg0) {
+			 		if (list.getSelectedValue() == null) {
+			 			System.err.println("ERR! Combobox has no selected targit!");
+			 			return;
+			 		}
+			 		for (Action action : hashMap.get(list.getSelectedValue())){
+			 		if (action != null) {
+			 		((Actable)action).run();
+			 		}
+			 	} 
+			 	}});
+		 /*/
+		 
+		 frame.setVisible(true);
+		
 	}
 
 	public void goToState(LoadedState state){
@@ -128,6 +200,8 @@ public class GameEditorWindow extends GameWindow {
 		hashMap.put(text, list);
 		if (!isHidden) {
 			listModel.addElement(text);
+		}else{
+			listModel.addElement(text.concat(" (hidden)"));
 		}
 		
 	}

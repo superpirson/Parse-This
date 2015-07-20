@@ -23,6 +23,7 @@ public class Game {
 	public GameWindow gameWindow;
 	public static Game currentGame;
 	 public PythonController pythonController = new PythonController();
+	 MainGameData mainGameData = null;
 	final JFileChooser fileChooser = new JFileChooser() {
 		  @Override
 		  public void rescanCurrentDirectory() {
@@ -35,15 +36,16 @@ public class Game {
 	 */
 	public static void main(String[] args) {
 		currentGame = new Game();
+		currentGame.loadGame();
+		out.println("XML loaded, constructing game window");
 		if (args.length != 0 && args[0].compareToIgnoreCase("-edit") == 0 ){
 			currentGame.gameWindow = new GameEditorWindow();	
 			}else{
 			currentGame.gameWindow = new GameWindow();
 			}
-			out.println("Game window constructed. Setting up XML");
+			out.println("Game window constructed. ");
+			currentGame.gameWindow.goToState((LoadedState)currentGame.mainGameData.getStartingState());
 			
-		currentGame.loadGame();
-		
 	}
 	public void loadGame( ) {
 	
@@ -56,7 +58,7 @@ public class Game {
 		    selectedFile = fileChooser.getSelectedFile();
 		     
 		}
-	 MainGameData mainGameData = null;
+	
      JAXBContext jc;
 	try {
 		jc = JAXBContext.newInstance( "GameData" );
@@ -77,8 +79,6 @@ public class Game {
 		this.pythonController.exec(s);
 		}
 		}
-	
-	gameWindow.goToState((LoadedState) mainGameData.getStartingState());
 	}
 	
 }
