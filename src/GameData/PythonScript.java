@@ -17,6 +17,16 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
+import java.awt.FlowLayout;
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import java.awt.GridLayout;
+import java.awt.BorderLayout;
+import javax.swing.JTextField;
+import javax.swing.JEditorPane;
 
 
 /**
@@ -85,12 +95,18 @@ public class PythonScript
     public void run() {
     	CoreGame.Game.currentGame.pythonController.exec(this.getPy());
     }
+    /**
+     * @wbp.parser.entryPoint
+     */
     public Component getEditorPannel() {
 		JPanel panel = new JPanel();
+		panel.setLayout(new BorderLayout(0, 0));
 		
-		JTextPane txtpnLolWoot = new JTextPane();
-		txtpnLolWoot.setText("LOL! WOOT!!!");
-		panel.add(txtpnLolWoot);
+		JLabel lblNewLabel = new JLabel("Python Script:");
+		panel.add(lblNewLabel, BorderLayout.NORTH);
+		
+		JEditorPane editorPane = new JEditorPane();
+		panel.add(editorPane, BorderLayout.CENTER);
 		return panel;
 	}
     
