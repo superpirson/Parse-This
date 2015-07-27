@@ -1,55 +1,25 @@
 package CoreGame;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
-import javax.swing.JTextArea;
-
-import java.awt.BorderLayout;
-
 import javax.swing.JTextPane;
-import javax.swing.JSeparator;
-import javax.swing.JTextField;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
+
 import javax.swing.JComboBox;
 
-import GameData.Actable;
 import GameData.Action;
-import GameData.LoadedAction;
-import GameData.LoadedState;
+
 import GameData.State;
-import GameData.Transition;
-
 import javax.swing.JButton;
-
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.FlowLayout;
-
-import javax.swing.BoxLayout;
-
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-
-import net.miginfocom.swing.MigLayout;
-
-import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
-import org.python.core.PyException;
-import org.python.core.PyInteger;
-import org.python.core.PyObject;
+
 import org.python.util.PythonInterpreter;
 
 import javax.swing.SpringLayout;
 
 public class GameWindow {
-	private LoadedState currentState; 
+	private State currentState; 
 	public JFrame frame;
 	private JTextPane textPane;
 	ConcurrentHashMap<String,List<Action>> hashMap = new ConcurrentHashMap<String, List<Action>>();
@@ -97,7 +67,7 @@ public class GameWindow {
 		 		}
 		 		for (Action action : hashMap.get(comboBox.getSelectedItem())){
 		 		if (action != null) {
-		 		((Actable)action).run();
+		 		action.run();
 		 		}
 		 	} 
 		 	}});
@@ -105,7 +75,7 @@ public class GameWindow {
 		frame.setVisible(true);
 	}
 
-	public void goToState(LoadedState state){
+	public void goToState(State state){
 		currentState = state;
 		this.guiUpdate();
 	}
@@ -115,7 +85,7 @@ public class GameWindow {
 		comboBox.removeAllItems();
 		textPane.setText(currentState.getText());
 		frame.setTitle(currentState.getTitleText());
-		currentState.run();
+		currentState.runActions();
 	}
 	public void addChoice(String text, List<Action> list, Boolean isHidden ) {
 		System.err.println("regetering choice " + text);

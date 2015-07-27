@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import org.python.core.PyException;
 import org.python.core.PyInteger;
@@ -44,7 +45,7 @@ public class Game {
 			currentGame.gameWindow = new GameWindow();
 			}
 			out.println("Game window constructed. ");
-			currentGame.gameWindow.goToState((LoadedState)currentGame.mainGameData.getStartingState());
+			currentGame.gameWindow.goToState(currentGame.mainGameData.getStartingState());
 			
 	}
 	public void loadGame( ) {
@@ -80,5 +81,7 @@ public class Game {
 		}
 		}
 	}
-	
+	public static List<State> getAllStates(){
+		return currentGame.mainGameData.getState();
+	}
 }

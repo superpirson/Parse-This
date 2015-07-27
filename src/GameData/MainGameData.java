@@ -61,7 +61,7 @@ public class MainGameData {
     @XmlSchemaType(name = "IDREF")
     protected State startingState;
     protected List<String> py;
-    @XmlElement(type = LoadedState.class)
+    @XmlElement(type = State.class)
     protected List<GameData.State> state;
     @XmlAttribute(name = "NAME", required = true)
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)

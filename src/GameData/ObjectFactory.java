@@ -45,7 +45,7 @@ public class ObjectFactory {
      * 
      */
     public MainGameData createMainGameData() {
-        return new LoadedMainGameData();
+        return new MainGameData();
     }
 
     /**
@@ -53,7 +53,7 @@ public class ObjectFactory {
      * 
      */
     public Action createAction() {
-        return new LoadedAction();
+        return new Action();
     }
 
     /**
@@ -61,7 +61,7 @@ public class ObjectFactory {
      * 
      */
     public Choice createChoice() {
-        return new LoadedChoice();
+        return new Choice();
     }
 
     /**
@@ -69,7 +69,7 @@ public class ObjectFactory {
      * 
      */
     public State createState() {
-        return new LoadedState();
+        return new State();
     }
 
     /**
@@ -77,7 +77,7 @@ public class ObjectFactory {
      * 
      */
     public Transition createTransition() {
-        return new LoadedTransition();
+        return new Transition();
     }
 
     /**
@@ -85,7 +85,7 @@ public class ObjectFactory {
      * 
      */
     public PythonScript createPythonScript() {
-        return new LoadedPythonScript();
+        return new PythonScript();
     }
 
     /**
@@ -93,7 +93,7 @@ public class ObjectFactory {
      * 
      */
     public IfTrue createIfTrue() {
-        return new LoadedIfTrue();
+        return new IfTrue();
     }
 
     /**
@@ -102,7 +102,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "mainGameData")
     public JAXBElement<MainGameData> createMainGameData(MainGameData value) {
-        return new JAXBElement<MainGameData>(_MainGameData_QNAME, ((Class) LoadedMainGameData.class), null, ((LoadedMainGameData) value));
+        return new JAXBElement<MainGameData>(_MainGameData_QNAME, ((Class) MainGameData.class), null, ((MainGameData) value));
     }
 
 }

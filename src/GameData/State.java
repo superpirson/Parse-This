@@ -58,16 +58,24 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 public class State {
 
+	
+	 @Override
+		public String toString() {
+	    	if(this.getNAME() == null && this.getTitleText()!= null){
+	    		return this.getTitleText();
+	    	}
+			return  this.getNAME();
+		}
     @XmlElement(required = true)
     protected String text;
     @XmlElement(required = true)
     protected String titleText;
     @XmlElements({
-        @XmlElement(name = "transition", type = LoadedTransition.class),
-        @XmlElement(name = "ifTrue", type = LoadedIfTrue.class),
-        @XmlElement(name = "pythonScript", type = LoadedPythonScript.class),
-        @XmlElement(name = "choice", type = LoadedChoice.class),
-        @XmlElement(name = "action", type = LoadedAction.class)
+        @XmlElement(name = "transition", type = Transition.class),
+        @XmlElement(name = "ifTrue", type = IfTrue.class),
+        @XmlElement(name = "pythonScript", type = PythonScript.class),
+        @XmlElement(name = "choice", type = Choice.class),
+        @XmlElement(name = "action", type = Action.class)
     })
     protected List<Action> transitionOrIfTrueOrPythonScript;
     @XmlAttribute(name = "NAME", required = true)
@@ -181,4 +189,12 @@ public class State {
         this.name = value;
     }
 
+	public void runActions() {
+		for (Action thing : this.getTransitionOrIfTrueOrPythonScript()) {
+			Action act = thing;
+			act.run();
+			
+		}
+	}
+    
 }

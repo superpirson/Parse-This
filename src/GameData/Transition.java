@@ -8,12 +8,19 @@
 
 package GameData;
 
+import java.awt.Component;
+
+import javax.swing.JPanel;
+import javax.swing.JTextPane;
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+
+import CoreGame.Game;
 
 
 /**
@@ -40,9 +47,20 @@ import javax.xml.bind.annotation.XmlType;
     "state"
 })
 public class Transition
-    extends LoadedAction
+    extends Action
 {
-
+    @Override
+	public String toString() {
+    	if(this.getNAME() == null){
+    		return "Transition to: " + this.getState().toString();
+    	}
+		return "Transition: " + this.getNAME();
+	}
+    public DefaultMutableTreeNode getNode(){
+		DefaultMutableTreeNode node = new DefaultMutableTreeNode(this);
+	return node;
+	}
+    
     @XmlElement(required = true, type = Object.class)
     @XmlIDREF
     @XmlSchemaType(name = "IDREF")
@@ -71,5 +89,17 @@ public class Transition
     public void setState(State value) {
         this.state = value;
     }
-
+   
+    public void run() {
+        
+        Game.currentGame.gameWindow.goToState( this.getState());
+    }
+    public Component getEditorPannel() {
+		JPanel panel = new JPanel();
+		
+		JTextPane txtpnLolWoot = new JTextPane();
+		txtpnLolWoot.setText("LOL! WOOT!!!");
+		panel.add(txtpnLolWoot);
+		return panel;
+	}
 }

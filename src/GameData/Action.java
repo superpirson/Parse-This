@@ -8,6 +8,12 @@
 
 package GameData;
 
+import java.awt.Component;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextPane;
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -18,6 +24,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import javax.swing.JComboBox;
 
 
 /**
@@ -43,14 +50,28 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Action")
 @XmlSeeAlso({
-    LoadedChoice.class,
-    LoadedTransition.class,
-    LoadedPythonScript.class,
-    LoadedIfTrue.class
+    Choice.class,
+    Transition.class,
+    PythonScript.class,
+    IfTrue.class
 })
 public class Action {
 
-    @XmlAttribute(name = "NAME")
+    @Override
+	public String toString() {
+    	if (this.getRef()!= null){
+    		return this.getRef().toString();
+    	}else{
+    	return "Action: " + name;
+    	}
+		
+	}
+
+	public DefaultMutableTreeNode getNode(){
+		DefaultMutableTreeNode node = new DefaultMutableTreeNode(this);
+	return node;
+	}
+	@XmlAttribute(name = "NAME")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     @XmlID
     @XmlSchemaType(name = "ID")
@@ -107,5 +128,27 @@ public class Action {
     public void setRef(Action value) {
         this.ref = value;
     }
+    
+    public void run() {
+    if(this.getRef() != null) {
+    	 this.getRef().run();	
+    }else {
+    	System.err.println("ERROR! action " + this.name + " exicuted unimplemented run method");
+    }
+    }
+
+	/**
+	 * @wbp.parser.entryPoint
+	 */
+	public Component getEditorPannel() {
+		JPanel panel = new JPanel();
+		
+		JTextPane txtpnLolWoot = new JTextPane();
+		txtpnLolWoot.setText("LOL! WOOT!!!");
+		panel.add(txtpnLolWoot);
+		return panel;
+	}
+    
+
 
 }

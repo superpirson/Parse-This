@@ -8,6 +8,11 @@
 
 package GameData;
 
+import java.awt.Component;
+
+import javax.swing.JPanel;
+import javax.swing.JTextPane;
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -34,9 +39,22 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "PythonScript")
 public class PythonScript
-    extends LoadedAction
+    extends Action
 {
 
+	
+    @Override
+	public String toString() {
+    	if(this.getNAME() == null){
+    		return "Script: " + this.getPy();
+    	}
+		return "Script: " + this.getNAME();
+	}
+    public DefaultMutableTreeNode getNode(){
+		DefaultMutableTreeNode node = new DefaultMutableTreeNode(this);
+	return node;
+	}
+    
     @XmlAttribute(name = "py")
     protected String py;
 
@@ -64,4 +82,16 @@ public class PythonScript
         this.py = value;
     }
 
+    public void run() {
+    	CoreGame.Game.currentGame.pythonController.exec(this.getPy());
+    }
+    public Component getEditorPannel() {
+		JPanel panel = new JPanel();
+		
+		JTextPane txtpnLolWoot = new JTextPane();
+		txtpnLolWoot.setText("LOL! WOOT!!!");
+		panel.add(txtpnLolWoot);
+		return panel;
+	}
+    
 }
