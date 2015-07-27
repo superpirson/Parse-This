@@ -27,6 +27,8 @@ import java.awt.GridLayout;
 import java.awt.BorderLayout;
 import javax.swing.JTextField;
 import javax.swing.JEditorPane;
+import java.awt.event.InputMethodListener;
+import java.awt.event.InputMethodEvent;
 
 
 /**
@@ -106,6 +108,17 @@ public class PythonScript
 		panel.add(lblNewLabel, BorderLayout.NORTH);
 		
 		JEditorPane editorPane = new JEditorPane();
+		editorPane.addInputMethodListener(new InputMethodListener() {
+			public void inputMethodTextChanged(InputMethodEvent event) {
+			
+			}
+
+			@Override
+			public void caretPositionChanged(InputMethodEvent event) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		panel.add(editorPane, BorderLayout.CENTER);
 		return panel;
 	}

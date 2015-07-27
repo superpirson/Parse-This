@@ -26,6 +26,7 @@ import java.awt.FlowLayout;
 import java.awt.CardLayout;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
+import java.awt.BorderLayout;
 
 public class GameEditorWindow extends GameWindow {
 	private State currentState; 
@@ -105,6 +106,7 @@ public class GameEditorWindow extends GameWindow {
 		 		Action editable = (Action) node.getUserObject();
 		 		editorPannel.removeAll();
 		 		editorPannel.add(editable.getEditorPannel());
+		 		editorPannel.validate();
 		 		System.err.println("we are editing " + editable.getClass().getName());
 		 		}
 		 		else{
@@ -146,7 +148,7 @@ public class GameEditorWindow extends GameWindow {
 		 springLayout.putConstraint(SpringLayout.SOUTH, panel, 0, SpringLayout.SOUTH, treeView);
 		 springLayout.putConstraint(SpringLayout.EAST, panel, 0, SpringLayout.EAST, textPane);
 		 frame.getContentPane().add(panel);
-		 panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		 panel.setLayout(new BorderLayout(0, 0));
 		 
 		 /*
 		 btnDelete.addActionListener(new ActionListener() {
