@@ -8,7 +8,6 @@
 
 package GameData;
 
-import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -148,12 +147,11 @@ public class IfTrue
 			act.run();
 	}
 		}}
-	public Component getEditorPannel() {
-		JPanel panel = new JPanel();
-		
+	   @Override
+	public void addEditorPannel(JPanel panel) {
 		JTextPane txtpnLolWoot = new JTextPane();
 		txtpnLolWoot.setText("LOL! WOOT!!!");
 		panel.add(txtpnLolWoot);
-		return panel;
+
 	}
 }

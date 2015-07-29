@@ -8,8 +8,6 @@
 
 package GameData;
 
-import java.awt.Component;
-
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -17,16 +15,21 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
+
 import java.awt.FlowLayout;
+
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
+
 import javax.swing.JTextField;
 import javax.swing.JEditorPane;
+
 import java.awt.event.InputMethodListener;
 import java.awt.event.InputMethodEvent;
 
@@ -100,10 +103,8 @@ public class PythonScript
     /**
      * @wbp.parser.entryPoint
      */
-    public Component getEditorPannel() {
-		JPanel panel = new JPanel();
-		panel.setLayout(new BorderLayout(0, 0));
-		
+    @Override
+    public void addEditorPannel(JPanel panel) {
 		JLabel lblNewLabel = new JLabel("Python Script:");
 		panel.add(lblNewLabel, BorderLayout.NORTH);
 		
@@ -120,7 +121,6 @@ public class PythonScript
 			}
 		});
 		panel.add(editorPane, BorderLayout.CENTER);
-		return panel;
 	}
     
 }

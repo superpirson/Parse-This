@@ -4,8 +4,11 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.DefaultListModel;
 import javax.swing.JTextPane;
+
 import GameData.Action;
+import GameData.GUIEditorObject;
 import GameData.State;
+
 import javax.swing.JButton;
 
 import java.util.List;
@@ -17,15 +20,20 @@ import javax.swing.SpringLayout;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.DefaultMutableTreeNode;
+
 import java.awt.Component;
+
 import javax.swing.Box;
 import javax.swing.JPanel;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.event.TreeSelectionEvent;
+
 import java.awt.FlowLayout;
 import java.awt.CardLayout;
+
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
+
 import java.awt.BorderLayout;
 
 public class GameEditorWindow extends GameWindow {
@@ -102,10 +110,10 @@ public class GameEditorWindow extends GameWindow {
 		 dataTree.addTreeSelectionListener(new TreeSelectionListener() {
 		 	public void valueChanged(TreeSelectionEvent e) {
 		 		DefaultMutableTreeNode node = (DefaultMutableTreeNode) e.getPath().getLastPathComponent();
-		 		if (node.getUserObject() instanceof Action){
-		 		Action editable = (Action) node.getUserObject();
+		 		if (node.getUserObject() instanceof GUIEditorObject){
+		 			GUIEditorObject editable = (GUIEditorObject) node.getUserObject();
 		 		editorPannel.removeAll();
-		 		editorPannel.add(editable.getEditorPannel());
+		 		editable.addEditorPannel(editorPannel);
 		 		editorPannel.validate();
 		 		System.err.println("we are editing " + editable.getClass().getName());
 		 		}

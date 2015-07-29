@@ -8,8 +8,6 @@
 
 package GameData;
 
-import java.awt.Component;
-
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -94,12 +92,10 @@ public class Transition
         
         Game.currentGame.gameWindow.goToState( this.getState());
     }
-    public Component getEditorPannel() {
-		JPanel panel = new JPanel();
-		
+    @Override
+    public void addEditorPannel(JPanel panel) {
 		JTextPane txtpnLolWoot = new JTextPane();
 		txtpnLolWoot.setText("LOL! WOOT!!!");
 		panel.add(txtpnLolWoot);
-		return panel;
 	}
 }

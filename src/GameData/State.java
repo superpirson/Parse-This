@@ -56,7 +56,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
     "titleText",
     "transitionOrIfTrueOrPythonScript"
 })
-public class State {
+public class State extends GUIEditorObject {
 
 	
 	 @Override

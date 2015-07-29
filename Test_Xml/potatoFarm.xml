@@ -28,7 +28,7 @@
 			<state>THE_FARM</state>
 		</transition>
 	</choice>
-	<choice>
+	<choice NAME = "BEANSCRIPT">
 		<keyword>Grab a bean</keyword>
 		<pythonScript py = "beans+=1"/>
 	</choice>
@@ -42,7 +42,7 @@
 			<state>THE_FARM</state>
 		</transition>
 	</choice>
-	<choice >
+	<choice NAME = "GO TO SWAMP BEAN CHECK">
 		<keyword>go to swamp</keyword>
 		<ifTrue py = "beans&gt;=3">
 		<transition>

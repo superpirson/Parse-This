@@ -8,12 +8,11 @@
 
 package GameData;
 
-import java.awt.Component;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -25,6 +24,21 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.swing.JComboBox;
+
+import CoreGame.Game;
+
+import javax.swing.JLayeredPane;
+import javax.swing.BoxLayout;
+
+import java.awt.BorderLayout;
+
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+
+import java.awt.FlowLayout;
+import java.util.Vector;
+
+import javax.swing.DefaultComboBoxModel;
 
 
 /**
@@ -55,8 +69,17 @@ import javax.swing.JComboBox;
     PythonScript.class,
     IfTrue.class
 })
-public class Action {
+public class Action extends GUIEditorObject{
 
+	void afterUnmarshal(Unmarshaller u, Object parent){
+		
+		if (this.getNAME() != null){
+			System.out.println("regestering named action: " + this.name);
+			Game.currentGame.regesterAction(this.name, this);
+		}
+		
+	}
+	
     @Override
 	public String toString() {
     	if (this.getRef()!= null){
@@ -139,14 +162,22 @@ public class Action {
 
 	/**
 	 * @wbp.parser.entryPoint
+	 * @param panel TODO
 	 */
-	public Component getEditorPannel() {
-		JPanel panel = new JPanel();
+	public void addEditorPannel(JPanel panel) {
 		
-		JTextPane txtpnLolWoot = new JTextPane();
-		txtpnLolWoot.setText("LOL! WOOT!!!");
-		panel.add(txtpnLolWoot);
-		return panel;
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JPanel panel_1 = new JPanel();
+		panel.add(panel_1);
+		
+		JLabel lblActionRef = new JLabel("Action Ref:");
+		panel_1.add(lblActionRef);
+		
+		JComboBox<String> comboBox = new JComboBox<String>();
+		comboBox.setModel(new DefaultComboBoxModel<String>( (String[]) Game.currentGame.actions.keySet().toArray()));
+		panel_1.add(comboBox);
+		comboBox.setEditable(true);
 	}
     
 

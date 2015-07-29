@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.TreeMap;
 
 import org.python.core.PyException;
 import org.python.core.PyInteger;
@@ -21,6 +22,7 @@ import GameData.*;
 
 
 public class Game {
+	public TreeMap<String, Action> actions =  new TreeMap<String, Action>();
 	public GameWindow gameWindow;
 	public static Game currentGame;
 	 public PythonController pythonController = new PythonController();
@@ -64,7 +66,7 @@ public class Game {
 	try {
 		jc = JAXBContext.newInstance( "GameData" );
     	       Unmarshaller u = jc.createUnmarshaller();
-    	       JAXBElement element = (JAXBElement) u.unmarshal (selectedFile);
+    	       JAXBElement<?> element = (JAXBElement<?>) u.unmarshal (selectedFile);
     	       mainGameData = (MainGameData) (JAXBIntrospector.getValue(element));
     	       out.println("Main Game Data loaded: \n" + mainGameData);
 	} catch (JAXBException e) {
@@ -81,7 +83,11 @@ public class Game {
 		}
 		}
 	}
-	public static List<State> getAllStates(){
-		return currentGame.mainGameData.getState();
+	public  List<State> getAllStates(){
+		return this.mainGameData.getState();
 	}
+	public void regesterAction(String name, Action action) {
+		actions.put(name, action);
+	}
+	
 }
