@@ -181,7 +181,7 @@ public class Action extends GUIEditorObject{
 		JPanel panel_2 = new JPanel();
 		panel_1.add(panel_2);
 		
-		JLabel lblActionRef = new JLabel("NAME");
+		JLabel lblActionRef = new JLabel("NAME:");
 		lblActionRef.setVerticalAlignment(SwingConstants.TOP);
 		panel_2.add(lblActionRef);
 		
