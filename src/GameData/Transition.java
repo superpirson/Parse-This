@@ -97,5 +97,6 @@ public class Transition
 		JTextPane txtpnLolWoot = new JTextPane();
 		txtpnLolWoot.setText("LOL! WOOT!!!");
 		panel.add(txtpnLolWoot);
+		super.addEditorPannel(panel);
 	}
 }

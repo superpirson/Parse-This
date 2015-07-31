@@ -121,6 +121,7 @@ public class PythonScript
 			}
 		});
 		panel.add(editorPane, BorderLayout.CENTER);
+		super.addEditorPannel(panel);
 	}
     
 }

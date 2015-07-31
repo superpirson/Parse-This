@@ -39,6 +39,8 @@ import java.awt.FlowLayout;
 import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.SwingConstants;
+import javax.swing.JTextField;
 
 
 /**
@@ -103,6 +105,7 @@ public class Action extends GUIEditorObject{
     @XmlIDREF
     @XmlSchemaType(name = "IDREF")
     protected Action ref;
+    private JTextField textField;
 
     /**
      * Gets the value of the name property.
@@ -170,16 +173,20 @@ public class Action extends GUIEditorObject{
 		
 		JPanel panel_1 = new JPanel();
 		panel.add(panel_1);
+		Vector<String> keySet = new Vector<String>();
+		for (String s : Game.currentGame.actions.keySet()){
+		keySet.add(s);
+		}
 		
-		JLabel lblActionRef = new JLabel("Action Ref:");
-		panel_1.add(lblActionRef);
+		JPanel panel_2 = new JPanel();
+		panel_1.add(panel_2);
 		
-		JComboBox<String> comboBox = new JComboBox<String>();
-		comboBox.setModel(new DefaultComboBoxModel<String>( (String[]) Game.currentGame.actions.keySet().toArray()));
-		panel_1.add(comboBox);
-		comboBox.setEditable(true);
+		JLabel lblActionRef = new JLabel("NAME");
+		lblActionRef.setVerticalAlignment(SwingConstants.TOP);
+		panel_2.add(lblActionRef);
+		
+		textField = new JTextField();
+		panel_2.add(textField);
+		textField.setColumns(10);
 	}
-    
-
-
 }
