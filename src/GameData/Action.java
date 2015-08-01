@@ -41,6 +41,8 @@ import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 
 /**
@@ -186,6 +188,12 @@ public class Action extends GUIEditorObject{
 		panel_2.add(lblActionRef);
 		
 		textField = new JTextField();
+		textField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				setNAME(textField.getText());
+			}
+		});
 		panel_2.add(textField);
 		textField.setColumns(10);
 	}

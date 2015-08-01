@@ -70,7 +70,6 @@ public class Game {
     	       mainGameData = (MainGameData) (JAXBIntrospector.getValue(element));
     	       out.println("Main Game Data loaded: \n" + mainGameData);
 	} catch (JAXBException e) {
-		// TODO Auto-generated catch block
 		e.printStackTrace();
 		
 	}
@@ -86,8 +85,17 @@ public class Game {
 	public  List<State> getAllStates(){
 		return this.mainGameData.getState();
 	}
-	public void regesterAction(String name, Action action) {
+	public boolean regesterAction(String name, Action action) {
+		if (actions.containsKey(name)){
 		actions.put(name, action);
+		return true;
+		}
+		System.out.println("tried to add action named " + name + " but found it was allready taken in the names list");
+		return false;
+		
+	}
+	public void removeAction(){
+		//TODO
 	}
 	
 }
