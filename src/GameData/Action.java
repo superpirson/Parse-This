@@ -41,9 +41,9 @@ public class Action extends GUIEditorObject{
     
     public void run() {
     if(actionData.getRef() != null) {
-    	actionData.getRef().run();	
+    	System.err.println("ERROR! action " + actionData.getNAME() + " used unimplemente ref feature");
     }else {
-    	System.err.println("ERROR! action " + actionData.getNAME(); + " exicuted unimplemented run method");
+    	System.err.println("ERROR! action " + actionData.getNAME()+ " exicuted unimplemented run method");
     }
     }
 
