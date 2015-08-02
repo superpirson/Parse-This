@@ -130,23 +130,18 @@ public class GameEditorWindow extends GameWindow {
 		 springLayout.putConstraint(SpringLayout.NORTH, treeView, 0, SpringLayout.NORTH, frame.getContentPane());
 		 springLayout.putConstraint(SpringLayout.WEST, treeView, 0, SpringLayout.WEST, frame.getContentPane());
 		 springLayout.putConstraint(SpringLayout.EAST, treeView, 291, SpringLayout.WEST, frame.getContentPane());
-		 dataTree.setModel(new DefaultTreeModel(
-		 	new DefaultMutableTreeNode("Game States") {
-		 		{	
-		 			for (State state : Game.currentGame.mainGameData.getState()){
-		 				DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(state);
-		 				for (Action action : state.getTransitionOrIfTrueOrPythonScript()){
-		 					newNode.add(action.getNode());
-		 				}	
-		 				add(newNode);
-		 			}
-		 		}
-		 	}
-		 ));
+		
+		 
+		 
+		 
+		 
+		 
+
 		 springLayout.putConstraint(SpringLayout.NORTH, dataTree, 10, SpringLayout.NORTH, frame.getContentPane());
 		 springLayout.putConstraint(SpringLayout.WEST, dataTree, 10, SpringLayout.WEST, frame.getContentPane());
 		 springLayout.putConstraint(SpringLayout.SOUTH, dataTree, 0, SpringLayout.SOUTH, btnGo);
 		 springLayout.putConstraint(SpringLayout.EAST, dataTree, 191, SpringLayout.WEST, frame.getContentPane());
+		 this.refreshTreeView(); // populate the tree
 		 frame.getContentPane().add(treeView);
 		 
 		 JPanel panel = new JPanel();
@@ -177,4 +172,20 @@ public class GameEditorWindow extends GameWindow {
 		 frame.setVisible(true);
 		
 	}
+	public void refreshTreeView(){
+		 dataTree.setModel(new DefaultTreeModel(
+				 	new DefaultMutableTreeNode("Game States") {
+				 		{	
+				 			for (State state : Game.currentGame.mainGameData.getState()){
+				 				DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(state);
+				 				for (Action action : state.getTransitionOrIfTrueOrPythonScript()){
+				 					newNode.add(action.getNode());
+				 				}	
+				 				add(newNode);
+				 			}
+				 		}
+				 	}
+				 ));
+	}
+	
 }

@@ -12,17 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlID;
-import javax.xml.bind.annotation.XmlIDREF;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
 import javax.swing.JComboBox;
 
 import CoreGame.Game;
@@ -44,130 +34,23 @@ import javax.swing.JTextField;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
-
-/**
- * <p>Java class for Action complex type.
- * 
- * <p>The following schema fragment specifies the expected content contained within this class.
- * 
- * <pre>
- * &lt;complexType name="Action">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *       &lt;/sequence>
- *       &lt;attribute name="NAME" type="{http://www.w3.org/2001/XMLSchema}ID" />
- *       &lt;attribute name="ref" type="{http://www.w3.org/2001/XMLSchema}IDREF" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Action")
-@XmlSeeAlso({
-    Choice.class,
-    Transition.class,
-    PythonScript.class,
-    IfTrue.class
-})
 public class Action extends GUIEditorObject{
 
-	void afterUnmarshal(Unmarshaller u, Object parent){
-		
-		if (this.getNAME() != null){
-			System.out.println("regestering named action: " + this.name);
-			Game.currentGame.regesterAction(this.name, this);
-		}
-		
-	}
-	
-    @Override
-	public String toString() {
-    	if (this.getRef()!= null){
-    		return this.getRef().toString();
-    	}else{
-    	return "Action: " + name;
-    	}
-		
-	}
-
-	public DefaultMutableTreeNode getNode(){
-		DefaultMutableTreeNode node = new DefaultMutableTreeNode(this);
-	return node;
-	}
-	@XmlAttribute(name = "NAME")
-    @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
-    @XmlID
-    @XmlSchemaType(name = "ID")
-    protected String name;
-    @XmlAttribute(name = "ref")
-    @XmlIDREF
-    @XmlSchemaType(name = "IDREF")
-    protected Action ref;
-    private JTextField textField;
-
-    /**
-     * Gets the value of the name property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getNAME() {
-        return name;
-    }
-
-    /**
-     * Sets the value of the name property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setNAME(String value) {
-        this.name = value;
-    }
-
-    /**
-     * Gets the value of the ref property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Object }
-     *     
-     */
-    public Action getRef() {
-        return ref;
-    }
-
-    /**
-     * Sets the value of the ref property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Object }
-     *     
-     */
-    public void setRef(Action value) {
-        this.ref = value;
-    }
+	public ActionData actionData;
+	private JTextField textField;
     
     public void run() {
-    if(this.getRef() != null) {
-    	 this.getRef().run();	
+    if(actionData.getRef() != null) {
+    	actionData.getRef().run();	
     }else {
-    	System.err.println("ERROR! action " + this.name + " exicuted unimplemented run method");
+    	System.err.println("ERROR! action " + actionData.getNAME(); + " exicuted unimplemented run method");
     }
     }
 
+    
+    
 	/**
 	 * @wbp.parser.entryPoint
-	 * @param panel TODO
 	 */
 	public void addEditorPannel(JPanel panel) {
 		
@@ -191,10 +74,14 @@ public class Action extends GUIEditorObject{
 		textField.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
-				setNAME(textField.getText());
+				rename(textField.getText());
 			}
 		});
 		panel_2.add(textField);
-		textField.setColumns(10);
+		//textField.setColumns(10);
+	}
+	public void rename(String newName){
+		Game.currentGame.renameAction(actionData.getNAME(), newName);
+		actionData.setNAME(newName);
 	}
 }

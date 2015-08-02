@@ -86,7 +86,7 @@ public class Game {
 		return this.mainGameData.getState();
 	}
 	public boolean regesterAction(String name, Action action) {
-		if (actions.containsKey(name)){
+		if (!actions.containsKey(name)){
 		actions.put(name, action);
 		return true;
 		}
@@ -94,8 +94,16 @@ public class Game {
 		return false;
 		
 	}
-	public void removeAction(){
-		//TODO
+	public boolean unregesterAction(String name){
+		if (! this.actions.containsKey(name)){
+			return false;
+		}
+		this.actions.remove(name);
+		return true;
 	}
-	
+	public void renameAction(String oldName, String newName){
+		Action action = this.actions.get(oldName);
+		this.unregesterAction(oldName);
+		this.regesterAction(newName, action);
+	}
 }

@@ -7,58 +7,43 @@
 
 
 <xsd:complexType name="MainGameData">
- <xsd:annotation>
-   <xsd:appinfo>
-     <jxb:class implClass="LoadedMainGameData" />
-  </xsd:appinfo>
-</xsd:annotation>
  <xsd:sequence>
   <xsd:element name = "author" type = "xsd:string"/> 
   <xsd:element name = "startingState" type = "xsd:IDREF"> 
 <xsd:annotation>
    <xsd:appinfo>
 	<jxb:property>
-        <jxb:baseType name="State"/>
+        <jxb:baseType name="StateData"/>
       </jxb:property>
    </xsd:appinfo>
 </xsd:annotation> 
  </xsd:element> 
   <xsd:element name = "py" type = "xsd:string" minOccurs="0" maxOccurs="unbounded"/>
-  <xsd:element name = "state" type = "State" minOccurs="0" maxOccurs="unbounded"/>
+  <xsd:element name = "state" type = "StateData" minOccurs="0" maxOccurs="unbounded"/>
 </xsd:sequence>
 <xsd:attribute name = "NAME" type = "xsd:ID" use="required"/> 
 </xsd:complexType>
 
 
 
-<xsd:complexType name="State">
-     <xsd:annotation>
-         <xsd:appinfo>
-              <jxb:class implClass="LoadedState" />
-         </xsd:appinfo>
-      </xsd:annotation>
+<xsd:complexType name="StateData">
   <xsd:sequence>
   <xsd:element name = "text" type = "xsd:string"/> 
   <xsd:element name = "titleText" type = "xsd:string"/> 
    <xsd:choice minOccurs="1" maxOccurs="unbounded">
-     <xsd:element name="transition" type="Transition"/>
-     <xsd:element name="ifTrue" type="IfTrue"/>
-    <xsd:element name="pythonScript"   type="PythonScript"/>
-    <xsd:element name="choice" type="Choice"/>
-    <xsd:element name="action"   type="Action"/>
+     <xsd:element name="transition" type="TransitionData"/>
+     <xsd:element name="ifTrue" type="IfTrueData"/>
+    <xsd:element name="pythonScript"   type="PythonScriptData"/>
+    <xsd:element name="choice" type="ChoiceData"/>
+    <xsd:element name="action"   type="ActionData"/>
   </xsd:choice>
   </xsd:sequence>
   <xsd:attribute name = "NAME" type = "xsd:ID" use="required"/> 
 </xsd:complexType>
 
-	<xsd:complexType name="Transition">
-	      <xsd:annotation>
-         <xsd:appinfo>
-              <jxb:class implClass="LoadedTransition" />
-         </xsd:appinfo>
-      </xsd:annotation>
+	<xsd:complexType name="TransitionData">
 	 <xsd:complexContent>
-    <xsd:extension base="Action">
+    <xsd:extension base="ActionData">
 		<xsd:sequence>
 			<xsd:element name="state" type="xsd:IDREF">
 				<xsd:annotation>
@@ -75,21 +60,16 @@
     </xsd:complexType>
     
     
-    <xsd:complexType name="Choice">
-	      <xsd:annotation>
-         <xsd:appinfo>
-              <jxb:class implClass="LoadedChoice" />
-         </xsd:appinfo>
-      </xsd:annotation>
+    <xsd:complexType name="ChoiceData">
 	 <xsd:complexContent>
-    <xsd:extension base="Action">
+    <xsd:extension base="ActionData">
 		<xsd:sequence>
 			<xsd:choice minOccurs="1" maxOccurs="unbounded">
-   				<xsd:element name="transition" type="Transition"/>
-    			<xsd:element name="pythonScript"   type="PythonScript"/>
-   				 <xsd:element name="choice" type="Choice"/>
-   				 <xsd:element name="ifTrue" type="IfTrue"/>
-   				 <xsd:element name="action"   type="Action"/>
+   				<xsd:element name="transition" type="TransitionData"/>
+    			<xsd:element name="pythonScript"   type="PythonScriptData"/>
+   				 <xsd:element name="choice" type="ChoiceData"/>
+   				 <xsd:element name="ifTrue" type="IfTrueData"/>
+   				 <xsd:element name="action"   type="ActionData"/>
 			</xsd:choice>
 			<xsd:element name="hidden" type="xsd:boolean"/>
 			<xsd:element name="keyword" type="xsd:string" minOccurs="1" maxOccurs="unbounded" />
@@ -99,25 +79,15 @@
     </xsd:complexType>
     
     
-<xsd:complexType name="PythonScript">
-     <xsd:annotation>
-         <xsd:appinfo>
-              <jxb:class implClass="LoadedPythonScript" />
-         </xsd:appinfo>
-      </xsd:annotation>
+<xsd:complexType name="PythonScriptData">
 	 <xsd:complexContent>
-    <xsd:extension base="Action">
+    <xsd:extension base="ActionData">
 		<xsd:attribute name="py" type="xsd:string"/>
 	 </xsd:extension>
  	</xsd:complexContent>
     </xsd:complexType>
     
-	<xsd:complexType name="Action">
-	     <xsd:annotation>
-         <xsd:appinfo>
-              <jxb:class implClass="LoadedAction" />
-         </xsd:appinfo>
-      </xsd:annotation>
+	<xsd:complexType name="ActionData">
 		<xsd:sequence>
 		</xsd:sequence>
 		<xsd:attribute name="NAME" type="xsd:ID" />
@@ -125,7 +95,7 @@
 				<xsd:annotation>
 					<xsd:appinfo>
 						<jxb:property>
-							<jxb:baseType name="Action" />
+							<jxb:baseType name="ActionData" />
 						</jxb:property>
 					</xsd:appinfo>
 				</xsd:annotation>
@@ -133,21 +103,16 @@
 		
     </xsd:complexType>
     
-<xsd:complexType name="IfTrue">
-     <xsd:annotation>
-         <xsd:appinfo>
-              <jxb:class implClass="LoadedIfTrue" />
-         </xsd:appinfo>
-      </xsd:annotation>
+<xsd:complexType name="IfTrueData">
 	 <xsd:complexContent>
-    <xsd:extension base="Action">
+    <xsd:extension base="ActionData">
     		<xsd:sequence>
 			<xsd:choice minOccurs="1" maxOccurs="unbounded">
-   				<xsd:element name="transition" type="Transition"/>
-    			<xsd:element name="pythonScript"   type="PythonScript"/>
-   				 <xsd:element name="choice" type="Choice"/>
-   				 <xsd:element name="ifTrue" type="IfTrue"/>
-   				 <xsd:element name="action"   type="Action"/>
+   				<xsd:element name="transition" type="TransitionData"/>
+    			<xsd:element name="pythonScript"   type="PythonScriptData"/>
+   				 <xsd:element name="choice" type="ChoiceData"/>
+   				 <xsd:element name="ifTrue" type="IfTrueData"/>
+   				 <xsd:element name="action"   type="ActionData"/>
 			</xsd:choice>
 		</xsd:sequence>
     
