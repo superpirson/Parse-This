@@ -33,72 +33,29 @@ import javax.swing.JEditorPane;
 import java.awt.event.InputMethodListener;
 import java.awt.event.InputMethodEvent;
 
-
-/**
- * <p>Java class for PythonScript complex type.
- * 
- * <p>The following schema fragment specifies the expected content contained within this class.
- * 
- * <pre>
- * &lt;complexType name="PythonScript">
- *   &lt;complexContent>
- *     &lt;extension base="{}Action">
- *       &lt;attribute name="py" type="{http://www.w3.org/2001/XMLSchema}string" />
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "PythonScript")
 public class PythonScript
     extends Action
 {
-
+    
+	
+	public PythonScriptData getActionData(){
+		return (PythonScriptData) actionData;	
+	}
 	
     @Override
 	public String toString() {
-    	if(this.getNAME() == null){
-    		return "Script: " + this.getPy();
+    	if(this.getActionData().getNAME() == null){
+    		return "Script: " + this.getActionData().getPy();
     	}
-		return "Script: " + this.getNAME();
+		return "Script: " + this.getActionData().getNAME();
 	}
     public DefaultMutableTreeNode getNode(){
 		DefaultMutableTreeNode node = new DefaultMutableTreeNode(this);
 	return node;
 	}
-    
-    @XmlAttribute(name = "py")
-    protected String py;
-
-    /**
-     * Gets the value of the py property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getPy() {
-        return py;
-    }
-
-    /**
-     * Sets the value of the py property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setPy(String value) {
-        this.py = value;
-    }
 
     public void run() {
-    	CoreGame.Game.currentGame.pythonController.exec(this.getPy());
+    	CoreGame.Game.currentGame.pythonController.exec(this.getActionData().getPy());
     }
     /**
      * @wbp.parser.entryPoint

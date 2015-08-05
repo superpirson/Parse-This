@@ -20,77 +20,30 @@ import javax.xml.bind.annotation.XmlType;
 
 import CoreGame.Game;
 
-
-/**
- * <p>Java class for Transition complex type.
- * 
- * <p>The following schema fragment specifies the expected content contained within this class.
- * 
- * <pre>
- * &lt;complexType name="Transition">
- *   &lt;complexContent>
- *     &lt;extension base="{}Action">
- *       &lt;sequence>
- *         &lt;element name="state" type="{http://www.w3.org/2001/XMLSchema}IDREF"/>
- *       &lt;/sequence>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Transition", propOrder = {
-    "state"
-})
 public class Transition
     extends Action
 {
-    @Override
+    
+	  @Override
+			public TransitionData getActionData(){
+				return (TransitionData) actionData;	
+			}
+	  
+	@Override
 	public String toString() {
-    	if(this.getNAME() == null){
-    		return "Transition to: " + this.getState().toString();
+    	if(this.getActionData().getNAME() == null){
+    		return "Transition to: " + this.getActionData().getState().toString();
     	}
-		return "Transition: " + this.getNAME();
+		return "Transition: " + this.getActionData().getNAME();
 	}
     public DefaultMutableTreeNode getNode(){
 		DefaultMutableTreeNode node = new DefaultMutableTreeNode(this);
 	return node;
 	}
     
-    @XmlElement(required = true, type = Object.class)
-    @XmlIDREF
-    @XmlSchemaType(name = "IDREF")
-    protected State state;
-
-    /**
-     * Gets the value of the state property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Object }
-     *     
-     */
-    public State getState() {
-        return state;
-    }
-
-    /**
-     * Sets the value of the state property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Object }
-     *     
-     */
-    public void setState(State value) {
-        this.state = value;
-    }
-   
     public void run() {
         
-        Game.currentGame.gameWindow.goToState( this.getState());
+        Game.currentGame.gameWindow.goToState( this.getActionData().getState());
     }
     @Override
     public void addEditorPannel(JPanel panel) {

@@ -12,92 +12,30 @@ import CoreGame.Game;
 
 public class IfTrue extends Action{
 	
-    @Override
+	   @Override
+		public IfTrueData getActionData(){
+			return (IfTrueData) actionData;	
+		}
+		
+	@Override
 	public String toString() {
-    	if(this.getNAME() == null){
-    		return "IF: " + this.getPy();
+    	if(this.getActionData().getNAME() == null){
+    		return "IF: " + this.getActionData().getPy();
     	}
-		return "IF: " + this.getNAME();
+		return "IF: " + this.getActionData().getNAME();
 	}
    
     public DefaultMutableTreeNode getNode(){
 		DefaultMutableTreeNode node = new DefaultMutableTreeNode(this);
-		for (Action action : this.getTransitionOrPythonScriptOrChoice()){
+		for (Action action : this.getActionData().getTransitionOrPythonScriptOrChoice()){
 			node.add(action.getNode());
 		}
 	return node;
 	}
     
-    @XmlElements({
-        @XmlElement(name = "transition", type = Transition.class),
-        @XmlElement(name = "pythonScript", type = PythonScript.class),
-        @XmlElement(name = "choice", type = Choice.class),
-        @XmlElement(name = "ifTrue", type = IfTrue.class),
-        @XmlElement(name = "action", type = Action.class)
-    })
-    protected List<Action> transitionOrPythonScriptOrChoice;
-    @XmlAttribute(name = "py")
-    protected String py;
-
-    /**
-     * Gets the value of the transitionOrPythonScriptOrChoice property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the transitionOrPythonScriptOrChoice property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getTransitionOrPythonScriptOrChoice().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Transition }
-     * {@link PythonScript }
-     * {@link Choice }
-     * {@link IfTrue }
-     * {@link Action }
-     * 
-     * 
-     */
-    public List<Action> getTransitionOrPythonScriptOrChoice() {
-        if (transitionOrPythonScriptOrChoice == null) {
-            transitionOrPythonScriptOrChoice = new ArrayList<Action>();
-        }
-        return this.transitionOrPythonScriptOrChoice;
-    }
-
-    /**
-     * Gets the value of the py property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getPy() {
-        return py;
-    }
-
-    /**
-     * Sets the value of the py property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setPy(String value) {
-        this.py = value;
-    }
 	public void run() {
-		if( Game.currentGame.pythonController.eval(this.getPy()).__nonzero__()){
-		for (Action act : this.transitionOrPythonScriptOrChoice) {
+		if( Game.currentGame.pythonController.eval(this.getActionData().getPy()).__nonzero__()){
+		for (Action act : this.getActionData().getTransitionOrPythonScriptOrChoice()) {
 			act.run();
 	}
 		}}

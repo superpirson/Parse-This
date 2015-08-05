@@ -14,165 +14,42 @@ import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElements;
-import javax.xml.bind.annotation.XmlType;
-
 import CoreGame.Game;
 
-
-/**
- * <p>Java class for Choice complex type.
- * 
- * <p>The following schema fragment specifies the expected content contained within this class.
- * 
- * <pre>
- * &lt;complexType name="Choice">
- *   &lt;complexContent>
- *     &lt;extension base="{}Action">
- *       &lt;sequence>
- *         &lt;choice maxOccurs="unbounded">
- *           &lt;element name="transition" type="{}Transition"/>
- *           &lt;element name="pythonScript" type="{}PythonScript"/>
- *           &lt;element name="choice" type="{}Choice"/>
- *           &lt;element name="ifTrue" type="{}IfTrue"/>
- *           &lt;element name="action" type="{}Action"/>
- *         &lt;/choice>
- *         &lt;element name="hidden" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;element name="keyword" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded"/>
- *       &lt;/sequence>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Choice", propOrder = {
-    "transitionOrPythonScriptOrChoice",
-    "hidden",
-    "keyword"
-})
 public class Choice
     extends Action
 {
 
     @Override
+	public ChoiceData getActionData(){
+		return (ChoiceData) actionData;	
+	}
+	
+    @Override
 	public String toString() {
-    	if(this.getNAME() == null){
-    		return "Choice: " + this.getKeyword().get(0);
+    	if(this.getActionData().getNAME() == null){
+    		return "Choice: " + this.getActionData().getKeyword().get(0);
     	}
-		return "Choice: " + this.getNAME();
+		return "Choice: " + this.getActionData().getNAME();
 	}
 
     public DefaultMutableTreeNode getNode(){
 		DefaultMutableTreeNode node = new DefaultMutableTreeNode(this);
-		for (Action action : this.getTransitionOrPythonScriptOrChoice()){
+		for (Action action : this.getActionData().getTransitionOrPythonScriptOrChoice()){
 			node.add(action.getNode());
 		}
 	return node;
 	}
+
     
-	@XmlElements({
-        @XmlElement(name = "transition", type = Transition.class),
-        @XmlElement(name = "pythonScript", type = PythonScript.class),
-        @XmlElement(name = "choice", type = Choice.class),
-        @XmlElement(name = "ifTrue", type = IfTrue.class),
-        @XmlElement(name = "action", type = Action.class)
-    })
-    protected List<Action> transitionOrPythonScriptOrChoice;
-    protected boolean hidden;
-    @XmlElement(required = true)
-    protected List<String> keyword;
-
-    /**
-     * Gets the value of the transitionOrPythonScriptOrChoice property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the transitionOrPythonScriptOrChoice property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getTransitionOrPythonScriptOrChoice().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Transition }
-     * {@link PythonScript }
-     * {@link Choice }
-     * {@link IfTrue }
-     * {@link Action }
-     * 
-     * 
-     */
-    public List<Action> getTransitionOrPythonScriptOrChoice() {
-        if (transitionOrPythonScriptOrChoice == null) {
-            transitionOrPythonScriptOrChoice = new ArrayList<Action>();
-        }
-        return this.transitionOrPythonScriptOrChoice;
-    }
-
-    /**
-     * Gets the value of the hidden property.
-     * 
-     */
-    public boolean isHidden() {
-        return hidden;
-    }
-
-    /**
-     * Sets the value of the hidden property.
-     * 
-     */
-    public void setHidden(boolean value) {
-        this.hidden = value;
-    }
-
-    /**
-     * Gets the value of the keyword property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the keyword property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getKeyword().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link String }
-     * 
-     * 
-     */
-    public List<String> getKeyword() {
-        if (keyword == null) {
-            keyword = new ArrayList<String>();
-        }
-        return this.keyword;
-    }
     
     public void run() {
         if(this.getRef() != null) {
         	( this.getRef()).run();	
         }
     	
-    	for(String s :this.getKeyword() ) {
-    	Game.currentGame.gameWindow.addChoice(s,this.getTransitionOrPythonScriptOrChoice(), this.isHidden() );
+    	for(String s :this.getActionData().getKeyword() ) {
+    	Game.currentGame.gameWindow.addChoice(s,this.getActionData().getTransitionOrPythonScriptOrChoice(), this.getActionData().isHidden() );
         
     	}
         }

@@ -36,9 +36,13 @@ import java.awt.event.FocusEvent;
 
 public class Action extends GUIEditorObject{
 
-	public ActionData actionData;
+	protected  ActionData actionData;
 	private JTextField textField;
     
+	public ActionData getActionData(){
+		return actionData;	
+	}
+	
     public void run() {
     if(actionData.getRef() != null) {
     	System.err.println("ERROR! action " + actionData.getNAME() + " used unimplemente ref feature");
