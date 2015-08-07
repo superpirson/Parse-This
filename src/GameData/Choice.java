@@ -20,6 +20,11 @@ public class Choice
     extends Action
 {
 
+	public Choice(ChoiceData data){
+	this.actionData = data;
+	
+	}
+	
     @Override
 	public ChoiceData getActionData(){
 		return (ChoiceData) actionData;	
@@ -44,10 +49,6 @@ public class Choice
     
     
     public void run() {
-        if(this.getRef() != null) {
-        	( this.getRef()).run();	
-        }
-    	
     	for(String s :this.getActionData().getKeyword() ) {
     	Game.currentGame.gameWindow.addChoice(s,this.getActionData().getTransitionOrPythonScriptOrChoice(), this.getActionData().isHidden() );
         
