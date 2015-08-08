@@ -1,4 +1,4 @@
-package GameData;
+package gameObjects;
 
 import java.awt.FlowLayout;
 
@@ -7,7 +7,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import CoreGame.Game;
+import coreGame.Game;
 
 public class GUIEditorObject {
 	public void addEditorPannel(JPanel panel) {

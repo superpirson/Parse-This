@@ -6,17 +6,17 @@
 //
 
 
-package GameData;
+package gameObjects;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import coreGame.Game;
+import gameData.ActionData;
+
 import javax.swing.JComboBox;
-
-import CoreGame.Game;
-
 import javax.swing.JLayeredPane;
 import javax.swing.BoxLayout;
 

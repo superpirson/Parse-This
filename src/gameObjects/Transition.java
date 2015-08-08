@@ -6,7 +6,7 @@
 //
 
 
-package GameData;
+package gameObjects;
 
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
@@ -18,7 +18,8 @@ import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
-import CoreGame.Game;
+import coreGame.Game;
+import gameData.TransitionData;
 
 public class Transition
     extends Action

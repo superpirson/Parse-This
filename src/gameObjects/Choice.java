@@ -6,7 +6,7 @@
 //
 
 
-package GameData;
+package gameObjects;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,9 @@ import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.tree.DefaultMutableTreeNode;
-import CoreGame.Game;
+
+import coreGame.Game;
+import gameData.ChoiceData;
 
 public class Choice
     extends Action

@@ -6,7 +6,7 @@
 //
 
 
-package GameData;
+package gameData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +14,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
@@ -23,24 +23,19 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
 /**
- * <p>Java class for StateData complex type.
+ * <p>Java class for MainGameData complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="StateData">
+ * &lt;complexType name="MainGameData">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="text" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="titleText" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;choice maxOccurs="unbounded">
- *           &lt;element name="transition" type="{}TransitionData"/>
- *           &lt;element name="ifTrue" type="{}IfTrueData"/>
- *           &lt;element name="pythonScript" type="{}PythonScriptData"/>
- *           &lt;element name="choice" type="{}ChoiceData"/>
- *           &lt;element name="action" type="{}ActionData"/>
- *         &lt;/choice>
+ *         &lt;element name="author" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="startingState" type="{http://www.w3.org/2001/XMLSchema}IDREF"/>
+ *         &lt;element name="py" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="state" type="{}StateData" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *       &lt;attribute name="NAME" use="required" type="{http://www.w3.org/2001/XMLSchema}ID" />
  *     &lt;/restriction>
@@ -51,25 +46,22 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "StateData", propOrder = {
-    "text",
-    "titleText",
-    "transitionOrIfTrueOrPythonScript"
+@XmlType(name = "MainGameData", propOrder = {
+    "author",
+    "startingState",
+    "py",
+    "state"
 })
-public class StateData {
+public class MainGameData {
 
     @XmlElement(required = true)
-    protected String text;
-    @XmlElement(required = true)
-    protected String titleText;
-    @XmlElements({
-        @XmlElement(name = "transition", type = TransitionData.class),
-        @XmlElement(name = "ifTrue", type = IfTrueData.class),
-        @XmlElement(name = "pythonScript", type = PythonScriptData.class),
-        @XmlElement(name = "choice", type = ChoiceData.class),
-        @XmlElement(name = "action")
-    })
-    protected List<ActionData> transitionOrIfTrueOrPythonScript;
+    protected String author;
+    @XmlElement(required = true, type = Object.class)
+    @XmlIDREF
+    @XmlSchemaType(name = "IDREF")
+    protected StateData startingState;
+    protected List<String> py;
+    protected List<gameData.StateData> state;
     @XmlAttribute(name = "NAME", required = true)
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     @XmlID
@@ -77,84 +69,109 @@ public class StateData {
     protected String name;
 
     /**
-     * Gets the value of the text property.
+     * Gets the value of the author property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getText() {
-        return text;
+    public String getAuthor() {
+        return author;
     }
 
     /**
-     * Sets the value of the text property.
+     * Sets the value of the author property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setText(String value) {
-        this.text = value;
+    public void setAuthor(String value) {
+        this.author = value;
     }
 
     /**
-     * Gets the value of the titleText property.
+     * Gets the value of the startingState property.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link Object }
      *     
      */
-    public String getTitleText() {
-        return titleText;
+    public StateData getStartingState() {
+        return startingState;
     }
 
     /**
-     * Sets the value of the titleText property.
+     * Sets the value of the startingState property.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link Object }
      *     
      */
-    public void setTitleText(String value) {
-        this.titleText = value;
+    public void setStartingState(StateData value) {
+        this.startingState = value;
     }
 
     /**
-     * Gets the value of the transitionOrIfTrueOrPythonScript property.
+     * Gets the value of the py property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the transitionOrIfTrueOrPythonScript property.
+     * This is why there is not a <CODE>set</CODE> method for the py property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getTransitionOrIfTrueOrPythonScript().add(newItem);
+     *    getPy().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link TransitionData }
-     * {@link IfTrueData }
-     * {@link PythonScriptData }
-     * {@link ChoiceData }
-     * {@link ActionData }
+     * {@link String }
      * 
      * 
      */
-    public List<ActionData> getTransitionOrIfTrueOrPythonScript() {
-        if (transitionOrIfTrueOrPythonScript == null) {
-            transitionOrIfTrueOrPythonScript = new ArrayList<ActionData>();
+    public List<String> getPy() {
+        if (py == null) {
+            py = new ArrayList<String>();
         }
-        return this.transitionOrIfTrueOrPythonScript;
+        return this.py;
+    }
+
+    /**
+     * Gets the value of the state property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the state property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getState().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link gameData.StateData }
+     * 
+     * 
+     */
+    public List<gameData.StateData> getState() {
+        if (state == null) {
+            state = new ArrayList<gameData.StateData>();
+        }
+        return this.state;
     }
 
     /**

@@ -6,24 +6,30 @@
 //
 
 
-package GameData;
+package gameData;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlIDREF;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+
+import gameObjects.State;
 
 
 /**
- * <p>Java class for PythonScriptData complex type.
+ * <p>Java class for TransitionData complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="PythonScriptData">
+ * &lt;complexType name="TransitionData">
  *   &lt;complexContent>
  *     &lt;extension base="{}ActionData">
- *       &lt;attribute name="py" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;sequence>
+ *         &lt;element name="state" type="{http://www.w3.org/2001/XMLSchema}IDREF"/>
+ *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -32,36 +38,40 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "PythonScriptData")
-public class PythonScriptData
+@XmlType(name = "TransitionData", propOrder = {
+    "state"
+})
+public class TransitionData
     extends ActionData
 {
 
-    @XmlAttribute(name = "py")
-    protected String py;
+    @XmlElement(required = true, type = Object.class)
+    @XmlIDREF
+    @XmlSchemaType(name = "IDREF")
+    protected State state;
 
     /**
-     * Gets the value of the py property.
+     * Gets the value of the state property.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link Object }
      *     
      */
-    public String getPy() {
-        return py;
+    public State getState() {
+        return state;
     }
 
     /**
-     * Sets the value of the py property.
+     * Sets the value of the state property.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link Object }
      *     
      */
-    public void setPy(String value) {
-        this.py = value;
+    public void setState(State value) {
+        this.state = value;
     }
 
 }

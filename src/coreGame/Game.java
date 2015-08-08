@@ -1,4 +1,4 @@
-package CoreGame;
+package coreGame;
 
 import static java.lang.System.out;
 
@@ -15,10 +15,12 @@ import org.python.core.PyInteger;
 import org.python.core.PyObject;
 import org.python.util.PythonInterpreter;
 
+import gameData.*;
+import gameObjects.Action;
+import gameObjects.State;
+
 import javax.swing.JFileChooser;
 import javax.xml.bind.*;
-
-import GameData.*;
 
 
 public class Game {

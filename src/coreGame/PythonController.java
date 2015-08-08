@@ -1,4 +1,4 @@
-package CoreGame;
+package coreGame;
 
 import org.python.core.PyObject;
 import org.python.util.PythonInterpreter;

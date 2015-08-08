@@ -1,13 +1,9 @@
-package CoreGame;
+package coreGame;
 
 import javax.swing.JFrame;
 import javax.swing.JTextPane;
 
 import javax.swing.JComboBox;
-
-import GameData.Action;
-
-import GameData.State;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -15,6 +11,9 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.python.util.PythonInterpreter;
+
+import gameObjects.Action;
+import gameObjects.State;
 
 import javax.swing.SpringLayout;
 

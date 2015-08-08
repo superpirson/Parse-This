@@ -6,7 +6,7 @@
 //
 
 
-package GameData;
+package gameObjects;
 
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
@@ -15,6 +15,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
+
+import gameData.PythonScriptData;
 
 import java.awt.FlowLayout;
 
@@ -55,7 +57,7 @@ public class PythonScript
 	}
 
     public void run() {
-    	CoreGame.Game.currentGame.pythonController.exec(this.getActionData().getPy());
+    	coreGame.Game.currentGame.pythonController.exec(this.getActionData().getPy());
     }
     /**
      * @wbp.parser.entryPoint

@@ -1,20 +1,19 @@
-package CoreGame;
+package coreGame;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.DefaultListModel;
 import javax.swing.JTextPane;
-
-import GameData.Action;
-import GameData.GUIEditorObject;
-import GameData.State;
-
 import javax.swing.JButton;
 
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.python.util.PythonInterpreter;
+
+import gameObjects.Action;
+import gameObjects.GUIEditorObject;
+import gameObjects.State;
 
 import javax.swing.SpringLayout;
 import javax.swing.JTree;
