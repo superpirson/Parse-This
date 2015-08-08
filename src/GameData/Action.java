@@ -43,6 +43,13 @@ public class Action extends GUIEditorObject{
 		return actionData;	
 	}
 	
+	public Action(ActionData data){
+	this.actionData = data;
+	}
+	//Default consturctor. 
+	public Action(){
+	}
+	
     public void run() {
     if(actionData.getRef() != null) {
     	System.err.println("ERROR! action " + actionData.getNAME() + " used unimplemente ref feature");

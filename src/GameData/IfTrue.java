@@ -16,7 +16,11 @@ public class IfTrue extends Action{
 		public IfTrueData getActionData(){
 			return (IfTrueData) actionData;	
 		}
-		
+	   
+	   public IfTrue(IfTrueData data){
+			this.actionData = data;
+	   }
+	   
 	@Override
 	public String toString() {
     	if(this.getActionData().getNAME() == null){
