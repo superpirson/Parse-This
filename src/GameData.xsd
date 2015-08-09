@@ -28,6 +28,7 @@
 
 <xsd:complexType name="StateData">
   <xsd:sequence>
+  <xsd:element name="linkedGameObject" type="xsd:IDREF"/>
   <xsd:element name = "text" type = "xsd:string"/> 
   <xsd:element name = "titleText" type = "xsd:string"/> 
    <xsd:choice minOccurs="1" maxOccurs="unbounded">
@@ -89,6 +90,7 @@
     
 	<xsd:complexType name="ActionData">
 		<xsd:sequence>
+		  <xsd:element name="linkedGameObject" type="xsd:IDREF"/>
 		</xsd:sequence>
 		<xsd:attribute name="NAME" type="xsd:ID" />
 		<xsd:attribute name="ref" type="xsd:IDREF">

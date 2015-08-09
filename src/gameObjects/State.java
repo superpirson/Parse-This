@@ -14,12 +14,19 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import gameData.IfTrueData;
 import gameData.StateData;
 
 public class State extends GUIEditorObject {
 	protected StateData stateData;
 	
-	
+	 public State(StateData data){
+			this.stateData = data;
+	   }
+		public StateData getStateData(){
+			return (StateData) stateData;	
+		}
+	 
 	@Override
 		public String toString() {
 	    	if(this.stateData.getNAME() == null && this.stateData.getTitleText()!= null){
@@ -29,7 +36,7 @@ public class State extends GUIEditorObject {
 	 }
 
 	public void runActions() {
-		for (Action thing : this.getTransitionOrIfTrueOrPythonScript()) {
+		for (Action thing : this.getStateData().getTransitionOrIfTrueOrPythonScript()) {
 			Action act = thing;
 			act.run();
 			
