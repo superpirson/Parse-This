@@ -24,7 +24,7 @@ public class Choice
 
 	public Choice(ChoiceData data){
 	this.actionData = data;
-	
+	data.setLinkedGameObject(this);
 	}
 	
     @Override
@@ -42,7 +42,7 @@ public class Choice
 
     public DefaultMutableTreeNode getNode(){
 		DefaultMutableTreeNode node = new DefaultMutableTreeNode(this);
-		for (Action action : this.getActionData().getTransitionOrPythonScriptOrChoice()){
+		for (Action action : this.getActionData().getLinkedGameObject().getTransitionOrPythonScriptOrChoice()){
 			node.add(action.getNode());
 		}
 	return node;
