@@ -34,7 +34,7 @@ import javax.swing.JTextField;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
-public class Action extends GUIEditorObject{
+public class Action extends GameObject{
 
 	protected  ActionData actionData;
 	private JTextField textField;

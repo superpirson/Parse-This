@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.python.util.PythonInterpreter;
 
 import gameObjects.Action;
-import gameObjects.GUIEditorObject;
+import gameObjects.GameObject;
 import gameObjects.State;
 
 import javax.swing.SpringLayout;
@@ -109,8 +109,8 @@ public class GameEditorWindow extends GameWindow {
 		 dataTree.addTreeSelectionListener(new TreeSelectionListener() {
 		 	public void valueChanged(TreeSelectionEvent e) {
 		 		DefaultMutableTreeNode node = (DefaultMutableTreeNode) e.getPath().getLastPathComponent();
-		 		if (node.getUserObject() instanceof GUIEditorObject){
-		 			GUIEditorObject editable = (GUIEditorObject) node.getUserObject();
+		 		if (node.getUserObject() instanceof GameObject){
+		 			GameObject editable = (GameObject) node.getUserObject();
 		 		editorPannel.removeAll();
 		 		editable.addEditorPannel(editorPannel);
 		 		editorPannel.validate();

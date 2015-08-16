@@ -32,7 +32,7 @@
  	 <xsd:annotation>
 					<xsd:appinfo>
 						<jxb:property>
-							<jxb:baseType name="StateData" />
+							<jxb:baseType name="State" />
 						</jxb:property>
 					</xsd:appinfo>
 	</xsd:annotation>

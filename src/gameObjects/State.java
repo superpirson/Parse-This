@@ -17,11 +17,12 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import gameData.IfTrueData;
 import gameData.StateData;
 
-public class State extends GUIEditorObject {
+public class State extends GameObject {
 	protected StateData stateData;
 	
 	 public State(StateData data){
 			this.stateData = data;
+			data.setLinkedGameObject(this);
 	   }
 		public StateData getStateData(){
 			return (StateData) stateData;	

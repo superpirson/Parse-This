@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 
 import coreGame.Game;
 
-public class GUIEditorObject {
+public class GameObject {
 	public void addEditorPannel(JPanel panel) {
 		System.err.println("called unimplemented addEditorPanel methoid!");
 		return;
