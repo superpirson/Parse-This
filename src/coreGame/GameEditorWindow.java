@@ -11,6 +11,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.python.util.PythonInterpreter;
 
+import gameData.ActionData;
+import gameData.StateData;
 import gameObjects.Action;
 import gameObjects.GameObject;
 import gameObjects.State;
@@ -175,10 +177,10 @@ public class GameEditorWindow extends GameWindow {
 		 dataTree.setModel(new DefaultTreeModel(
 				 	new DefaultMutableTreeNode("Game States") {
 				 		{	
-				 			for (State state : Game.currentGame.mainGameData.getState()){
-				 				DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(state);
-				 				for (Action action : state.getTransitionOrIfTrueOrPythonScript()){
-				 					newNode.add(action.getNode());
+				 			for (StateData stateData : Game.currentGame.mainGameData.getState()){
+				 				DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(stateData.getLinkedGameObject());
+				 				for (ActionData actionData : stateData.getTransitionOrIfTrueOrPythonScript()){
+				 					newNode.add(actionData.getLinkedGameObject().getNode());
 				 				}	
 				 				add(newNode);
 				 			}

@@ -49,7 +49,7 @@ public class Game {
 			currentGame.gameWindow = new GameWindow();
 			}
 			out.println("Game window constructed. ");
-			currentGame.gameWindow.goToState(currentGame.mainGameData.getStartingState());
+			currentGame.gameWindow.goToState(currentGame.mainGameData.getStartingState().getLinkedGameObject());
 			
 	}
 	public void loadGame( ) {
@@ -84,7 +84,7 @@ public class Game {
 		}
 		}
 	}
-	public  List<State> getAllStates(){
+	public  List<StateData> getAllStates(){
 		return this.mainGameData.getState();
 	}
 	public boolean regesterAction(String name, Action action) {

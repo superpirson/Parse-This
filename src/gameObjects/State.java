@@ -14,6 +14,7 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import gameData.ActionData;
 import gameData.IfTrueData;
 import gameData.StateData;
 
@@ -37,9 +38,8 @@ public class State extends GameObject {
 	 }
 
 	public void runActions() {
-		for (Action thing : this.getStateData().getTransitionOrIfTrueOrPythonScript()) {
-			Action act = thing;
-			act.run();
+		for (ActionData actionData :  this.getStateData().getTransitionOrIfTrueOrPythonScript()) {
+			actionData.getLinkedGameObject().run();
 			
 		}
 	}

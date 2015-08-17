@@ -7,11 +7,13 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.python.util.PythonInterpreter;
 
+import gameData.ActionData;
 import gameObjects.Action;
 import gameObjects.State;
 
@@ -82,13 +84,26 @@ public class GameWindow {
 	private void guiUpdate(){
 		hashMap.clear();
 		comboBox.removeAllItems();
-		textPane.setText(currentState.getText());
-		frame.setTitle(currentState.getTitleText());
+		textPane.setText(currentState.getStateData().getText());
+		frame.setTitle(currentState.getStateData().getTitleText());
 		currentState.runActions();
 	}
 	public void addChoice(String text, List<Action> list, Boolean isHidden ) {
-		System.err.println("regetering choice " + text);
+		System.out.println("regetering choice " + text);
 		hashMap.put(text, list);
+		if (!isHidden) {
+			this.comboBox.addItem(text);
+		}
+		
+	}
+
+	public void addChoice(String text, List<ActionData> transitionOrPythonScriptOrChoice, boolean isHidden) {
+		System.out.println("regetering choice " + text);
+		List<Action> newList = new ArrayList<Action>();
+		for(ActionData actionData :transitionOrPythonScriptOrChoice ){
+			newList.add(actionData.getLinkedGameObject());
+		}
+		hashMap.put(text, newList);
 		if (!isHidden) {
 			this.comboBox.addItem(text);
 		}

@@ -16,6 +16,7 @@ import javax.swing.JTextPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import coreGame.Game;
+import gameData.ActionData;
 import gameData.ChoiceData;
 
 public class Choice
@@ -42,8 +43,8 @@ public class Choice
 
     public DefaultMutableTreeNode getNode(){
 		DefaultMutableTreeNode node = new DefaultMutableTreeNode(this);
-		for (Action action : this.getActionData().getLinkedGameObject().getTransitionOrPythonScriptOrChoice()){
-			node.add(action.getNode());
+		for (ActionData actionData : this.getActionData().getTransitionOrPythonScriptOrChoice()){
+			node.add(actionData.getLinkedGameObject().getNode());
 		}
 	return node;
 	}

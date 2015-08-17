@@ -9,6 +9,7 @@ import javax.swing.JTextPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import coreGame.Game;
+import gameData.ActionData;
 import gameData.IfTrueData;
 
 public class IfTrue extends Action{
@@ -32,16 +33,16 @@ public class IfTrue extends Action{
    
     public DefaultMutableTreeNode getNode(){
 		DefaultMutableTreeNode node = new DefaultMutableTreeNode(this);
-		for (Action action : this.getActionData().getTransitionOrPythonScriptOrChoice()){
-			node.add(action.getNode());
+		for (ActionData actionData : this.getActionData().getTransitionOrPythonScriptOrChoice()){
+			node.add(actionData.getLinkedGameObject().getNode());
 		}
 	return node;
 	}
     
 	public void run() {
 		if( Game.currentGame.pythonController.eval(this.getActionData().getPy()).__nonzero__()){
-		for (Action act : this.getActionData().getTransitionOrPythonScriptOrChoice()) {
-			act.run();
+		for (ActionData actionData : this.getActionData().getTransitionOrPythonScriptOrChoice()) {
+			actionData.getLinkedGameObject().run();
 	}
 		}}
 	   @Override
