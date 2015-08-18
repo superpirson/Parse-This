@@ -5,7 +5,7 @@
         <jar jarfile="Parse_This.jar" basedir="./bin">
         	<zipfileset src="./jython-standalone-2.7.0.jar" />
         	<manifest>
-  				<attribute name="Main-Class" value="CoreGame.Game"/>
+  				<attribute name="Main-Class" value="coreGame.Game"/>
   			</manifest>
   		</jar>
   </target>

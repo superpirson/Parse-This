@@ -27,6 +27,7 @@ public class State extends GameObject {
 	   }
 		public StateData getStateData(){
 			return (StateData) stateData;	
+			
 		}
 	 
 	@Override
@@ -39,8 +40,7 @@ public class State extends GameObject {
 
 	public void runActions() {
 		for (ActionData actionData :  this.getStateData().getTransitionOrIfTrueOrPythonScript()) {
-			actionData.getLinkedGameObject().run();
-			
+			actionData.getLinkedGameObject().run();	
 		}
 	}
     

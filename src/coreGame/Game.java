@@ -66,7 +66,7 @@ public class Game {
 	
      JAXBContext jc;
 	try {
-		jc = JAXBContext.newInstance( "GameData" );
+		jc = JAXBContext.newInstance( "gameData" );
     	       Unmarshaller u = jc.createUnmarshaller();
     	       JAXBElement<?> element = (JAXBElement<?>) u.unmarshal (selectedFile);
     	       mainGameData = (MainGameData) (JAXBIntrospector.getValue(element));

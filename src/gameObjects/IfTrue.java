@@ -47,6 +47,9 @@ public class IfTrue extends Action{
 			actionData.getLinkedGameObject().run();
 	}
 		}}
+	   /**
+	    * @wbp.parser.entryPoint
+	    */
 	   @Override
 	public void addEditorPannel(JPanel panel) {
 		JTextPane txtpnLolWoot = new JTextPane();

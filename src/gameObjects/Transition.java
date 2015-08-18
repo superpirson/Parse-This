@@ -23,7 +23,7 @@ public class Transition
 				return (TransitionData) actionData;	
 			}
 	 
-	  Transition(TransitionData data){
+	  public Transition(TransitionData data){
 		  this.actionData = data;
 		  data.setLinkedGameObject(this);
 	  }
