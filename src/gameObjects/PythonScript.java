@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
+import gameData.ActionData;
 import gameData.PythonScriptData;
 
 import java.awt.FlowLayout;
@@ -44,6 +45,10 @@ public class PythonScript
 		return (PythonScriptData) actionData;	
 	}
 	
+	public PythonScript(PythonScriptData data){
+	this.actionData = data;
+	data.setLinkedGameObject(this);
+	}
     @Override
 	public String toString() {
     	if(this.getActionData().getNAME() == null){

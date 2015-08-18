@@ -22,6 +22,11 @@ public class Transition
 			public TransitionData getActionData(){
 				return (TransitionData) actionData;	
 			}
+	 
+	  Transition(TransitionData data){
+		  this.actionData = data;
+		  data.setLinkedGameObject(this);
+	  }
 	  
 	@Override
 	public String toString() {

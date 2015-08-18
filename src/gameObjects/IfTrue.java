@@ -17,10 +17,12 @@ public class IfTrue extends Action{
 	   @Override
 		public IfTrueData getActionData(){
 			return (IfTrueData) actionData;	
+			
 		}
 	   
 	   public IfTrue(IfTrueData data){
 			this.actionData = data;
+			data.setLinkedGameObject(this);
 	   }
 	   
 	@Override

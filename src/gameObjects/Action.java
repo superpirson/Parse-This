@@ -46,6 +46,7 @@ public class Action extends GameObject{
 	
 	public Action(ActionData data){
 	this.actionData = data;
+	data.setLinkedGameObject(this);
 	}
 	//Default consturctor. 
 	public Action(){
