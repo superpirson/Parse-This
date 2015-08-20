@@ -1,6 +1,7 @@
 
 package gameObjects;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -46,9 +47,8 @@ public class Transition
     }
     @Override
     public void addEditorPannel(JPanel panel) {
-		JTextPane txtpnLolWoot = new JTextPane();
-		txtpnLolWoot.setText("LOL! WOOT!!!");
-		panel.add(txtpnLolWoot);
-		super.addEditorPannel(panel);
-	}
+    	super.addEditorPannel(panel);
+		JPanel panel_1 = new JPanel();
+    	panel.add(panel_1);
+    }
 }

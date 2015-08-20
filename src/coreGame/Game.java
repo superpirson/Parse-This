@@ -103,9 +103,13 @@ public class Game {
 		this.actions.remove(name);
 		return true;
 	}
-	public void renameAction(String oldName, String newName){
+	public boolean renameAction(String oldName, String newName){
 		Action action = this.actions.get(oldName);
 		this.unregesterAction(oldName);
-		this.regesterAction(newName, action);
+		if (this.regesterAction(newName, action)){
+			return true;
+		}
+		this.regesterAction(oldName, action);
+		return false;
 	}
 }

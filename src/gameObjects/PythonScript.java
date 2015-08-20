@@ -8,6 +8,7 @@
 
 package gameObjects;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -35,6 +36,8 @@ import javax.swing.JEditorPane;
 
 import java.awt.event.InputMethodListener;
 import java.awt.event.InputMethodEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class PythonScript
     extends Action
@@ -69,23 +72,21 @@ public class PythonScript
      */
     @Override
     public void addEditorPannel(JPanel panel) {
-		JLabel lblNewLabel = new JLabel("Python Script:");
-		panel.add(lblNewLabel, BorderLayout.NORTH);
-		
-		JEditorPane editorPane = new JEditorPane();
-		editorPane.addInputMethodListener(new InputMethodListener() {
-			public void inputMethodTextChanged(InputMethodEvent event) {
-			
-			}
-
-			@Override
-			public void caretPositionChanged(InputMethodEvent event) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-		panel.add(editorPane, BorderLayout.CENTER);
-		super.addEditorPannel(panel);
-	}
+    	super.addEditorPannel(panel);
+    	JPanel panel_1 = new JPanel();
+    	panel.add(panel_1);
+    	
+    	JLabel script_lbl = new JLabel("Script:");
+    	panel_1.add(script_lbl);
+    	
+    	JEditorPane editorPane = new JEditorPane();
+    	editorPane.addFocusListener(new FocusAdapter() {
+    		@Override
+    		public void focusLost(FocusEvent e) {
+    		}
+    	});
+    	panel_1.add(editorPane);
+    
+    }
     
 }

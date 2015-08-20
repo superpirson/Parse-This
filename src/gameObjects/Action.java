@@ -32,6 +32,7 @@ import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
+
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
@@ -84,6 +85,7 @@ public class Action extends GameObject{
 		panel_2.add(lblActionRef);
 		
 		textField = new JTextField();
+		textField.setColumns(20);
 		textField.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
@@ -93,9 +95,13 @@ public class Action extends GameObject{
 		panel_2.add(textField);
 		//textField.setColumns(10);
 	}
-	public void rename(String newName){
-		Game.currentGame.renameAction(actionData.getNAME(), newName);
+	public boolean rename(String newName){
+		if (!Game.currentGame.renameAction(actionData.getNAME(), newName)){
+			System.err.println("ERROR: tried to rename " + this.getActionData().getNAME() + " TO: " + newName + " and found it taken!");
+			return false;
+		}
 		actionData.setNAME(newName);
+		return true;
 	}
 
 
