@@ -16,6 +16,7 @@ public class GameObject {
 		System.err.println("called unimplemented addEditorPanel methoid!");
 		return;
 	}
+
 	public MutableTreeNode getNode() {
 		DefaultMutableTreeNode node = new DefaultMutableTreeNode(this);
 		return node;

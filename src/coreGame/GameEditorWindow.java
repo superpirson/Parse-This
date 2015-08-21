@@ -1,8 +1,10 @@
 package coreGame;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.DefaultListModel;
+import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.JButton;
 
@@ -29,6 +31,7 @@ import javax.swing.JPanel;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.event.TreeSelectionEvent;
 
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.CardLayout;
 
@@ -36,13 +39,13 @@ import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class GameEditorWindow extends GameWindow {
 	private State currentState; 
 	public JFrame frame;
 	private JTextPane textPane;
-
-	private JButton btnGo;
 	public PythonInterpreter pyInterpreter = null;
 	private JTree dataTree;
 	private JPanel editorPannel;
@@ -67,27 +70,19 @@ public class GameEditorWindow extends GameWindow {
 		  springLayout.putConstraint(SpringLayout.EAST, textPane, -10, SpringLayout.EAST, frame.getContentPane());
 		  frame.getContentPane().add(textPane);
 		 
-		 
-		 btnGo = new JButton("GO!");
-		 springLayout.putConstraint(SpringLayout.SOUTH, btnGo, -10, SpringLayout.SOUTH, frame.getContentPane());
-		 springLayout.putConstraint(SpringLayout.EAST, btnGo, -10, SpringLayout.EAST, frame.getContentPane());
-		 /*
-		 btnGo.addActionListener(new ActionListener() {
-			 public void actionPerformed(ActionEvent arg0) {
-		 		if (list.getSelectedValue() == null) {
-		 			System.err.println("ERR! Combobox has no selected targit!");
-		 			return;
-		 		}
-		 		for (Action action : hashMap.get(list.getSelectedValue())){
-		 		if (action != null) {
-		 		((Actable)action).run();
-		 		}
-		 	} 
-		 	}});
-		 /*/
-		 frame.getContentPane().add(btnGo);
-		 
 		 JButton btnAdd = new JButton("Add");
+		 btnAdd.addActionListener(new ActionListener() {
+		 	public void actionPerformed(ActionEvent arg0) {
+	            JTextArea textArea = new JTextArea();
+	            textArea.setEditable(true);
+	            JScrollPane scrollPane = new JScrollPane(textArea);
+	            scrollPane.requestFocus();
+	            textArea.requestFocusInWindow();
+	            scrollPane.setPreferredSize(new Dimension(800, 600));
+	            
+	            JOptionPane.showInputDialog;
+		 	}
+		 });
 		 springLayout.putConstraint(SpringLayout.WEST, btnAdd, 10, SpringLayout.WEST, frame.getContentPane());
 		 frame.getContentPane().add(btnAdd);
 		/*
@@ -102,9 +97,9 @@ public class GameEditorWindow extends GameWindow {
 			 	});
 		/*/ 
 		 JButton btnDelete = new JButton("Delete");
-		 springLayout.putConstraint(SpringLayout.NORTH, btnDelete, 0, SpringLayout.NORTH, btnGo);
-		 springLayout.putConstraint(SpringLayout.WEST, btnDelete, 6, SpringLayout.EAST, btnAdd);
-		 springLayout.putConstraint(SpringLayout.EAST, btnDelete, -485, SpringLayout.EAST, frame.getContentPane());
+		 springLayout.putConstraint(SpringLayout.WEST, btnDelete, 11, SpringLayout.EAST, btnAdd);
+		 springLayout.putConstraint(SpringLayout.SOUTH, btnDelete, 0, SpringLayout.SOUTH, frame.getContentPane());
+		 springLayout.putConstraint(SpringLayout.EAST, btnDelete, -480, SpringLayout.EAST, frame.getContentPane());
 		 frame.getContentPane().add(btnDelete);
 		 
 		 dataTree = new JTree();
@@ -140,7 +135,6 @@ public class GameEditorWindow extends GameWindow {
 
 		 springLayout.putConstraint(SpringLayout.NORTH, dataTree, 10, SpringLayout.NORTH, frame.getContentPane());
 		 springLayout.putConstraint(SpringLayout.WEST, dataTree, 10, SpringLayout.WEST, frame.getContentPane());
-		 springLayout.putConstraint(SpringLayout.SOUTH, dataTree, 0, SpringLayout.SOUTH, btnGo);
 		 springLayout.putConstraint(SpringLayout.EAST, dataTree, 191, SpringLayout.WEST, frame.getContentPane());
 		 this.refreshTreeView(); // populate the tree
 		 frame.getContentPane().add(treeView);
