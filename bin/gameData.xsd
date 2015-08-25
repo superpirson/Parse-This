@@ -109,7 +109,17 @@
 			</xsd:choice>
 		</xsd:sequence>
 		<xsd:attribute name="NAME" type="xsd:ID" />
-		<xsd:attribute name="ref" type="xsd:IDREF">
+
+		
+    </xsd:complexType>
+        
+<xsd:complexType name="LinkData">
+	 <xsd:complexContent>
+    <xsd:extension base="ActionData">
+    		<xsd:sequence>
+		</xsd:sequence>
+		
+    		<xsd:attribute name="ref" type="xsd:IDREF">
 				<xsd:annotation>
 					<xsd:appinfo>
 						<jxb:property>
@@ -118,8 +128,10 @@
 					</xsd:appinfo>
 				</xsd:annotation>
 			</xsd:attribute>
-		
-    </xsd:complexType>
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+    
     
 <xsd:complexType name="IfTrueData">
 	 <xsd:complexContent>

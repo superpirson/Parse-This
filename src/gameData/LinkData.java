@@ -11,21 +11,23 @@ package gameData;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlIDREF;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for IfTrueData complex type.
+ * <p>Java class for LinkData complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="IfTrueData">
+ * &lt;complexType name="LinkData">
  *   &lt;complexContent>
  *     &lt;extension base="{}ActionData">
  *       &lt;sequence>
  *       &lt;/sequence>
- *       &lt;attribute name="py" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="ref" type="{http://www.w3.org/2001/XMLSchema}IDREF" />
  *     &lt;/extension>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -34,36 +36,38 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "IfTrueData")
-public class IfTrueData
-    extends ActionData
+@XmlType(name = "LinkData")
+public class LinkData
+    extends gameData.ActionData
 {
 
-    @XmlAttribute(name = "py")
-    protected String py;
+    @XmlAttribute(name = "ref")
+    @XmlIDREF
+    @XmlSchemaType(name = "IDREF")
+    protected ActionData ref;
 
     /**
-     * Gets the value of the py property.
+     * Gets the value of the ref property.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link Object }
      *     
      */
-    public String getPy() {
-        return py;
+    public ActionData getRef() {
+        return ref;
     }
 
     /**
-     * Sets the value of the py property.
+     * Sets the value of the ref property.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link Object }
      *     
      */
-    public void setPy(String value) {
-        this.py = value;
+    public void setRef(ActionData value) {
+        this.ref = value;
     }
 
 }

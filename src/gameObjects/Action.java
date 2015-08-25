@@ -54,11 +54,8 @@ public class Action extends GameObject{
 	}
 	
     public void run() {
-    if(actionData.getRef() != null) {
-    	System.err.println("ERROR! action " + actionData.getNAME() + " used unimplemente ref feature");
-    }else {
+
     	System.err.println("ERROR! action " + actionData.getNAME()+ " exicuted unimplemented run method");
-    }
     }
 
     

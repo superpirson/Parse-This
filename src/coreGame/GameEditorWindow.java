@@ -42,6 +42,8 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+
+
 public class GameEditorWindow extends GameWindow {
 	private State currentState; 
 	public JFrame frame;
@@ -73,14 +75,7 @@ public class GameEditorWindow extends GameWindow {
 		 JButton btnAdd = new JButton("Add");
 		 btnAdd.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent arg0) {
-	            JTextArea textArea = new JTextArea();
-	            textArea.setEditable(true);
-	            JScrollPane scrollPane = new JScrollPane(textArea);
-	            scrollPane.requestFocus();
-	            textArea.requestFocusInWindow();
-	            scrollPane.setPreferredSize(new Dimension(800, 600));
-	            
-	            JOptionPane.showInputDialog;
+	            JOptionPane.showInputDialog();
 		 	}
 		 });
 		 springLayout.putConstraint(SpringLayout.WEST, btnAdd, 10, SpringLayout.WEST, frame.getContentPane());
