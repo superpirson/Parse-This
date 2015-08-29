@@ -41,6 +41,7 @@ import javax.swing.JRadioButton;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
 
 
 
@@ -72,31 +73,6 @@ public class GameEditorWindow extends GameWindow {
 		  springLayout.putConstraint(SpringLayout.EAST, textPane, -10, SpringLayout.EAST, frame.getContentPane());
 		  frame.getContentPane().add(textPane);
 		 
-		 JButton btnAdd = new JButton("Add");
-		 btnAdd.addActionListener(new ActionListener() {
-		 	public void actionPerformed(ActionEvent arg0) {
-	            JOptionPane.showInputDialog();
-		 	}
-		 });
-		 springLayout.putConstraint(SpringLayout.WEST, btnAdd, 10, SpringLayout.WEST, frame.getContentPane());
-		 frame.getContentPane().add(btnAdd);
-		/*
-		 btnAdd.addActionListener(new ActionListener() {
-			 	public void actionPerformed(ActionEvent arg0) {
-			 		if (list.getSelectedValue() == null) {
-			 			System.err.println("ERR! Combobox has no selected targit!");
-			 			return;
-			 		} 
-			 	
-			 	}
-			 	});
-		/*/ 
-		 JButton btnDelete = new JButton("Delete");
-		 springLayout.putConstraint(SpringLayout.WEST, btnDelete, 11, SpringLayout.EAST, btnAdd);
-		 springLayout.putConstraint(SpringLayout.SOUTH, btnDelete, 0, SpringLayout.SOUTH, frame.getContentPane());
-		 springLayout.putConstraint(SpringLayout.EAST, btnDelete, -480, SpringLayout.EAST, frame.getContentPane());
-		 frame.getContentPane().add(btnDelete);
-		 
 		 dataTree = new JTree();
 		 dataTree.addTreeSelectionListener(new TreeSelectionListener() {
 		 	public void valueChanged(TreeSelectionEvent e) {
@@ -115,8 +91,6 @@ public class GameEditorWindow extends GameWindow {
 		 	}
 		 });
 		 JScrollPane treeView = new JScrollPane(dataTree);
-		 springLayout.putConstraint(SpringLayout.NORTH, btnAdd, 7, SpringLayout.SOUTH, treeView);
-		 springLayout.putConstraint(SpringLayout.EAST, btnAdd, -179, SpringLayout.EAST, treeView);
 		 springLayout.putConstraint(SpringLayout.WEST, textPane, 6, SpringLayout.EAST, treeView);
 		 springLayout.putConstraint(SpringLayout.NORTH, treeView, 0, SpringLayout.NORTH, frame.getContentPane());
 		 springLayout.putConstraint(SpringLayout.WEST, treeView, 0, SpringLayout.WEST, frame.getContentPane());
