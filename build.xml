@@ -2,13 +2,24 @@
 <!-- Configuration of the Ant build system to generate a Jar file --> 
 <project name="TestMain" default="CreateJar">
   <target name="CreateJar" description="Create Jar file">
-        <jar jarfile="Parse_This.jar" basedir="./bin">
+	<echo>Attempteing schema compile</echo>	
+  	<xjc schema="src/gameData.xsd" package="gameData">
+		</xjc>
+  	<echo>Finished XML Schema compileing!</echo>
+  	<jar jarfile="Parse_This.jar" basedir="./bin">
         	<zipfileset src="./jython-standalone-2.7.0.jar" />
         	<manifest>
   				<attribute name="Main-Class" value="coreGame.Game"/>
   			</manifest>
   		</jar>
+
   </target>
+	
+	<taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
+	  <classpath>
+	    <fileset dir="./jaxb_lib" includes="*.jar"/>
+	  </classpath>
+	</taskdef>
 
 </project>   
  
