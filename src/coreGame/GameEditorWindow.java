@@ -42,6 +42,7 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 
 
@@ -89,6 +90,24 @@ public class GameEditorWindow extends GameWindow {
 		 		
 		 		}
 		 	}
+		 });
+		 
+		 
+		 dataTree.addMouseListener(new MouseAdapter() {
+    public void mousePressed(MouseEvent e){
+        if (e.isPopupTrigger())
+            doPop(e);
+    }
+
+    public void mouseReleased(MouseEvent e){
+        if (e.isPopupTrigger())
+            doPop(e);
+    }
+
+    private void doPop(MouseEvent e){
+        TreePopupMenu menu = new TreePopupMenu();
+        menu.show(e.getComponent(), e.getX(), e.getY());
+    }
 		 });
 		 JScrollPane treeView = new JScrollPane(dataTree);
 		 springLayout.putConstraint(SpringLayout.WEST, textPane, 6, SpringLayout.EAST, treeView);

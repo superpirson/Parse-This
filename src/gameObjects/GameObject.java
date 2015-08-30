@@ -19,6 +19,7 @@ public class GameObject {
 
 	public MutableTreeNode getNode() {
 		DefaultMutableTreeNode node = new DefaultMutableTreeNode(this);
+		
 		return node;
 	}
 }
