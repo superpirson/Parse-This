@@ -69,8 +69,6 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class ActionData {
 
     @XmlElement(required = true, type = Object.class)
-    @XmlIDREF
-    @XmlSchemaType(name = "IDREF")
     protected Action linkedGameObject;
     @XmlElements({
         @XmlElement(name = "transition", type = TransitionData.class),

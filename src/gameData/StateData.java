@@ -65,8 +65,6 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class StateData {
 
     @XmlElement(required = true, type = Object.class)
-    @XmlIDREF
-    @XmlSchemaType(name = "IDREF")
     protected State linkedGameObject;
     @XmlElement(required = true)
     protected String text;

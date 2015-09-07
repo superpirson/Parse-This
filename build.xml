@@ -2,9 +2,9 @@
 <!-- Configuration of the Ant build system to generate a Jar file --> 
 <project name="TestMain" default="CreateJar">
   <target name="CreateJar" description="Create Jar file">
-	<echo>Attempteing schema compile</echo>	
-  	<xjc schema="src/gameData.xsd" package="gameData">
-		</xjc>
+	<echo>Attempteing to make scema from java files</echo>	
+  	<schemagen srcdir="./src/gameData" destdir="./src">
+		</schemagen>
   	<echo>Finished XML Schema compileing!</echo>
   	<jar jarfile="Parse_This.jar" basedir="./bin">
         	<zipfileset src="./jython-standalone-2.7.0.jar" />
@@ -20,6 +20,11 @@
 	    <fileset dir="./jaxb_lib" includes="*.jar"/>
 	  </classpath>
 	</taskdef>
-
+	
+	<taskdef name="schemagen" classname="com.sun.tools.jxc.SchemaGenTask">
+	  <classpath>
+	    <fileset dir="./jaxb_lib" includes="*.jar"/>
+	  </classpath>
+	</taskdef>
 </project>   
  
