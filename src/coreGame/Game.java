@@ -28,7 +28,7 @@ public class Game {
 	public GameWindow gameWindow;
 	public static Game currentGame;
 	 public PythonController pythonController = new PythonController();
-	 MainGameData mainGameData = null;
+	 MainGame mainGameData = null;
 	final JFileChooser fileChooser = new JFileChooser() {
 		  @Override
 		  public void rescanCurrentDirectory() {
@@ -69,7 +69,7 @@ public class Game {
 		jc = JAXBContext.newInstance( "gameData" );
     	       Unmarshaller u = jc.createUnmarshaller();
     	       JAXBElement<?> element = (JAXBElement<?>) u.unmarshal (selectedFile);
-    	       mainGameData = (MainGameData) (JAXBIntrospector.getValue(element));
+    	       mainGameData = (MainGame) (JAXBIntrospector.getValue(element));
     	       out.println("Main Game Data loaded: \n" + mainGameData);
 	} catch (JAXBException e) {
 		e.printStackTrace();
@@ -84,7 +84,7 @@ public class Game {
 		}
 		}
 	}
-	public  List<StateData> getAllStates(){
+	public  List<State> getAllStates(){
 		return this.mainGameData.getState();
 	}
 	public boolean regesterAction(String name, Action action) {

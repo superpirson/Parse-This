@@ -52,16 +52,16 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
     "py",
     "state"
 })
-public class MainGameData {
+public class MainGame {
 
     @XmlElement(required = true)
     protected String author;
     @XmlElement(required = true, type = Object.class)
     @XmlIDREF
     @XmlSchemaType(name = "IDREF")
-    protected StateData startingState;
+    protected State startingState;
     protected List<String> py;
-    protected List<gameData.StateData> state;
+    protected List<gameData.State> state;
     @XmlAttribute(name = "NAME", required = true)
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     @XmlID
@@ -100,7 +100,7 @@ public class MainGameData {
      *     {@link Object }
      *     
      */
-    public StateData getStartingState() {
+    public State getStartingState() {
         return startingState;
     }
 
@@ -112,7 +112,7 @@ public class MainGameData {
      *     {@link Object }
      *     
      */
-    public void setStartingState(StateData value) {
+    public void setStartingState(State value) {
         this.startingState = value;
     }
 
@@ -163,13 +163,13 @@ public class MainGameData {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link gameData.StateData }
+     * {@link gameData.State }
      * 
      * 
      */
-    public List<gameData.StateData> getState() {
+    public List<gameData.State> getState() {
         if (state == null) {
-            state = new ArrayList<gameData.StateData>();
+            state = new ArrayList<gameData.State>();
         }
         return this.state;
     }

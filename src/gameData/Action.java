@@ -8,11 +8,18 @@
 
 package gameData;
 
-import gameObjects.Action;
 
+import java.awt.FlowLayout;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -26,14 +33,16 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import coreGame.Game;
+
 
 /**
- * <p>Java class for ActionData complex type.
+ * <p>Java class for Action complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="ActionData">
+ * &lt;complexType name="Action">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
@@ -43,7 +52,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *           &lt;element name="pythonScript" type="{}PythonScriptData"/>
  *           &lt;element name="choice" type="{}ChoiceData"/>
  *           &lt;element name="ifTrue" type="{}IfTrueData"/>
- *           &lt;element name="action" type="{}ActionData"/>
+ *           &lt;element name="action" type="{}Action"/>
  *         &lt;/choice>
  *       &lt;/sequence>
  *       &lt;attribute name="NAME" type="{http://www.w3.org/2001/XMLSchema}ID" />
@@ -55,35 +64,111 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ActionData", propOrder = {
+@XmlType(name = "Action", propOrder = {
     "linkedGameObject",
     "transitionOrPythonScriptOrChoice"
 })
 @XmlSeeAlso({
-    IfTrueData.class,
-    LinkData.class,
-    PythonScriptData.class,
-    TransitionData.class,
-    ChoiceData.class
+    IfTrue.class,
+    Link.class,
+    PythonScript.class,
+    Transition.class,
+    Choice.class
 })
-public class ActionData {
+public class Action extends GameObject {
 
-    @XmlElement(required = true, type = Object.class)
+	private JTextField textField;
+    
+	
+	
+    public void run() {
+
+    	System.err.println("ERROR! action " + this.getNAME()+ " exicuted unimplemented run method");
+    }
+	/**
+	 * @wbp.parser.entryPoint
+	 */
+	public void addEditorPannel(JPanel panel) {
+		
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JPanel panel_1 = new JPanel();
+		panel.add(panel_1);
+		Vector<String> keySet = new Vector<String>();
+		for (String s : Game.currentGame.actions.keySet()){
+		keySet.add(s);
+		}
+		
+		JPanel panel_2 = new JPanel();
+		panel_1.add(panel_2);
+		
+		JLabel lblActionRef = new JLabel("NAME:");
+		lblActionRef.setVerticalAlignment(SwingConstants.TOP);
+		panel_2.add(lblActionRef);
+		
+		textField = new JTextField();
+		textField.setColumns(20);
+		textField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				rename(textField.getText());
+			}
+		});
+		panel_2.add(textField);
+		//textField.setColumns(10);
+	}
+	public boolean rename(String newName){
+		if (!Game.currentGame.renameAction(this.getNAME(), newName)){
+			System.err.println("ERROR: tried to rename " + this.getNAME() + " TO: " + newName + " and found it taken!");
+			return false;
+		}
+		this.setNAME(newName);
+		return true;
+	}
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@XmlElement(required = true, type = Object.class)
     protected Action linkedGameObject;
     @XmlElements({
-        @XmlElement(name = "transition", type = TransitionData.class),
-        @XmlElement(name = "pythonScript", type = PythonScriptData.class),
-        @XmlElement(name = "choice", type = ChoiceData.class),
-        @XmlElement(name = "ifTrue", type = IfTrueData.class),
+        @XmlElement(name = "transition", type = Transition.class),
+        @XmlElement(name = "pythonScript", type = PythonScript.class),
+        @XmlElement(name = "choice", type = Choice.class),
+        @XmlElement(name = "ifTrue", type = IfTrue.class),
         @XmlElement(name = "action")
     })
-    protected List<ActionData> transitionOrPythonScriptOrChoice;
+    protected List<Action> transitionOrPythonScriptOrChoice;
     @XmlAttribute(name = "NAME")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     @XmlID
     @XmlSchemaType(name = "ID")
-    protected String name;
-
+    protected String name;    
     /**
      * Gets the value of the linkedGameObject property.
      * 
@@ -126,17 +211,17 @@ public class ActionData {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link TransitionData }
-     * {@link PythonScriptData }
-     * {@link ChoiceData }
-     * {@link IfTrueData }
-     * {@link ActionData }
+     * {@link Transition }
+     * {@link PythonScript }
+     * {@link Choice }
+     * {@link IfTrue }
+     * {@link Action }
      * 
      * 
      */
-    public List<ActionData> getTransitionOrPythonScriptOrChoice() {
+    public List<Action> getTransitionOrPythonScriptOrChoice() {
         if (transitionOrPythonScriptOrChoice == null) {
-            transitionOrPythonScriptOrChoice = new ArrayList<ActionData>();
+            transitionOrPythonScriptOrChoice = new ArrayList<Action>();
         }
         return this.transitionOrPythonScriptOrChoice;
     }

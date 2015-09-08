@@ -1,4 +1,4 @@
-package gameObjects;
+package gameData;
 
 import java.awt.FlowLayout;
 

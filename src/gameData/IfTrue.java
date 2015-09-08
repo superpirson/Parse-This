@@ -8,10 +8,15 @@
 
 package gameData;
 
+
+import javax.swing.JPanel;
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
+
+import coreGame.Game;
 
 
 /**
@@ -35,9 +40,44 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "IfTrueData")
-public class IfTrueData
-    extends ActionData
+public class IfTrue
+    extends Action
 {
+	
+	
+	
+	@Override
+	public String toString() {
+    	if(this.getNAME() == null){
+    		return "IF: " + this.getPy();
+    	}
+		return "IF: " + this.getNAME();
+	}
+   
+    public DefaultMutableTreeNode getNode(){
+		DefaultMutableTreeNode node = new DefaultMutableTreeNode(this);
+		for (Action actionData : this.getTransitionOrPythonScriptOrChoice()){
+			node.add(actionData.getLinkedGameObject().getNode());
+		}
+	return node;
+	}
+    
+	public void run() {
+		if( Game.currentGame.pythonController.eval(this.getPy()).__nonzero__()){
+		for (Action actionData : this.getTransitionOrPythonScriptOrChoice()) {
+			actionData.getLinkedGameObject().run();
+	}
+		}}
+	   /**
+	    * @wbp.parser.entryPoint
+	    */
+	   @Override
+	public void addEditorPannel(JPanel panel) {
+		   super.addEditorPannel(panel);
+			JPanel panel_1 = new JPanel();
+	    	panel.add(panel_1);
+		
+	}
 
     @XmlAttribute(name = "py")
     protected String py;

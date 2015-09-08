@@ -8,6 +8,15 @@
 
 package gameData;
 
+
+
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+
+import javax.swing.JEditorPane;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -33,9 +42,49 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "PythonScriptData")
-public class PythonScriptData
-    extends ActionData
+public class PythonScript
+    extends Action
 {
+	
+	    @Override
+		public String toString() {
+	    	if(this.getNAME() == null){
+	    		return "Script: " + this.getPy();
+	    	}
+			return "Script: " + this.getNAME();
+		}
+	    public DefaultMutableTreeNode getNode(){
+			DefaultMutableTreeNode node = new DefaultMutableTreeNode(this);
+		return node;
+		}
+
+	    public void run() {
+	    	coreGame.Game.currentGame.pythonController.exec(this.getPy());
+	    }
+	    /**
+	     * @wbp.parser.entryPoint
+	     */
+	    @Override
+	    public void addEditorPannel(JPanel panel) {
+	    	super.addEditorPannel(panel);
+	    	JPanel panel_1 = new JPanel();
+	    	panel.add(panel_1);
+	    	
+	    	JLabel script_lbl = new JLabel("Script:");
+	    	panel_1.add(script_lbl);
+	    	
+	    	JEditorPane editorPane = new JEditorPane();
+	    	editorPane.addFocusListener(new FocusAdapter() {
+	    		@Override
+	    		public void focusLost(FocusEvent e) {
+	    		}
+	    	});
+	    	panel_1.add(editorPane);
+	    
+	    }
+	    
+	
+	
 
     @XmlAttribute(name = "py")
     protected String py;

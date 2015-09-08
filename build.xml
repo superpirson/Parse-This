@@ -4,6 +4,7 @@
   <target name="CreateJar" description="Create Jar file">
 	<echo>Attempteing to make scema from java files</echo>	
   	<schemagen srcdir="./src/gameData" destdir="./src">
+  		 <schema file="gameData.xsd" />
 		</schemagen>
   	<echo>Finished XML Schema compileing!</echo>
   	<jar jarfile="Parse_This.jar" basedir="./bin">

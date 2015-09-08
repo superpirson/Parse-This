@@ -8,12 +8,22 @@
 
 package gameData;
 
+
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JPanel;
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+
+import coreGame.Game;
+
+
+
+
 
 
 /**
@@ -41,9 +51,48 @@ import javax.xml.bind.annotation.XmlType;
     "hidden",
     "keyword"
 })
-public class ChoiceData
-    extends ActionData
+public class Choice
+    extends Action
 {
+	
+	
+	
+	
+	
+	   @Override
+		public String toString() {
+	    	if(this.getNAME() == null){
+	    		return "Choice: " + this.getKeyword().get(0);
+	    	}
+			return "Choice: " + this.getNAME();
+		}
+
+	    public DefaultMutableTreeNode getNode(){
+			DefaultMutableTreeNode node = new DefaultMutableTreeNode(this);
+			for (Action actionData : this.getTransitionOrPythonScriptOrChoice()){
+				node.add(actionData.getLinkedGameObject().getNode());
+			}
+		return node;
+		}
+
+	    
+	    
+	    public void run() {
+	    	for(String s :this.getKeyword() ) {
+	    	Game.currentGame.gameWindow.addChoice(s,this.getTransitionOrPythonScriptOrChoice(), this.isHidden() );
+	        
+	    	}
+	        }
+	    /**
+	     * @wbp.parser.entryPoint
+	     */
+	    @Override
+	    public void addEditorPannel(JPanel panel) {
+			super.addEditorPannel(panel);
+			JPanel panel_1 = new JPanel();
+	    	panel.add(panel_1);
+		}
+
 
     protected boolean hidden;
     @XmlElement(required = true)

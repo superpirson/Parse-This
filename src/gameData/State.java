@@ -8,11 +8,17 @@
 
 package gameData;
 
-import gameObjects.State;
-
+import java.awt.FlowLayout;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -24,6 +30,8 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import coreGame.Game;
 
 
 /**
@@ -62,52 +70,81 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
     "titleText",
     "transitionOrIfTrueOrPythonScript"
 })
-public class StateData {
+public class State extends GameObject {
 
-    @XmlElement(required = true, type = Object.class)
-    protected State linkedGameObject;
+
+	private JTextField textField;
+
+
+	public void addEditorPannel(JPanel panel) {
+		
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JPanel panel_1 = new JPanel();
+		panel.add(panel_1);
+		Vector<String> keySet = new Vector<String>();
+		for (String s : Game.currentGame.actions.keySet()){
+		keySet.add(s);
+		}
+		
+		JPanel panel_2 = new JPanel();
+		panel_1.add(panel_2);
+		
+		JLabel lblActionRef = new JLabel("NAME:");
+		lblActionRef.setVerticalAlignment(SwingConstants.TOP);
+		panel_2.add(lblActionRef);
+		
+		textField = new JTextField();
+		textField.setColumns(20);
+		textField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				rename(textField.getText());
+			}
+		});
+		panel_2.add(textField);
+		//textField.setColumns(10);
+	}
+	
+protected void rename(String text) {
+		// TODO Auto-generated method stub
+		
+	}
+@Override
+	public String toString() {
+    	if(this.getNAME() == null && this.getTitleText()!= null){
+    		return this.getTitleText();
+    	}
+		return  this.getNAME();
+ }
+
+public void runActions() {
+	for (Action actionData :  this.getTransitionOrIfTrueOrPythonScript()) {
+		actionData.getLinkedGameObject().run();	
+	}
+}
+	
+	
+	
     @XmlElement(required = true)
     protected String text;
     @XmlElement(required = true)
     protected String titleText;
     @XmlElements({
-        @XmlElement(name = "transition", type = TransitionData.class),
-        @XmlElement(name = "ifTrue", type = IfTrueData.class),
-        @XmlElement(name = "pythonScript", type = PythonScriptData.class),
-        @XmlElement(name = "choice", type = ChoiceData.class),
+        @XmlElement(name = "transition", type = Transition.class),
+        @XmlElement(name = "ifTrue", type = IfTrue.class),
+        @XmlElement(name = "pythonScript", type = PythonScript.class),
+        @XmlElement(name = "choice", type = Choice.class),
         @XmlElement(name = "action")
     })
-    protected List<ActionData> transitionOrIfTrueOrPythonScript;
+    protected List<Action> transitionOrIfTrueOrPythonScript;
     @XmlAttribute(name = "NAME", required = true)
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     @XmlID
     @XmlSchemaType(name = "ID")
     protected String name;
 
-    /**
-     * Gets the value of the linkedGameObject property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Object }
-     *     
-     */
-    public State getLinkedGameObject() {
-        return linkedGameObject;
-    }
-
-    /**
-     * Sets the value of the linkedGameObject property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Object }
-     *     
-     */
-    public void setLinkedGameObject(State value) {
-        this.linkedGameObject = value;
-    }
-
+   
     /**
      * Gets the value of the text property.
      * 
@@ -174,17 +211,17 @@ public class StateData {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link TransitionData }
-     * {@link IfTrueData }
-     * {@link PythonScriptData }
-     * {@link ChoiceData }
+     * {@link Transition }
+     * {@link IfTrue }
+     * {@link PythonScript }
+     * {@link Choice }
      * {@link ActionData }
      * 
      * 
      */
-    public List<ActionData> getTransitionOrIfTrueOrPythonScript() {
+    public List<Action> getTransitionOrIfTrueOrPythonScript() {
         if (transitionOrIfTrueOrPythonScript == null) {
-            transitionOrIfTrueOrPythonScript = new ArrayList<ActionData>();
+            transitionOrIfTrueOrPythonScript = new ArrayList<Action>();
         }
         return this.transitionOrIfTrueOrPythonScript;
     }

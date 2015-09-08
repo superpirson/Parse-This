@@ -8,26 +8,27 @@
 
 package gameData;
 
+import javax.swing.JTextField;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for TransitionData complex type.
+ * <p>Java class for LinkData complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="TransitionData">
+ * &lt;complexType name="LinkData">
  *   &lt;complexContent>
  *     &lt;extension base="{}ActionData">
  *       &lt;sequence>
- *         &lt;element name="state" type="{http://www.w3.org/2001/XMLSchema}IDREF"/>
  *       &lt;/sequence>
+ *       &lt;attribute name="ref" type="{http://www.w3.org/2001/XMLSchema}IDREF" />
  *     &lt;/extension>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -36,40 +37,58 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TransitionData", propOrder = {
-    "state"
-})
-public class TransitionData
-    extends ActionData
+@XmlType(name = "LinkData")
+public class Link
+    extends gameData.Action
 {
 
-    @XmlElement(required = true, type = Object.class)
+	private JTextField textField;
+
+    public void run() {
+
+    	System.err.println("ERROR! action " + getNAME()+ " exicuted unimplemented run method");
+    }
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    @XmlAttribute(name = "ref")
     @XmlIDREF
     @XmlSchemaType(name = "IDREF")
-    protected StateData state;
+    protected Action ref;
 
     /**
-     * Gets the value of the state property.
+     * Gets the value of the ref property.
      * 
      * @return
      *     possible object is
      *     {@link Object }
      *     
      */
-    public StateData getState() {
-        return state;
+    public Action getRef() {
+        return ref;
     }
 
     /**
-     * Sets the value of the state property.
+     * Sets the value of the ref property.
      * 
      * @param value
      *     allowed object is
      *     {@link Object }
      *     
      */
-    public void setState(StateData value) {
-        this.state = value;
+    public void setRef(Action value) {
+        this.ref = value;
     }
 
 }
