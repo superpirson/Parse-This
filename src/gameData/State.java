@@ -67,7 +67,6 @@ import coreGame.Game;
 @XmlType(name = "StateData", propOrder = {
     "text",
     "titleText",
-    "transitionOrIfTrueOrPythonScript"
 })
 public class State extends GameObject {
 
@@ -82,7 +81,7 @@ public class State extends GameObject {
 		JPanel panel_1 = new JPanel();
 		panel.add(panel_1);
 		Vector<String> keySet = new Vector<String>();
-		for (String s : Game.currentGame.actions.keySet()){
+		for (String s : Game.currentGame.gameObjects.keySet()){
 		keySet.add(s);
 		}
 		
@@ -104,11 +103,7 @@ public class State extends GameObject {
 		panel_2.add(textField);
 		//textField.setColumns(10);
 	}
-	
-protected void rename(String text) {
-		// TODO Auto-generated method stub
-		
-	}
+
 @Override
 	public String toString() {
     	if(this.getNAME() == null && this.getTitleText()!= null){
@@ -118,8 +113,10 @@ protected void rename(String text) {
  }
 
 public void runActions() {
-	for (Action actionData :  this.getTransitionOrIfTrueOrPythonScript()) {
-		actionData.run();	
+	for (GameObject actionData :  this.getChildren()) {
+		if (actionData instanceof Action){
+		((Action)actionData).run();	
+		}
 	}
 }
 	
@@ -129,14 +126,7 @@ public void runActions() {
     protected String text;
     @XmlElement(required = true)
     protected String titleText;
-    @XmlElements({
-        @XmlElement(name = "transition", type = Transition.class),
-        @XmlElement(name = "ifTrue", type = IfTrue.class),
-        @XmlElement(name = "pythonScript", type = PythonScript.class),
-        @XmlElement(name = "choice", type = Choice.class),
-        @XmlElement(name = "action")
-    })
-    protected List<Action> transitionOrIfTrueOrPythonScript;
+    
     @XmlAttribute(name = "NAME", required = true)
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     @XmlID
@@ -191,40 +181,6 @@ public void runActions() {
     public void setTitleText(String value) {
         this.titleText = value;
     }
-
-    /**
-     * Gets the value of the transitionOrIfTrueOrPythonScript property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the transitionOrIfTrueOrPythonScript property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getTransitionOrIfTrueOrPythonScript().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Transition }
-     * {@link IfTrue }
-     * {@link PythonScript }
-     * {@link Choice }
-     * {@link ActionData }
-     * 
-     * 
-     */
-    public List<Action> getTransitionOrIfTrueOrPythonScript() {
-        if (transitionOrIfTrueOrPythonScript == null) {
-            transitionOrIfTrueOrPythonScript = new ArrayList<Action>();
-        }
-        return this.transitionOrIfTrueOrPythonScript;
-    }
-
     /**
      * Gets the value of the name property.
      * 

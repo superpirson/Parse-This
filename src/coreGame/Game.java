@@ -21,7 +21,7 @@ import javax.xml.bind.*;
 
 
 public class Game {
-	public TreeMap<String, Action> actions =  new TreeMap<String, Action>();
+	public TreeMap<String, GameObject> gameObjects =  new TreeMap<String, GameObject>();
 	public GameWindow gameWindow;
 	public static Game currentGame;
 	 public PythonController pythonController = new PythonController();
@@ -83,29 +83,29 @@ public class Game {
 	public  List<State> getAllStates(){
 		return this.mainGameData.getState();
 	}
-	public boolean regesterAction(String name, Action action) {
-		if (!actions.containsKey(name)){
-		actions.put(name, action);
+	public boolean regesterGameObject(String name, GameObject gameObject) {
+		if (!gameObjects.containsKey(name)){
+		gameObjects.put(name, gameObject);
 		return true;
 		}
 		System.out.println("tried to add action named " + name + " but found it was allready taken in the names list");
 		return false;
 		
 	}
-	public boolean unregesterAction(String name){
-		if (! this.actions.containsKey(name)){
+	public boolean unregesterGameObject(String name){
+		if (! this.gameObjects.containsKey(name)){
 			return false;
 		}
-		this.actions.remove(name);
+		this.gameObjects.remove(name);
 		return true;
 	}
-	public boolean renameAction(String oldName, String newName){
-		Action action = this.actions.get(oldName);
-		this.unregesterAction(oldName);
-		if (this.regesterAction(newName, action)){
+	public boolean renameGameObject(String oldName, String newName){
+		GameObject gameObject = this.gameObjects.get(oldName);
+		this.unregesterGameObject(oldName);
+		if (this.regesterGameObject(newName, gameObject)){
 			return true;
 		}
-		this.regesterAction(oldName, action);
+		this.regesterGameObject(oldName, gameObject);
 		return false;
 	}
 }

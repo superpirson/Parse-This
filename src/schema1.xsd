@@ -3,30 +3,31 @@
 
   <xs:element name="mainGame" type="MainGameData"/>
 
-  <xs:complexType name="Action">
+  <xs:complexType name="action">
     <xs:complexContent>
       <xs:extension base="gameObject">
-        <xs:sequence>
-          <xs:choice minOccurs="0" maxOccurs="unbounded">
-            <xs:element name="transition" type="TransitionData"/>
-            <xs:element name="pythonScript" type="PythonScriptData"/>
-            <xs:element name="choice" type="ChoiceData"/>
-            <xs:element name="ifTrue" type="IfTrueData"/>
-            <xs:element name="action" type="Action"/>
-          </xs:choice>
-        </xs:sequence>
-        <xs:attribute name="NAME" type="xs:ID"/>
+        <xs:sequence/>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
 
   <xs:complexType name="gameObject">
-    <xs:sequence/>
+    <xs:sequence>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="transition" type="TransitionData"/>
+        <xs:element name="pythonScript" type="PythonScriptData"/>
+        <xs:element name="choice" type="ChoiceData"/>
+        <xs:element name="ifTrue" type="IfTrueData"/>
+        <xs:element name="action" type="gameObject"/>
+      </xs:choice>
+      <xs:element name="NAME" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="NAME" type="xs:ID"/>
   </xs:complexType>
 
   <xs:complexType name="TransitionData">
     <xs:complexContent>
-      <xs:extension base="Action">
+      <xs:extension base="action">
         <xs:sequence>
           <xs:element name="state" type="xs:IDREF"/>
         </xs:sequence>
@@ -36,7 +37,7 @@
 
   <xs:complexType name="PythonScriptData">
     <xs:complexContent>
-      <xs:extension base="Action">
+      <xs:extension base="action">
         <xs:sequence/>
         <xs:attribute name="py" type="xs:string"/>
       </xs:extension>
@@ -45,7 +46,7 @@
 
   <xs:complexType name="ChoiceData">
     <xs:complexContent>
-      <xs:extension base="Action">
+      <xs:extension base="action">
         <xs:sequence>
           <xs:element name="hidden" type="xs:boolean"/>
           <xs:element name="keyword" type="xs:string" maxOccurs="unbounded"/>
@@ -56,7 +57,7 @@
 
   <xs:complexType name="IfTrueData">
     <xs:complexContent>
-      <xs:extension base="Action">
+      <xs:extension base="action">
         <xs:sequence/>
         <xs:attribute name="py" type="xs:string"/>
       </xs:extension>
@@ -65,7 +66,7 @@
 
   <xs:complexType name="LinkData">
     <xs:complexContent>
-      <xs:extension base="Action">
+      <xs:extension base="action">
         <xs:sequence/>
         <xs:attribute name="ref" type="xs:IDREF"/>
       </xs:extension>
@@ -88,13 +89,6 @@
         <xs:sequence>
           <xs:element name="text" type="xs:string"/>
           <xs:element name="titleText" type="xs:string"/>
-          <xs:choice minOccurs="0" maxOccurs="unbounded">
-            <xs:element name="transition" type="TransitionData"/>
-            <xs:element name="ifTrue" type="IfTrueData"/>
-            <xs:element name="pythonScript" type="PythonScriptData"/>
-            <xs:element name="choice" type="ChoiceData"/>
-            <xs:element name="action" type="Action"/>
-          </xs:choice>
         </xs:sequence>
         <xs:attribute name="NAME" type="xs:ID" use="required"/>
       </xs:extension>

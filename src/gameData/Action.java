@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Vector;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -63,10 +64,6 @@ import coreGame.Game;
  * 
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Action", propOrder = {
-    "transitionOrPythonScriptOrChoice"
-})
 @XmlSeeAlso({
     IfTrue.class,
     Link.class,
@@ -76,126 +73,9 @@ import coreGame.Game;
 })
 public class Action extends GameObject {
 
-	  @XmlTransient private JTextField textField;
-    
 	
 	
     public void run() {
-
     	System.err.println("ERROR! action " + this.getNAME()+ " exicuted unimplemented run method");
     }
-	/**
-	 * @wbp.parser.entryPoint
-	 */
-	public void addEditorPannel(JPanel panel) {
-		
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		JPanel panel_1 = new JPanel();
-		panel.add(panel_1);
-		Vector<String> keySet = new Vector<String>();
-		for (String s : Game.currentGame.actions.keySet()){
-		keySet.add(s);
-		}
-		
-		JPanel panel_2 = new JPanel();
-		panel_1.add(panel_2);
-		
-		JLabel lblActionRef = new JLabel("NAME:");
-		lblActionRef.setVerticalAlignment(SwingConstants.TOP);
-		panel_2.add(lblActionRef);
-		
-		textField = new JTextField();
-		textField.setColumns(20);
-		textField.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent e) {
-				rename(textField.getText());
-			}
-		});
-		panel_2.add(textField);
-		//textField.setColumns(10);
-	}
-	public boolean rename(String newName){
-		if (!Game.currentGame.renameAction(this.getNAME(), newName)){
-			System.err.println("ERROR: tried to rename " + this.getNAME() + " TO: " + newName + " and found it taken!");
-			return false;
-		}
-		this.setNAME(newName);
-		return true;
-	}
-
-
-	
-    @XmlElements({
-        @XmlElement(name = "transition", type = Transition.class),
-        @XmlElement(name = "pythonScript", type = PythonScript.class),
-        @XmlElement(name = "choice", type = Choice.class),
-        @XmlElement(name = "ifTrue", type = IfTrue.class),
-        @XmlElement(name = "action")
-    })
-    protected List<Action> transitionOrPythonScriptOrChoice;
-    @XmlAttribute(name = "NAME")
-    @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
-    @XmlID
-    @XmlSchemaType(name = "ID")
-    protected String name;    
-
-    /**
-     * Gets the value of the transitionOrPythonScriptOrChoice property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the transitionOrPythonScriptOrChoice property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getTransitionOrPythonScriptOrChoice().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Transition }
-     * {@link PythonScript }
-     * {@link Choice }
-     * {@link IfTrue }
-     * {@link Action }
-     * 
-     * 
-     */
-    public List<Action> getTransitionOrPythonScriptOrChoice() {
-        if (transitionOrPythonScriptOrChoice == null) {
-            transitionOrPythonScriptOrChoice = new ArrayList<Action>();
-        }
-        return this.transitionOrPythonScriptOrChoice;
-    }
-
-    /**
-     * Gets the value of the name property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getNAME() {
-        return name;
-    }
-
-    /**
-     * Sets the value of the name property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setNAME(String value) {
-        this.name = value;
-    }
-
 }

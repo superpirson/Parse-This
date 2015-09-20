@@ -1,6 +1,7 @@
 package coreGame;
 
 import gameData.Action;
+import gameData.GameObject;
 import gameData.State;
 
 import javax.swing.JFrame;
@@ -22,7 +23,7 @@ public class GameWindow {
 	private State currentState; 
 	public JFrame frame;
 	private JTextPane textPane;
-	ConcurrentHashMap<String,List<Action>> hashMap = new ConcurrentHashMap<String, List<Action>>();
+	ConcurrentHashMap<String,List<GameObject>> hashMap = new ConcurrentHashMap<String, List<GameObject>>();
 	private JComboBox<String> comboBox;
 	private JButton btnGo;
 	public PythonInterpreter pyInterpreter = null;
@@ -65,9 +66,9 @@ public class GameWindow {
 		 			System.err.println("ERR! Combobox has no selected targit!");
 		 			return;
 		 		}
-		 		for (Action action : hashMap.get(comboBox.getSelectedItem())){
-		 		if (action != null) {
-		 		action.run();
+		 		for (GameObject action : hashMap.get(comboBox.getSelectedItem())){
+		 		if (action != null &&  action instanceof Action) {
+		 		((Action)action).run();
 		 		}
 		 	} 
 		 	}});
@@ -87,7 +88,7 @@ public class GameWindow {
 		frame.setTitle(currentState.getTitleText());
 		currentState.runActions();
 	}
-	public void addChoice(String text, List<Action> list, Boolean isHidden ) {
+	public void addChoice(String text, List<GameObject> list, Boolean isHidden ) {
 		System.out.println("regetering choice " + text);
 		hashMap.put(text, list);
 		if (!isHidden) {
@@ -96,10 +97,10 @@ public class GameWindow {
 		
 	}
 
-	public void addChoice(String text, List<Action> transitionOrPythonScriptOrChoice, boolean isHidden) {
+	public void addChoice(String text, List<Action> actionList, boolean isHidden) {
 		System.out.println("regetering choice " + text);
-		List<Action> newList = new ArrayList<Action>();
-		for(Action actionData :transitionOrPythonScriptOrChoice ){
+		List<GameObject> newList = new ArrayList<GameObject>();
+		for(Action actionData :actionList){
 			newList.add(actionData);
 		}
 		hashMap.put(text, newList);

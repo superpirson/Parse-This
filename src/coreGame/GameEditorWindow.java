@@ -80,7 +80,8 @@ public class GameEditorWindow extends GameWindow {
 		 			GameObject editable = (GameObject) node.getUserObject();
 		 		editorPannel.removeAll();
 		 		editable.addEditorPannel(editorPannel);
-		 		editorPannel.validate();
+		 		editorPannel.revalidate();
+		 		editorPannel.repaint();
 		 		System.err.println("we are editing " + editable.getClass().getName());
 		 		}
 		 		else{
@@ -159,8 +160,8 @@ public class GameEditorWindow extends GameWindow {
 				 		{	
 				 			for (State state : Game.currentGame.mainGameData.getState()){
 				 				DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(state);
-				 				for (Action actionData : state.getTransitionOrIfTrueOrPythonScript()){
-				 					newNode.add(actionData.getNode());
+				 				for (GameObject object : state.getChildren()){
+				 					newNode.add(object.getNode());
 				 				}	
 				 				add(newNode);
 				 			}

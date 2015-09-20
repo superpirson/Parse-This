@@ -69,7 +69,7 @@ public class Choice
 
 	    public DefaultMutableTreeNode getNode(){
 			DefaultMutableTreeNode node = new DefaultMutableTreeNode(this);
-			for (Action actionData : this.getTransitionOrPythonScriptOrChoice()){
+			for (GameObject actionData : this.getChildren()){
 				node.add(actionData.getNode());
 			}
 		return node;
@@ -79,7 +79,7 @@ public class Choice
 	    
 	    public void run() {
 	    	for(String s :this.getKeyword() ) {
-	    	Game.currentGame.gameWindow.addChoice(s,this.getTransitionOrPythonScriptOrChoice(), this.isHidden() );
+	    	Game.currentGame.gameWindow.addChoice(s,this.getChildren(), this.isHidden() );
 	        
 	    	}
 	        }
