@@ -1,10 +1,13 @@
 package coreGame;
 
+import gameData.Action;
+import gameData.State;
+
 import javax.swing.JFrame;
 import javax.swing.JTextPane;
-
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -12,10 +15,6 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.python.util.PythonInterpreter;
-
-import gameData.ActionData;
-import gameObjects.Action;
-import gameObjects.State;
 
 import javax.swing.SpringLayout;
 
@@ -84,8 +83,8 @@ public class GameWindow {
 	private void guiUpdate(){
 		hashMap.clear();
 		comboBox.removeAllItems();
-		textPane.setText(currentState.getStateData().getText());
-		frame.setTitle(currentState.getStateData().getTitleText());
+		textPane.setText(currentState.getText());
+		frame.setTitle(currentState.getTitleText());
 		currentState.runActions();
 	}
 	public void addChoice(String text, List<Action> list, Boolean isHidden ) {
@@ -97,11 +96,11 @@ public class GameWindow {
 		
 	}
 
-	public void addChoice(String text, List<ActionData> transitionOrPythonScriptOrChoice, boolean isHidden) {
+	public void addChoice(String text, List<Action> transitionOrPythonScriptOrChoice, boolean isHidden) {
 		System.out.println("regetering choice " + text);
 		List<Action> newList = new ArrayList<Action>();
-		for(ActionData actionData :transitionOrPythonScriptOrChoice ){
-			newList.add(actionData.getLinkedGameObject());
+		for(Action actionData :transitionOrPythonScriptOrChoice ){
+			newList.add(actionData);
 		}
 		hashMap.put(text, newList);
 		if (!isHidden) {

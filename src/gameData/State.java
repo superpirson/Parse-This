@@ -27,6 +27,7 @@ import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -44,7 +45,6 @@ import coreGame.Game;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="linkedGameObject" type="{http://www.w3.org/2001/XMLSchema}IDREF"/>
  *         &lt;element name="text" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="titleText" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;choice maxOccurs="unbounded">
@@ -65,7 +65,6 @@ import coreGame.Game;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "StateData", propOrder = {
-    "linkedGameObject",
     "text",
     "titleText",
     "transitionOrIfTrueOrPythonScript"
@@ -73,7 +72,7 @@ import coreGame.Game;
 public class State extends GameObject {
 
 
-	private JTextField textField;
+	  @XmlTransient private JTextField textField;
 
 
 	public void addEditorPannel(JPanel panel) {
@@ -120,7 +119,7 @@ protected void rename(String text) {
 
 public void runActions() {
 	for (Action actionData :  this.getTransitionOrIfTrueOrPythonScript()) {
-		actionData.getLinkedGameObject().run();	
+		actionData.run();	
 	}
 }
 	

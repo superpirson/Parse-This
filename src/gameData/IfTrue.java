@@ -57,7 +57,7 @@ public class IfTrue
     public DefaultMutableTreeNode getNode(){
 		DefaultMutableTreeNode node = new DefaultMutableTreeNode(this);
 		for (Action actionData : this.getTransitionOrPythonScriptOrChoice()){
-			node.add(actionData.getLinkedGameObject().getNode());
+			node.add(actionData.getNode());
 		}
 	return node;
 	}
@@ -65,7 +65,7 @@ public class IfTrue
 	public void run() {
 		if( Game.currentGame.pythonController.eval(this.getPy()).__nonzero__()){
 		for (Action actionData : this.getTransitionOrPythonScriptOrChoice()) {
-			actionData.getLinkedGameObject().run();
+			actionData.run();
 	}
 		}}
 	   /**

@@ -29,6 +29,7 @@ import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -46,8 +47,7 @@ import coreGame.Game;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="linkedGameObject" type="{http://www.w3.org/2001/XMLSchema}IDREF"/>
- *         &lt;choice maxOccurs="unbounded">
+ *           &lt;choice maxOccurs="unbounded">
  *           &lt;element name="transition" type="{}TransitionData"/>
  *           &lt;element name="pythonScript" type="{}PythonScriptData"/>
  *           &lt;element name="choice" type="{}ChoiceData"/>
@@ -65,7 +65,6 @@ import coreGame.Game;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Action", propOrder = {
-    "linkedGameObject",
     "transitionOrPythonScriptOrChoice"
 })
 @XmlSeeAlso({
@@ -77,7 +76,7 @@ import coreGame.Game;
 })
 public class Action extends GameObject {
 
-	private JTextField textField;
+	  @XmlTransient private JTextField textField;
     
 	
 	
@@ -128,34 +127,6 @@ public class Action extends GameObject {
 
 
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	@XmlElement(required = true, type = Object.class)
-    protected Action linkedGameObject;
     @XmlElements({
         @XmlElement(name = "transition", type = Transition.class),
         @XmlElement(name = "pythonScript", type = PythonScript.class),
@@ -169,29 +140,6 @@ public class Action extends GameObject {
     @XmlID
     @XmlSchemaType(name = "ID")
     protected String name;    
-    /**
-     * Gets the value of the linkedGameObject property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Object }
-     *     
-     */
-    public Action getLinkedGameObject() {
-        return linkedGameObject;
-    }
-
-    /**
-     * Sets the value of the linkedGameObject property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Object }
-     *     
-     */
-    public void setLinkedGameObject(Action value) {
-        this.linkedGameObject = value;
-    }
 
     /**
      * Gets the value of the transitionOrPythonScriptOrChoice property.

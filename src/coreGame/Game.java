@@ -16,9 +16,6 @@ import org.python.core.PyObject;
 import org.python.util.PythonInterpreter;
 
 import gameData.*;
-import gameObjects.Action;
-import gameObjects.State;
-
 import javax.swing.JFileChooser;
 import javax.xml.bind.*;
 
@@ -49,7 +46,7 @@ public class Game {
 			currentGame.gameWindow = new GameWindow();
 			}
 			out.println("Game window constructed. ");
-			currentGame.gameWindow.goToState(currentGame.mainGameData.getStartingState().getLinkedGameObject());
+			currentGame.gameWindow.goToState(currentGame.mainGameData.getStartingState());
 			
 	}
 	public void loadGame( ) {
@@ -68,8 +65,7 @@ public class Game {
 	try {
 		jc = JAXBContext.newInstance( "gameData" );
     	       Unmarshaller u = jc.createUnmarshaller();
-    	       JAXBElement<?> element = (JAXBElement<?>) u.unmarshal (selectedFile);
-    	       mainGameData = (MainGame) (JAXBIntrospector.getValue(element));
+    	       mainGameData = (MainGame) u.unmarshal (selectedFile);
     	       out.println("Main Game Data loaded: \n" + mainGameData);
 	} catch (JAXBException e) {
 		e.printStackTrace();

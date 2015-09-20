@@ -14,6 +14,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -42,7 +43,7 @@ public class Link
     extends gameData.Action
 {
 
-	private JTextField textField;
+	  @XmlTransient private JTextField textField;
 
     public void run() {
 

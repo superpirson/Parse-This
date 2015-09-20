@@ -70,7 +70,7 @@ public class Choice
 	    public DefaultMutableTreeNode getNode(){
 			DefaultMutableTreeNode node = new DefaultMutableTreeNode(this);
 			for (Action actionData : this.getTransitionOrPythonScriptOrChoice()){
-				node.add(actionData.getLinkedGameObject().getNode());
+				node.add(actionData.getNode());
 			}
 		return node;
 		}
