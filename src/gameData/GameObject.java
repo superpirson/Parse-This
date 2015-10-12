@@ -30,7 +30,7 @@ import coreGame.Game;
 public class GameObject {
 
 
-	  @XmlTransient private JTextField textField;
+	  @XmlTransient private JTextField nameField;
   
 	
 	public MutableTreeNode getNode() {
@@ -57,30 +57,23 @@ public void addEditorPannel(final JPanel panel) {
 		lblGameObjectRef.setVerticalAlignment(SwingConstants.TOP);
 		panel_2.add(lblGameObjectRef);
 		
-		textField = new JTextField();
-		textField.setColumns(20);
-		textField.addFocusListener(new FocusAdapter() {
+		nameField = new JTextField();
+		nameField.setColumns(20);
+		nameField.setText(this.getNAME());
+		nameField.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
-				if (textField.getText() == null || textField.getText().isEmpty()){
+				if (nameField.getText() == null || nameField.getText().isEmpty()){
 					return;
 			}
-				if (!rename(textField.getText())) {
+				if (!setNAME(nameField.getText())) {
 					JOptionPane.showMessageDialog(panel, "Name allready taken.");
-					textField.setText(getNAME());
+					nameField.setText(getNAME());
 				}
 			}
 		});
-		panel_2.add(textField);
+		panel_2.add(nameField);
 		//textField.setColumns(10);
-	}
-	public boolean rename(String newName){
-		if (!Game.currentGame.renameGameObject(this.getNAME(), newName)){
-			System.err.println("ERROR: tried to rename " + this.getNAME() + " TO: " + newName + " and found it taken!");
-			return false;
-		}
-		this.setNAME(newName);
-		return true;
 	}
 
 
@@ -153,7 +146,23 @@ public void addEditorPannel(final JPanel panel) {
      *     {@link String }
      *     
      */
-    public void setNAME(String value) {
-        this.name = value;
+    public boolean setNAME(String value) {
+    	if (this.name == null|| this.name.isEmpty()  ){
+            this.name = value;
+            return Game.currentGame.regesterGameObject(value, this);
+    	}
+    	if (value == null|| value.isEmpty()  ){
+            
+            boolean result= Game.currentGame.unregesterGameObject(this.getNAME());
+            this.name = null;
+            return result;
+    	}
+		if (!Game.currentGame.renameGameObject(this.getNAME(), value)){
+			System.err.println("ERROR: tried to rename " + this.getNAME() + " TO: " + value + " and found it taken!");
+			return false;
+		}
+		this.name = value;
+		return true;
+
 }
 }

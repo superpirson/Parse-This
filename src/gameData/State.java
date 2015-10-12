@@ -70,40 +70,6 @@ import coreGame.Game;
 })
 public class State extends GameObject {
 
-
-	  @XmlTransient private JTextField textField;
-
-
-	public void addEditorPannel(JPanel panel) {
-		
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		JPanel panel_1 = new JPanel();
-		panel.add(panel_1);
-		Vector<String> keySet = new Vector<String>();
-		for (String s : Game.currentGame.gameObjects.keySet()){
-		keySet.add(s);
-		}
-		
-		JPanel panel_2 = new JPanel();
-		panel_1.add(panel_2);
-		
-		JLabel lblActionRef = new JLabel("NAME:");
-		lblActionRef.setVerticalAlignment(SwingConstants.TOP);
-		panel_2.add(lblActionRef);
-		
-		textField = new JTextField();
-		textField.setColumns(20);
-		textField.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent e) {
-				rename(textField.getText());
-			}
-		});
-		panel_2.add(textField);
-		//textField.setColumns(10);
-	}
-
 @Override
 	public String toString() {
     	if(this.getNAME() == null && this.getTitleText()!= null){
@@ -189,20 +155,5 @@ public void runActions() {
      *     {@link String }
      *     
      */
-    public String getNAME() {
-        return name;
-    }
-
-    /**
-     * Sets the value of the name property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setNAME(String value) {
-        this.name = value;
-    }
 
 }
