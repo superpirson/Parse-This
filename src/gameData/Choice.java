@@ -10,6 +10,7 @@ package gameData;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -20,6 +21,19 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 import coreGame.Game;
+
+import javax.swing.JTextPane;
+import javax.swing.JScrollPane;
+import javax.swing.JList;
+
+import java.awt.BorderLayout;
+
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
+
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 
 
@@ -54,10 +68,10 @@ import coreGame.Game;
 public class Choice
     extends Action
 {
-	
-	
-	
-	
+
+    protected boolean hidden;
+    @XmlElement(required = true)
+    protected List<String> keyword;
 	
 	   @Override
 		public String toString() {
@@ -91,12 +105,29 @@ public class Choice
 			super.addEditorPannel(panel);
 			JPanel panel_1 = new JPanel();
 	    	panel.add(panel_1);
+	    	panel_1.setLayout(new BorderLayout(0, 0));
+	    	
+	    	JScrollPane keywordsScrollPane = new JScrollPane();
+	    	panel_1.add(keywordsScrollPane);
+	    	
+	    	final JTextPane keywordListTextBox = new JTextPane();
+	    	keywordListTextBox.addFocusListener(new FocusAdapter() {
+	    		@Override
+	    		public void focusLost(FocusEvent e) {
+	    		List<String>  list = Arrays.asList(keywordListTextBox.getText().split("\\s*,+\\s*")) ;
+	    		
+	    		setKeyword(list);
+	    		}
+	    	});
+	    	for (String s : this.keyword){
+	    		
+	    		keywordListTextBox.setText(keywordListTextBox.getText() + ", " + s);
+	    	}
+	    	
+	    	
+	    	keywordsScrollPane.setViewportView(keywordListTextBox);
 		}
 
-
-    protected boolean hidden;
-    @XmlElement(required = true)
-    protected List<String> keyword;
 
     /**
      * Gets the value of the hidden property.
@@ -142,5 +173,9 @@ public class Choice
         }
         return this.keyword;
     }
+
+	public void setKeyword(List<String> keyword) {
+		this.keyword = keyword;
+	}
 
 }

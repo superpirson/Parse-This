@@ -19,6 +19,22 @@ import javax.xml.bind.annotation.XmlType;
 
 import coreGame.Game;
 
+import javax.swing.JPopupMenu;
+
+import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JLabel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerListModel;
+import javax.swing.JComboBox;
+import java.awt.BorderLayout;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+
 
 /**
  * <p>Java class for TransitionData complex type.
@@ -64,11 +80,32 @@ public void run() {
     
     Game.currentGame.gameWindow.goToState( this.getState());
 }
+/**
+ * @wbp.parser.entryPoint
+ */
 @Override
 public void addEditorPannel(JPanel panel) {
 	super.addEditorPannel(panel);
 	JPanel panel_1 = new JPanel();
 	panel.add(panel_1);
+	panel_1.setLayout(new BorderLayout(0, 0));
+	
+	JLabel lblSt = new JLabel("Target State:");
+	panel_1.add(lblSt, BorderLayout.WEST);
+	
+	final JComboBox<State> comboBox = new JComboBox();
+	comboBox.addFocusListener(new FocusAdapter() {
+		@Override
+		public void focusLost(FocusEvent e) {
+			if (comboBox.getSelectedItem()!= null){
+				setState((State)comboBox.getSelectedItem());
+				
+			}
+		}
+	});
+	comboBox.setModel(new DefaultComboBoxModel(Game.currentGame.getAllStates().toArray()));
+	comboBox.setSelectedItem(this.getState());
+	panel_1.add(comboBox, BorderLayout.CENTER);
 }
 
 	
@@ -105,5 +142,6 @@ public void addEditorPannel(JPanel panel) {
     public void setState(State value) {
         this.state = value;
     }
+
 
 }
