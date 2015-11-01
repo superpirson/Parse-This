@@ -5,7 +5,6 @@
 // Generated on: 2015.08.25 at 02:30:40 PM EDT 
 //
 
-
 package gameData;
 
 import java.awt.FlowLayout;
@@ -16,6 +15,7 @@ import java.util.List;
 import java.util.Vector;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -34,11 +34,13 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import coreGame.Game;
 
-
 /**
- * <p>Java class for StateData complex type.
+ * <p>
+ * Java class for StateData complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="StateData">
@@ -64,96 +66,124 @@ import coreGame.Game;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "StateData", propOrder = {
-    "text",
-    "titleText",
-})
+@XmlType(name = "StateData", propOrder = { "text", "titleText", })
 public class State extends GameObject {
 
-@Override
-	public String toString() {
-    	if(this.getNAME() == null && this.getTitleText()!= null){
-    		return this.getTitleText();
-    	}
-		return  this.getNAME();
- }
+	@XmlTransient
+	protected JTextField nameField;
 
-public void runActions() {
-	for (GameObject actionData :  this.getChildren()) {
-		if (actionData instanceof Action){
-		((Action)actionData).run();	
+	@Override
+	public String toString() {
+		if (this.getNAME() == null && this.getTitleText() != null) {
+			return this.getTitleText();
+		}
+		return this.getNAME();
+	}
+
+	public void runActions() {
+		for (GameObject actionData : this.getChildren()) {
+			if (actionData instanceof Action) {
+				((Action) actionData).run();
+			}
 		}
 	}
-}
-	
-	
-	
-    @XmlElement(required = true)
-    protected String text;
-    @XmlElement(required = true)
-    protected String titleText;
-    
-    @XmlAttribute(name = "NAME", required = true)
-    @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
-    @XmlID
-    @XmlSchemaType(name = "ID")
-    protected String name;
 
-   
-    /**
-     * Gets the value of the text property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getText() {
-        return text;
-    }
+	public void addEditorPannel(final JPanel panel) {
 
-    /**
-     * Sets the value of the text property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setText(String value) {
-        this.text = value;
-    }
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-    /**
-     * Gets the value of the titleText property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getTitleText() {
-        return titleText;
-    }
+		JPanel panel_1 = new JPanel();
+		panel.add(panel_1);
+		Vector<String> keySet = new Vector<String>();
+		for (String s : Game.currentGame.gameObjects.keySet()) {
+			keySet.add(s);
+		}
 
-    /**
-     * Sets the value of the titleText property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setTitleText(String value) {
-        this.titleText = value;
-    }
-    /**
-     * Gets the value of the name property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+		JPanel panel_2 = new JPanel();
+		panel_1.add(panel_2);
+
+		JLabel lblGameObjectRef = new JLabel("NAME:");
+		lblGameObjectRef.setVerticalAlignment(SwingConstants.TOP);
+		panel_2.add(lblGameObjectRef);
+
+		nameField = new JTextField();
+		nameField.setColumns(20);
+		nameField.setText(this.getNAME());
+		nameField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				if (nameField.getText() == null
+						|| nameField.getText().isEmpty()) {
+					return;
+				}
+				if (!setNAME(nameField.getText())) {
+					JOptionPane
+							.showMessageDialog(panel, "Name allready taken.");
+					nameField.setText(getNAME());
+				}
+			}
+		});
+		panel_2.add(nameField);
+		// textField.setColumns(10);
+	}
+
+	@XmlElement(required = true)
+	protected String text;
+	@XmlElement(required = true)
+	protected String titleText;
+
+	@XmlAttribute(name = "NAME", required = true)
+	@XmlJavaTypeAdapter(CollapsedStringAdapter.class)
+	@XmlID
+	@XmlSchemaType(name = "ID")
+	protected String name;
+
+	/**
+	 * Gets the value of the text property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getText() {
+		return text;
+	}
+
+	/**
+	 * Sets the value of the text property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setText(String value) {
+		this.text = value;
+	}
+
+	/**
+	 * Gets the value of the titleText property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getTitleText() {
+		return titleText;
+	}
+
+	/**
+	 * Sets the value of the titleText property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setTitleText(String value) {
+		this.titleText = value;
+	}
+	/**
+	 * Gets the value of the name property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
 
 }

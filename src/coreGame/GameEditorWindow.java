@@ -51,7 +51,7 @@ public class GameEditorWindow extends GameWindow {
 	public PythonInterpreter pyInterpreter = null;
 	private JTree dataTree;
 	private JPanel editorPannel;
-
+	private State parentState;
 	public GameEditorWindow() {
 		initialize();
 		return;
@@ -93,12 +93,12 @@ public class GameEditorWindow extends GameWindow {
 		treeView.setViewportView(dataTree);
 		dataTree.addTreeSelectionListener(new TreeSelectionListener() {
 			public void valueChanged(TreeSelectionEvent e) {
-				DefaultMutableTreeNode node = (DefaultMutableTreeNode) e
-						.getPath().getLastPathComponent();
-
+				DefaultMutableTreeNode node = (DefaultMutableTreeNode) e.getPath().getLastPathComponent();
 				saveTextBoxContents();
-				
-				if (node.getUserObject() instanceof GameObject) {
+			
+				parentState = (State) ((DefaultMutableTreeNode) e.getPath().getPathComponent(1)).getUserObject();
+				textPane.setText(parentState.getText());
+	if (node.getUserObject() instanceof GameObject) {
 					GameObject editable = (GameObject) node.getUserObject();
 					editorPannel.removeAll();
 					editable.addEditorPannel(editorPannel);
@@ -115,6 +115,7 @@ public class GameEditorWindow extends GameWindow {
 		});
 
 		this.refreshTreeView(); // populate the tree
+		dataTree.setRootVisible(false);
 		frame.getContentPane().add(treeView);
 
 		dataTree.addMouseListener(new MouseAdapter() {
@@ -185,21 +186,15 @@ public class GameEditorWindow extends GameWindow {
 	}
 
 	private void saveTextBoxContents() {
-		if (dataTree.getSelectionPath() == null) {
-			return;
-		}
-		State targetState = (State) ((DefaultMutableTreeNode) dataTree
-				.getSelectionPath().getPathComponent(1)).getUserObject();
-
-		if (targetState != null) {
-			targetState.setText(textPane.getText());
+		if (parentState != null) {
+			parentState.setText(textPane.getText());
 		}
 
 	}
 
 	public void refreshTreeView() {
 		dataTree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode(
-				"Game States") {
+				"GAMESTATE INVISABLE ROOT NODE") {
 			{
 				for (State state : Game.currentGame.mainGameData.getState()) {
 					DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(

@@ -1,18 +1,25 @@
 package coreGame;
 
+import gameData.GameObject;
+
+import java.util.List;
+import java.util.Set;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+
+import org.reflections.Reflections;
 
 
 
 public class TreePopupMenu extends javax.swing.JPopupMenu {
-	   JMenuItem createNewState; 
-	   JMenuItem createNewChoice;
+
+	Reflections reflections = new Reflections("com.mycompany");    
+	Set<Class<? extends GameObject>> classes = reflections.getSubTypesOf(GameObject.class);
+	
+	   List<JMenuItem> actionMenuItems;
 	   JMenuItem delete;
-	   JMenu newActionSubMenu;
-	public TreePopupMenu(){
-		    createNewState= new JMenuItem("Create New State");
-		    createNewChoice= new JMenuItem("Choice");
+	   public TreePopupMenu(){
 		    delete = new JMenuItem("Delete");
 		    newActionSubMenu = new JMenu("New Action");
 		    newActionSubMenu.add(createNewChoice);

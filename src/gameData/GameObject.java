@@ -30,8 +30,7 @@ import coreGame.Game;
 public class GameObject {
 
 
-	  @XmlTransient private JTextField nameField;
-  
+
 	
 	public MutableTreeNode getNode() {
 		DefaultMutableTreeNode node = new DefaultMutableTreeNode(this);
@@ -40,40 +39,6 @@ public class GameObject {
 	}
 	
 public void addEditorPannel(final JPanel panel) {
-		
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		JPanel panel_1 = new JPanel();
-		panel.add(panel_1);
-		Vector<String> keySet = new Vector<String>();
-		for (String s : Game.currentGame.gameObjects.keySet()){
-		keySet.add(s);
-		}
-		
-		JPanel panel_2 = new JPanel();
-		panel_1.add(panel_2);
-		
-		JLabel lblGameObjectRef = new JLabel("NAME:");
-		lblGameObjectRef.setVerticalAlignment(SwingConstants.TOP);
-		panel_2.add(lblGameObjectRef);
-		
-		nameField = new JTextField();
-		nameField.setColumns(20);
-		nameField.setText(this.getNAME());
-		nameField.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent e) {
-				if (nameField.getText() == null || nameField.getText().isEmpty()){
-					return;
-			}
-				if (!setNAME(nameField.getText())) {
-					JOptionPane.showMessageDialog(panel, "Name allready taken.");
-					nameField.setText(getNAME());
-				}
-			}
-		});
-		panel_2.add(nameField);
-		//textField.setColumns(10);
 	}
 
 
